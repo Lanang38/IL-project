@@ -1,3 +1,4 @@
+// Sidebar.jsx
 import { Menu } from "lucide-react";
 import { useContext, createContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -13,9 +14,7 @@ export default function Sidebar({ children }) {
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
             src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
-            }`}
+            className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
             alt=""
           />
           <button
@@ -34,7 +33,7 @@ export default function Sidebar({ children }) {
   );
 }
 
-export function SidebarItem({ icon, text, to, alert }) {
+export function SidebarItem({ icon, text, to, alert, onClick }) {
   const { expanded } = useContext(SidebarContext);
   const location = useLocation();
 
@@ -43,6 +42,7 @@ export function SidebarItem({ icon, text, to, alert }) {
 
   return (
     <li
+      onClick={onClick}  // Menambahkan onClick handler
       className={`relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-all group
@@ -51,9 +51,7 @@ export function SidebarItem({ icon, text, to, alert }) {
     >
       <Link to={to} className="flex items-center">
         {icon}
-        <span 
-          className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}
-        >
+        <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
           {text}
         </span>
         {alert && (
@@ -62,7 +60,7 @@ export function SidebarItem({ icon, text, to, alert }) {
           />
         )}
       </Link>
-      
+
       {!expanded && (
         <div
           className={`absolute left-full rounded-md px-2 py-1 ml-6
