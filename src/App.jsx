@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar, { SidebarItem } from "./components/Sidebar";
 import RightSidebar from "./components/RightSidebar";
-import { Home, Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid } from "lucide-react";
+import { Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid } from "lucide-react";
 
 // Import komponen halaman
 import Dashboard from "./pages/Dashboard";
@@ -18,7 +18,7 @@ function App() {
     <div className="flex">
       <Sidebar>
         <div className="mb-10" />
-        <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" active to="/dashboard" />
+        <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/" />
         <hr className="my-6" />
         <SidebarItem icon={<Users size={20} />} text="Pengguna" to="/pengguna" />
         <SidebarItem icon={<BookOpen size={20} />} text="Materi" to="/materi" />
