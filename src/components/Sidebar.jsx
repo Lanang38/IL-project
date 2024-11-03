@@ -1,21 +1,20 @@
-import { ChevronLast, ChevronFirst, Menu } from "lucide-react"
-import { useContext, createContext, useState } from "react"
-import { Link } from "react-router-dom";
+// Sidebar.jsx
+import { Menu } from "lucide-react";
+import { useContext, createContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const SidebarContext = createContext()
+const SidebarContext = createContext();
 
 export default function Sidebar({ children }) {
-  const [expanded, setExpanded] = useState(true)
-  
+  const [expanded, setExpanded] = useState(true);
+
   return (
     <aside className="h-screen">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
             src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
-            }`}
+            className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
             alt=""
           />
           <button
@@ -29,28 +28,30 @@ export default function Sidebar({ children }) {
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
-
       </nav>
     </aside>
-  )
+  );
 }
 
-export function SidebarItem({ icon, text, to, active, alert }) {
-  const { expanded } = useContext(SidebarContext)
-  
+export function SidebarItem({ icon, text, to, alert, onClick }) {
+  const { expanded } = useContext(SidebarContext);
+  const location = useLocation();
+
+  // Cek apakah item ini aktif berdasarkan lokasi saat ini
+  const isActive = location.pathname === to;
+
   return (
     <li
+      onClick={onClick}  // Menambahkan onClick handler
       className={`relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-all group
-        ${active ? "text-black-200" : "text-black-600 hover:bg-green-500 hover:text-gray-50"}
+        ${isActive ? "bg-green-500 text-white" : "text-black-600 hover:bg-indigo-50 text-gray-600"}
       `}
     >
       <Link to={to} className="flex items-center">
         {icon}
-        <span 
-          className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}
-        >
+        <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
           {text}
         </span>
         {alert && (
@@ -59,7 +60,7 @@ export function SidebarItem({ icon, text, to, active, alert }) {
           />
         )}
       </Link>
-      
+
       {!expanded && (
         <div
           className={`absolute left-full rounded-md px-2 py-1 ml-6
