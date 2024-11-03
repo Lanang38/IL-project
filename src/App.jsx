@@ -1,8 +1,10 @@
+// App.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Sidebar, { SidebarItem } from "./components/Sidebar";
 import RightSidebar from "./components/RightSidebar";
 import { Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid } from "lucide-react";
+import AlertOut from "./components/Alert";
 
 // Import komponen halaman
 import Dashboard from "./pages/Dashboard";
@@ -14,6 +16,12 @@ import Notifikasi from "./pages/Notifikasi";
 import Pengaturan from "./pages/Pengaturan";
 
 function App() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    AlertOut(() => navigate("/"));
+  };
+
   return (
     <div className="flex">
       <Sidebar>
@@ -27,7 +35,11 @@ function App() {
         <SidebarItem icon={<Bell size={20} />} text="Notifikasi" to="/notifikasi" />
         <hr className="my-6" />
         <SidebarItem icon={<Settings size={20} />} text="Pengaturan" to="/pengaturan" />
-        <SidebarItem icon={<LogOut size={20} />} text="Keluar" to="/logout" />
+        <SidebarItem
+          icon={<LogOut size={20} />}
+          text="Keluar"
+          onClick={handleLogout}  // Memanggil fungsi handleLogout
+        />
       </Sidebar>
 
       <div className="flex-grow p-6 bg-gray-100">
