@@ -91,7 +91,7 @@ export default function AnalisisLaporan() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Analisis Laporan</h1>
+    <h1 className="text-3xl font-semibold mb-4">Laporan dan analisis</h1>
       
       {/* Statistik Jumlah Mentor dan User */}
       <div style={{ display: "flex", justifyContent: "space-around", marginBottom: "30px" }}>
