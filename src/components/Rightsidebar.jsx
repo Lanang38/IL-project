@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronFirst, Bell, Trash, Plus } from "lucide-react";
+import { ChevronFirst, Bell, Trash, Plus, Trash2 } from "lucide-react";
 
 export default function RightSidebar({ right }) {
   return (
@@ -12,7 +12,7 @@ export default function RightSidebar({ right }) {
           className="w-12 h-12 rounded-full mr-3"
         />
         <div>
-          <h3 className="text-sm font-medium">Azhar Rizqullah</h3>
+          <h3 className="text-sm font-medium">Azhar Sigma mewing</h3>
         </div>
         <ul className="flex-1 px-3">{right}</ul>
       </div>
@@ -39,7 +39,7 @@ export default function RightSidebar({ right }) {
               <span className="font-medium text-gray-800">New Fitur</span>
             </div>
             <button className="text-gray-600 hover:text-gray-800">
-              <Trash />
+              <Trash2 />
             </button>
           </div>
           <div className="flex justify-between items-center p-3 rounded-lg bg-orange-100">
@@ -48,7 +48,7 @@ export default function RightSidebar({ right }) {
               <span className="font-medium text-gray-800">Fitur Baru</span>
             </div>
             <button className="text-gray-600 hover:text-gray-800">
-              <Trash />
+              <Trash2 />
             </button>
           </div>
         </div>
@@ -73,25 +73,25 @@ export default function RightSidebar({ right }) {
           <div className="flex justify-between items-center p-3 rounded-lg bg-green-100">
             <span className="text-gray-800">Tambah Modul Baru</span>
             <button className="text-gray-600 hover:text-gray-800">
-              <Trash />
+              <Trash2 />
             </button>
           </div>
           <div className="flex justify-between items-center p-3 rounded-lg bg-orange-100">
             <span className="text-gray-800">Tambah Modul Baru</span>
             <button className="text-gray-600 hover:text-gray-800">
-              <Trash />
+              <Trash2 />
             </button>
           </div>
           <div className="flex justify-between items-center p-3 rounded-lg bg-pink-100">
             <span className="text-gray-800">Tambah Modul Baru</span>
             <button className="text-gray-600 hover:text-gray-800">
-              <Trash />
+              <Trash2 />
             </button>
           </div>
           <div className="flex justify-between items-center p-3 rounded-lg bg-red-100">
             <span className="text-gray-800">Tambah Modul Baru</span>
             <button className="text-gray-600 hover:text-gray-800">
-              <Trash />
+              <Trash2 />
             </button>
           </div>
         </div>
