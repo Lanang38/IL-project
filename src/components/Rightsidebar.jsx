@@ -12,7 +12,7 @@ export default function RightSidebar({ right }) {
           className="w-12 h-12 rounded-full mr-3"
         />
         <div>
-          <h3 className="text-sm font-medium">Azhar Sigma mewing</h3>
+          <h3 className="text-sm font-medium">KING SIGMA RAMA</h3>
         </div>
         <ul className="flex-1 px-3">{right}</ul>
       </div>
