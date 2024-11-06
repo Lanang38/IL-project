@@ -56,6 +56,7 @@ function App() {
           <Route path="/pembinaan" element={<Pembinaan />} />
           <Route path="/pembinaan/edit" element={<EditPage />} /> {/* Rute halaman Edit sebagai sub-rute dari Pembinaan */}
           <Route path="/analisis-laporan" element={<AnalisisLaporan />} />
+          <Route path="/notifikasi" element={<Notifikasi />} />
           <Route path="/pengaturan" element={<Pengaturan />} />
         </Routes>
       </div>
