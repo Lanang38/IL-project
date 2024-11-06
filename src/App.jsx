@@ -1,8 +1,8 @@
 // App.jsx
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Sidebar, { SidebarItem } from "./components/Sidebar";
-import RightSidebar from "./components/RightSidebar";
+import Sidebar, { SidebarItem } from "./components/sidebar";
+import RightSidebar from "./components/Rightsidebar";
 import { Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid } from "lucide-react";
 import AlertOut from "./components/Alert";
 
