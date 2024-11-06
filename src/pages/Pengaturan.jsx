@@ -6,7 +6,7 @@ export default function Pengaturan() {
   const [activePage, setActivePage] = useState('Profile');
 
   return (
-      <div className="min-h-screen bg-gray-100">
+      <div className="p-8 bg-gray-100 min-h-screen">
           <h1 className="text-3xl font-semibold mb-4">Pengaturan</h1>
           <Navbar activePage={activePage} setActivePage={setActivePage} />
           <div className="flex justify-center p-8">
