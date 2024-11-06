@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { CircleUser, User, UserCheck } from "lucide-react"; // Import icons from lucide-react
 
 // Registrasi modul Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
@@ -61,7 +62,7 @@ export default function AnalisisLaporan() {
         },
       },
     },
- };
+  };
 
   // Data untuk Grafik Doughnut (Statistik Jumlah Mentor)
   const mentorData = {
@@ -90,36 +91,146 @@ export default function AnalisisLaporan() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-
+    <div style={{ padding: "30px" }}>
       <h1 className="text-3xl font-semibold mb-4">Laporan dan analisis</h1>
-      
+
       {/* Statistik Jumlah Mentor dan User */}
-      <div style={{ display: "flex", justifyContent: "space-around", marginBottom: "30px" }}>
-        <div style={{ width: "430px", textAlign: "center", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-          <h3>Statistik Jumlah Mentor</h3>
-          <Doughnut data={mentorData} />
-          <p>Oktober 2024</p>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          gap: "20px",
+          marginBottom: "30px",
+        }}
+      >
+        <div
+          style={{
+            flex: "1 1 430px", // Flex item, responsive width
+            textAlign: "center",
+            backgroundColor: "#f9f9f9",
+            padding: "10px",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <div style={{ textAlign: "left", margin: "20px", fontSize: "18px" }}>
+            <div style={{ fontWeight: "bold" }}>
+              <h1>Daftar Mentor Aktif</h1>
+            </div>
+            <p>Oktober 2024</p>
+          </div>
+          <div style={{ width: "100%", height: "300px" }}>
+            <Doughnut data={mentorData} options={{ responsive: true, maintainAspectRatio: false }} />
+          </div>
+          {/* User Activity Stats inside the Doughnut */}
+          <div className="user-activity-stats" style={{ marginTop: "20px" }}>
+            <div className="user-activity-stat active" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div className="icon" style={{ marginRight: "10px" }}>
+                <CircleUser size={40} color="green" /> {/* Use lucide-react icon */}
+              </div>
+              <div className="details">
+                <h3>85%</h3>
+                <p style={{ fontWeight: "bold" }}>Mentor Aktif</p>
+              </div>
+            </div>
+            <div className="user-activity-stat inactive" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center"  }}>
+              <div className="icon" style={{ marginRight: "10px" }}>
+                <CircleUser size={40} color="red" /> {/* Use lucide-react icon */}
+              </div>
+              <div className="details">
+                <h3>15%</h3>
+                <p style={{ fontWeight: "bold" }}>Mentor Tidak Aktif</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style={{ width: "430px", textAlign: "center", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-          <h3>Statistik Jumlah User</h3>
-          <Doughnut data={userData} />
-          <p>Oktober 2024</p>
+
+        <div
+          style={{
+            flex: "1 1 430px", // Flex item, responsive width
+            textAlign: "center",
+            backgroundColor: "#f9f9f9",
+            padding: "10px",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <div style={{ textAlign: "left", margin: "20px", fontSize: "18px" }}>
+            <div style={{ fontWeight: "bold" }}>
+              <h1>Daftar Pengguna Aktif</h1>
+            </div>
+            <p>Oktober 2024</p>
+          </div>
+          <div style={{ width: "100%", height: "300px" }}>
+            <Doughnut data={userData} options={{ responsive: true, maintainAspectRatio: false }} />
+          </div>
+          {/* User Activity Stats inside the Doughnut */}
+          <div className="user-activity-stats" style={{ marginTop: "20px" }}>
+            <div className="user-activity-stat active" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div className="icon" style={{ marginRight: "10px" }}>
+                <CircleUser size={40} color="green" /> {/* Use lucide-react icon */}
+              </div>
+              <div className="details">
+                <h3>75%</h3>
+                <p style={{ fontWeight: "bold" }}>User Aktif</p>
+              </div>
+            </div>
+            <div className="user-activity-stat inactive" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center"  }}>
+              <div className="icon" style={{ marginRight: "10px" }}>
+                <CircleUser size={40} color="red" /> {/* Use lucide-react icon */}
+              </div>
+              <div className="details">
+                <h3>25%</h3>
+                <p style={{ fontWeight: "bold" }}>User Tidak Aktif</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Grafik Bar Jumlah Mentor dan User */}
-      <div style={{ backgroundColor: "#f9f9f9", padding: "20px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
+      <div
+        style={{
+          backgroundColor: "#f9f9f9",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <h3>Jumlah Mentor dan User dalam 6 Bulan Terakhir</h3>
         <div style={{ height: "300px" }}>
           <Bar data={barData} options={barOptions} />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-around", marginTop: "20px" }}>
-          <div style={{ textAlign: "center", backgroundColor: "#e0f2e0", padding: "10px", borderRadius: "8px", width: "300px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "20px",
+            marginTop: "20px",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              backgroundColor: "#e0f2e0",
+              padding: "10px",
+              borderRadius: "8px",
+              width: "400px",
+            }}
+          >
             <h4>Jumlah Mentor</h4>
             <p style={{ fontSize: "24px", fontWeight: "bold" }}>45 Mentor</p>
           </div>
-          <div style={{ textAlign: "center", backgroundColor: "#e0f2e0", padding: "10px", borderRadius: "8px", width: "300px" }}>
+          <div
+            style={{
+              textAlign: "center",
+              backgroundColor: "#e0f2e0",
+              padding: "10px",
+              borderRadius: "8px",
+              width: "400px",
+            }}
+          >
             <h4>Jumlah User</h4>
             <p style={{ fontSize: "24px", fontWeight: "bold" }}>123 Pengguna</p>
           </div>
