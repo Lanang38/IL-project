@@ -5,7 +5,7 @@ import NotificationCard from '../components/Notificationcard';
 export default function Notifikasi() {
   return (
     <div className="flex flex-col items-start py-10 space-y-10 px-6">
-      <h1 className="text-3xl font-semibold mb-4">Kirim Notifikasi</h1>
+      <h1 className="text-3xl font-semibold mb-4">Kirim Pemberitahuan</h1>
 
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
         <NotificationCard
@@ -40,12 +40,12 @@ export default function Notifikasi() {
 
       {/* Bagian Tambahan untuk Daftar Notifikasi */}
       <div className="w-full max-w-4xl p-4 bg-gray-100 rounded-lg shadow-lg">
-        <h2 className="text-lg font-semibold mb-4 text-left">Notification</h2>
+        <h2 className="text-lg font-semibold mb-4 text-left">Keterangan</h2>
         <div className="flex flex-wrap gap-3">
-          <span className="bg-red-500 text-white px-4 py-2 rounded-full">Notifikasi Peringatan</span>
-          <span className="bg-yellow-500 text-white px-4 py-2 rounded-full">Notifikasi Pengingat</span>
-          <span className="bg-blue-500 text-white px-4 py-2 rounded-full">Notifikasi Umum</span>
-          <span className="bg-green-500 text-white px-4 py-2 rounded-full">Notifikasi Berhasil</span>
+          <span className="bg-red-500 text-white px-4 py-2 rounded-full">Pemberitahuan Peringatan</span>
+          <span className="bg-yellow-500 text-white px-4 py-2 rounded-full">Pemberitahuan Pengingat</span>
+          <span className="bg-blue-500 text-white px-4 py-2 rounded-full">Pemberitahuan Umum</span>
+          <span className="bg-green-500 text-white px-4 py-2 rounded-full">Pemberitahuan Berhasil</span>
         </div>
       </div>
     </div>

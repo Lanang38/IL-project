@@ -91,7 +91,7 @@ export default function AnalisisLaporan() {
   };
 
   return (
-    <div style={{ padding: "30px" }}>
+    <div style={{ padding: "20px" }}>
       <h1 className="text-3xl font-semibold mb-4">Laporan dan analisis</h1>
 
       {/* Statistik Jumlah Mentor dan User */}
@@ -116,31 +116,31 @@ export default function AnalisisLaporan() {
         >
           <div style={{ textAlign: "left", margin: "20px", fontSize: "18px" }}>
             <div style={{ fontWeight: "bold" }}>
-              <h1>Daftar Mentor Aktif</h1>
+              <h1>Daftar Pembina Aktif</h1>
             </div>
-            <p>Oktober 2024</p>
+            <p style={{fontSize:"16px"}}>Oktober 2024</p>
           </div>
           <div style={{ width: "100%", height: "300px" }}>
             <Doughnut data={mentorData} options={{ responsive: true, maintainAspectRatio: false }} />
           </div>
           {/* User Activity Stats inside the Doughnut */}
-          <div className="user-activity-stats" style={{ marginTop: "20px" }}>
-            <div className="user-activity-stat active" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div className="user-activity-stats" style={{ marginTop: "40px", display: "flex", justifyContent: "center", gap: "120px", marginBottom: "20px" }}>
+            <div className="user-activity-stat active" style={{ display: "flex", alignItems: "center" }}>
               <div className="icon" style={{ marginRight: "10px" }}>
-                <CircleUser size={40} color="green" /> {/* Use lucide-react icon */}
+                <CircleUser size={50} color="green" /> {/* Use lucide-react icon */}
               </div>
               <div className="details">
+                <p style={{ fontWeight: "bold", margin: 0 }}>Aktif</p>
                 <h3>85%</h3>
-                <p style={{ fontWeight: "bold" }}>Mentor Aktif</p>
               </div>
             </div>
-            <div className="user-activity-stat inactive" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center"  }}>
+            <div className="user-activity-stat inactive" style={{ display: "flex", alignItems: "center" }}>
               <div className="icon" style={{ marginRight: "10px" }}>
-                <CircleUser size={40} color="red" /> {/* Use lucide-react icon */}
+                <CircleUser size={50} color="red" /> {/* Use lucide-react icon */}
               </div>
               <div className="details">
-                <h3>15%</h3>
-                <p style={{ fontWeight: "bold" }}>Mentor Tidak Aktif</p>
+                <p style={{ fontWeight: "bold", margin: 0 }}>Tidak Aktif</p>
+                <h3 style={{ marginRight: "50px" }}>15%</h3>
               </div>
             </div>
           </div>
@@ -160,29 +160,29 @@ export default function AnalisisLaporan() {
             <div style={{ fontWeight: "bold" }}>
               <h1>Daftar Pengguna Aktif</h1>
             </div>
-            <p>Oktober 2024</p>
+            <p style={{fontSize:"16px"}}>Oktober 2024</p>
           </div>
           <div style={{ width: "100%", height: "300px" }}>
             <Doughnut data={userData} options={{ responsive: true, maintainAspectRatio: false }} />
           </div>
           {/* User Activity Stats inside the Doughnut */}
-          <div className="user-activity-stats" style={{ marginTop: "20px" }}>
-            <div className="user-activity-stat active" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div className="user-activity-stats" style={{ marginTop: "40px", display: "flex", justifyContent: "center", gap: "120px", marginBottom: "20px" }}>
+            <div className="user-activity-stat active" style={{ display: "flex", alignItems: "center" }}>
               <div className="icon" style={{ marginRight: "10px" }}>
-                <CircleUser size={40} color="green" /> {/* Use lucide-react icon */}
+                <CircleUser size={50} color="green" /> {/* Use lucide-react icon */}
               </div>
               <div className="details">
+                <p style={{ fontWeight: "bold", margin: 0 }}>Aktif</p>
                 <h3>75%</h3>
-                <p style={{ fontWeight: "bold" }}>User Aktif</p>
               </div>
             </div>
-            <div className="user-activity-stat inactive" style={{ marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center"  }}>
+            <div className="user-activity-stat inactive" style={{ display: "flex", alignItems: "center" }}>
               <div className="icon" style={{ marginRight: "10px" }}>
-                <CircleUser size={40} color="red" /> {/* Use lucide-react icon */}
+                <CircleUser size={50} color="red" /> {/* Use lucide-react icon */}
               </div>
               <div className="details">
-                <h3>25%</h3>
-                <p style={{ fontWeight: "bold" }}>User Tidak Aktif</p>
+                <p style={{ fontWeight: "bold", margin: 0 }}>Tidak Aktif</p>
+                <h3 style={{ marginRight: "50px" }}>25%</h3>
               </div>
             </div>
           </div>
@@ -198,8 +198,8 @@ export default function AnalisisLaporan() {
           boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h3>Jumlah Mentor dan User dalam 6 Bulan Terakhir</h3>
-        <div style={{ height: "300px" }}>
+        <h3 style={{fontWeight: "bold", fontSize: "18px"}}>Jumlah Pembina dan Pengguna dalam 6 Bulan Terakhir</h3>
+        <div style={{ height: "400px" }}>
           <Bar data={barData} options={barOptions} />
         </div>
         <div
@@ -216,11 +216,11 @@ export default function AnalisisLaporan() {
               backgroundColor: "#e0f2e0",
               padding: "10px",
               borderRadius: "8px",
-              width: "400px",
+              width: "500px",
             }}
           >
-            <h4>Jumlah Mentor</h4>
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>45 Mentor</p>
+            <h4>Jumlah Pembina</h4>
+            <p style={{ fontSize: "24px", fontWeight: "bold" }}>45 </p>
           </div>
           <div
             style={{
@@ -228,11 +228,11 @@ export default function AnalisisLaporan() {
               backgroundColor: "#e0f2e0",
               padding: "10px",
               borderRadius: "8px",
-              width: "400px",
+              width: "500px",
             }}
           >
-            <h4>Jumlah User</h4>
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>123 Pengguna</p>
+            <h4>Jumlah Pengguna</h4>
+            <p style={{ fontSize: "24px", fontWeight: "bold" }}>123 </p>
           </div>
         </div>
       </div>

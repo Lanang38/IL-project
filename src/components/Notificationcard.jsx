@@ -7,15 +7,15 @@ export default function NotificationCard({ title, placeholder, bgColor, btnColor
         <h3 className="text-center font-bold mb-4">{title}</h3>
         <form className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Judul Notifikasi</label>
+            <label className="block text-sm mb-1">Judul Pemberitahuan</label>
             <input
               type="text"
-              placeholder="Type here"
+              placeholder="Ketik disini"
               className="w-full p-2 rounded border border-gray-300 text-black"
             />
           </div>
           <div>
-            <label className="block text-sm mb-1">Isi Notifikasi</label>
+            <label className="block text-sm mb-1">Isi Pemberitahuan</label>
             <textarea
               placeholder={placeholder}
               className="w-full p-2 rounded border border-gray-300 text-black resize-none"
@@ -25,7 +25,7 @@ export default function NotificationCard({ title, placeholder, bgColor, btnColor
             type="submit"
             className={`w-full py-2 rounded ${btnColor} text-white font-semibold`}
           >
-            Send
+            Kirim
           </button>
         </form>
       </div>

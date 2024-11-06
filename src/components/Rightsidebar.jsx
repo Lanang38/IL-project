@@ -36,7 +36,7 @@ export default function RightSidebar({ right }) {
           <div className="flex justify-between items-center p-3 rounded-lg bg-orange-100">
             <div className="flex items-center">
               <Bell className="text-orange-500 mr-2" />
-              <span className="font-medium text-gray-800">New Fitur</span>
+              <span className="font-medium text-gray-800">Fitur Baru</span>
             </div>
             <button className="text-gray-600 hover:text-gray-800">
               <Trash2 />
@@ -56,7 +56,7 @@ export default function RightSidebar({ right }) {
 
       {/* "Sticky Notes" Section */}
       <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Sticky Notes</h2>
+        <h2 className="text-lg font-semibold mb-2">Catatan</h2>
         <div className="flex items-center space-x-2 mb-4">
           <button className="p-1.5 rounded-lg bg-gray-200 hover:bg-green-600 group">
             <Plus className="group-hover:text-white" />
