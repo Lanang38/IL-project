@@ -22,14 +22,14 @@ export default function AnalisisLaporan() {
       {
         label: "Mentor",
         data: [45, 60, 30, 80, 50, 75],
-        backgroundColor: "rgba(0, 102, 0, 0.7)",
+        backgroundColor: "rgba(19, 163, 96, 1)",
         barThickness: 15, // Lebar bar
         borderRadius: 5, // Sudut membulat bar
       },
       {
         label: "Pengguna",
         data: [70, 55, 85, 60, 90, 65],
-        backgroundColor: "rgba(150, 232, 150, 0.7)",
+        backgroundColor: "rgba(197, 253, 206, 1)",
         barThickness: 15, // Lebar bar
         borderRadius: 5, // Sudut membulat bar
       },
@@ -69,8 +69,8 @@ export default function AnalisisLaporan() {
     datasets: [
       {
         data: [85, 15],
-        backgroundColor: ["rgba(0, 150, 0, 0.7)", "rgba(255, 99, 132, 0.7)"],
-        hoverBackgroundColor: ["rgba(0, 150, 0, 0.9)", "rgba(255, 99, 132, 0.9)"],
+        backgroundColor: ["rgba(70, 189, 132, 0.7)", "rgba(221, 56, 56, 0.7)"],
+        hoverBackgroundColor: ["rgba(70, 189, 132,0.9)", "rgba(221, 56, 56, 0.9)"],
         cutout: "70%", // Ukuran lubang doughnut
       },
     ],
@@ -82,8 +82,8 @@ export default function AnalisisLaporan() {
     datasets: [
       {
         data: [75, 25],
-        backgroundColor: ["rgba(0, 150, 0, 0.7)", "rgba(255, 99, 132, 0.7)"],
-        hoverBackgroundColor: ["rgba(0, 150, 0, 0.9)", "rgba(255, 99, 132, 0.9)"],
+        backgroundColor: ["rgba(70, 189, 132, 0.7)", "rgba(221, 56, 56, 0.7)"],
+        hoverBackgroundColor: ["rgba(70, 189, 132, 0.9)", "rgba(221, 56, 56, 0.9)"],
         cutout: "70%", // Ukuran lubang doughnut
       },
     ],
@@ -95,12 +95,12 @@ export default function AnalisisLaporan() {
       
       {/* Statistik Jumlah Mentor dan User */}
       <div style={{ display: "flex", justifyContent: "space-around", marginBottom: "30px" }}>
-        <div style={{ width: "400px", textAlign: "center", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
+        <div style={{ width: "430px", textAlign: "center", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
           <h3>Statistik Jumlah Mentor</h3>
           <Doughnut data={mentorData} />
           <p>Oktober 2024</p>
         </div>
-        <div style={{ width: "400px", textAlign: "center", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
+        <div style={{ width: "430px", textAlign: "center", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
           <h3>Statistik Jumlah User</h3>
           <Doughnut data={userData} />
           <p>Oktober 2024</p>
@@ -114,11 +114,11 @@ export default function AnalisisLaporan() {
           <Bar data={barData} options={barOptions} />
         </div>
         <div style={{ display: "flex", justifyContent: "space-around", marginTop: "20px" }}>
-          <div style={{ textAlign: "center", backgroundColor: "#e0f2e0", padding: "10px", borderRadius: "8px", width: "150px" }}>
+          <div style={{ textAlign: "center", backgroundColor: "#e0f2e0", padding: "10px", borderRadius: "8px", width: "300px" }}>
             <h4>Jumlah Mentor</h4>
             <p style={{ fontSize: "24px", fontWeight: "bold" }}>45 Mentor</p>
           </div>
-          <div style={{ textAlign: "center", backgroundColor: "#e0f2e0", padding: "10px", borderRadius: "8px", width: "150px" }}>
+          <div style={{ textAlign: "center", backgroundColor: "#e0f2e0", padding: "10px", borderRadius: "8px", width: "300px" }}>
             <h4>Jumlah User</h4>
             <p style={{ fontSize: "24px", fontWeight: "bold" }}>123 Pengguna</p>
           </div>
