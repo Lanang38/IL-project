@@ -1,6 +1,6 @@
 // src/page.jsx
 import React from "react";
-import ModulCard from "d:/data at/IL/Nugas/IL-project/src/components/ModulCard";
+import ModulCard from "../components/ModulCard";
 
 function Materi() {
   return (
