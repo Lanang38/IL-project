@@ -7,7 +7,7 @@ function Pengguna() {
     name: `Nama Pengguna ${index + 1}`,
     email: `email${index + 1}@example.com`,
     date: "2024-11-04",
-    status: "Active"
+    status: "Aktif"
   }));
 
   const itemsPerPage = 8;
@@ -46,7 +46,7 @@ function Pengguna() {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Masukkan User ID"
+              placeholder="Masukkan ID Pengguna"
               className="p-2 border border-gray-300 rounded-lg w-full"
             />
           </div>
@@ -65,12 +65,12 @@ function Pengguna() {
         <table className="min-w-full bg-white">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Check list</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">User ID</th>
+              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Centang</th>
+              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">ID Pengguna</th>
               <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Nama Pengguna</th>
               <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">E-mail</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Tgl Registrasi</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Status Akun</th>
+              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Tgl Pendaftaran</th>
+              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Riwayat Akun</th>
             </tr>
           </thead>
           <tbody>
