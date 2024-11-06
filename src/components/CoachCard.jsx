@@ -1,4 +1,8 @@
+
 // CoachCard.js
+// src/components/CoachCard.js
+
+import { Trash2 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +17,7 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
     <div className="relative bg-white rounded-xl shadow-lg p-4 flex flex-col items-center space-y-4">
       {/* Icon Hapus */}
       <button className="absolute top-2 right-2 text-red-500 text-lg">
-        🗑️
+        <Trash2 />
       </button>
 
       {/* Foto Profil */}

@@ -1,4 +1,7 @@
 import React from "react";
+
+import { Edit, Trash, ArrowRight, Plus, Pencil, Trash2, CircleChevronRight, CircleArrowLeft, CircleArrowRight } from "lucide-react";
+
 import { Edit, Trash, ArrowRight, Plus } from "lucide-react";
 
 function ModulCard() {
@@ -18,6 +21,13 @@ function ModulCard() {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold mb-6">Daftar Kategori</h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            {modules.map((module, index) => (
+            <div
+              key={index}
+              className="relative bg-white rounded-lg shadow-lg p-4 flex flex-col"
+            >
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {modules.map((module, index) => (
           <div key={index} className="relative bg-white rounded-lg shadow-lg p-4 flex flex-col items-center">
@@ -25,6 +35,7 @@ function ModulCard() {
             <button className="absolute top-2 right-2 text-red-500 text-lg">
               <Trash size={18} />
             </button>
+
 
             {/* Gambar Modul */}
             <div className="w-full h-32 rounded-lg overflow-hidden mb-4">
@@ -36,6 +47,28 @@ function ModulCard() {
             </div>
 
             {/* Informasi Modul */}
+            <div className="mb-4 pl-2"> {/* Adjust 'pl-2' as needed */}
+              <h3 className="text-lg font-semibold text-left">{module.title}</h3>
+              <p className="text-sm text-gray-500 text-left">
+                {module.moduleCount} Materi
+              </p>
+            </div>
+
+            {/* Tombol Edit dan Lihat */}
+            <div className="flex w-full mt-8">
+              {/* Right-aligned buttons */}
+              <div className="flex items-center space-x-2 ml-auto">
+                <button className="text-green-500">
+                  <Pencil size={20} />
+                </button>
+                <button className="text-red-500">
+                  <Trash2 size={20} />
+                </button>
+                <button className="text-green-500">
+                  <ArrowRight size={30} />
+                </button>
+              </div>
+
             <div className="text-center mb-4">
               <h3 className="text-lg font-semibold">{module.title}</h3>
               <p className="text-sm text-gray-500">{module.moduleCount} Modul</p>
@@ -49,6 +82,7 @@ function ModulCard() {
               <button className="text-green-500">
                 <ArrowRight size={18} />
               </button>
+
             </div>
           </div>
         ))}

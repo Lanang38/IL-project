@@ -30,7 +30,7 @@ export default function Pembinaan() {
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-semibold mb-4">Pembinaan</h1>
+      <h1 className="text-3xl font-semibold mb-4">Pembina</h1>
 
       {/* Form Profil Mentor */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-8 space-y-4">
@@ -81,7 +81,7 @@ export default function Pembinaan() {
               />
             </div>
             <div className="col-span-2">
-              <label className="block text-xs font-medium text-gray-600">User ID</label>
+              <label className="block text-xs font-medium text-gray-600">ID Pembina</label>
               <input
                 type="text"
                 placeholder="Masukkan User ID"
