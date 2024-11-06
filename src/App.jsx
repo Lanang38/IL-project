@@ -36,8 +36,7 @@ function App() {
         <SidebarItem icon={<User size={20} />} text="Pembina" to="/pembinaan" />
         <SidebarItem icon={<ClipboardList size={20} />} text="Analisis & Laporan" to="/analisis-laporan" />
         <SidebarItem icon={<Bell size={20} />} text="Pemberitahuan" to="/notifikasi" />
-        <hr className="my-6" /> {/* Garis pemisah kedua */}
-        <SidebarItem icon={<Bell size={20} />} text="Pemberitahuan" to="/notifikasi" />
+
         <hr className="my-6" />
         <SidebarItem icon={<Settings size={20} />} text="Pengaturan" to="/pengaturan" />
         <SidebarItem
@@ -57,7 +56,6 @@ function App() {
           <Route path="/pembinaan" element={<Pembinaan />} />
           <Route path="/pembinaan/edit" element={<EditPage />} /> {/* Rute halaman Edit sebagai sub-rute dari Pembinaan */}
           <Route path="/analisis-laporan" element={<AnalisisLaporan />} />
-          <Route path="/notifikasi" element={<Notifikasi />} />
           <Route path="/pengaturan" element={<Pengaturan />} />
         </Routes>
       </div>
