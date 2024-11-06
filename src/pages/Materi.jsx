@@ -1,5 +1,13 @@
+// src/page.jsx
 import React from "react";
+import ModulCard from "d:/data at/IL/Nugas/IL-project/src/components/ModulCard";
 
-export default function Materi() {
-  return <h1>Materi Page</h1>;
+function Materi() {
+  return (
+    <div>
+      <ModulCard />
+    </div>
+  );
 }
+
+export default Materi;
