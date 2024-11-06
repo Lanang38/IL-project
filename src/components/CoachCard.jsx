@@ -18,11 +18,9 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
     <div className="relative bg-white rounded-xl shadow-lg p-4 flex flex-col items-center space-y-4">
       {/* Icon Hapus */}
       <button className="absolute top-2 right-2 text-red-500 text-lg">
-<<<<<<< HEAD
+
       <Trash2 />
-=======
-        <Trash2 />
->>>>>>> 16f22286e06dc831ffe2a4a912f87c387faec638
+
       </button>
 
       {/* Foto Profil */}
