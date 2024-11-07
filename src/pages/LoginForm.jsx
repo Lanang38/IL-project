@@ -57,7 +57,7 @@ function Login({ onLogin }) {
 
           <button
             onClick={onLogin}
-            className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
+            className="w-full bg-green-500 text-white p-2 rounded-lg mb-6 hover:bg-green-700 "
           >
             Login
           </button>

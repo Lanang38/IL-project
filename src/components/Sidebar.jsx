@@ -36,12 +36,11 @@ export function SidebarItem({ icon, text, to, alert, onClick }) {
   const { expanded } = useContext(SidebarContext);
   const location = useLocation();
 
-  // Periksa apakah lokasi saat ini dimulai dengan path yang diinginkan
   const isActive = location.pathname.startsWith(to);
 
   return (
     <li
-      onClick={onClick}  // Menambahkan onClick handler
+      onClick={onClick}
       className={`relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-all group
