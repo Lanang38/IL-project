@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FilePlus, Plus } from 'lucide-react';
 import axios from 'axios';
 
-const TambahMateri = () => {
+const EditMateri = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
 
@@ -45,15 +45,15 @@ const TambahMateri = () => {
 
   return (
     <div className="max-w-43 w-full mx-auto p-5  rounded-lg ">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-4">Tambah Materi</h2>
+      <h2 className="text-3xl font-semibold text-gray-800 mb-4">Edit Materi</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
-        <p className="text-lg font-medium mb-5">Menambahkan Materi</p>
+        <p className="text-lg font-medium mb-5">Mengubah Materi</p>
         
         <input
           type="text"
           value={title}
           onChange={handleTitleChange}
-          placeholder ="Tambahkan Judul"
+          placeholder =" Ketik Judul"
           className="w-full mb-8 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
        <p className="text-lg font-medium mb-5">Unggah File Gambar</p>
@@ -83,7 +83,7 @@ const TambahMateri = () => {
           value={title}
           onChange={handleTitleChange}
           placeholder ="Tambahkan Teks"
-          className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+          className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
        <p className="text-lg font-medium mt-8">Unggah File Pdf</p>
         <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6 ">
@@ -134,4 +134,4 @@ const TambahMateri = () => {
   );
 };
 
-export default TambahMateri;
+export default EditMateri;

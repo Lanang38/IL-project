@@ -49,16 +49,16 @@ const TambahKategori = () => {
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-2">Menambahkan Kategori</p>
         
-        <label className="flex items-center justify-center w-full h-80 border-2 border-solid border-gray-300 rounded-2xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
+        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
           <input type="file" onChange={handleFileChange} className="hidden" />
           <div className="text-center">
             {file ? (
               <p className="text-gray-700">{file.name}</p>
             ) : (
-              <p className="flex items-center justify-center text-gray-500">
-                <FilePlus className="w-6 h-6 mr-2" />
-                Tambahkan Gambar Halaman Kategori
-              </p>
+              <p className="flex flex-col items-center text-gray-500">
+              <span className="text-3xl mb-2">📂</span> {/* Placeholder for folder icon */}
+              <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
+          </p>
             )}
           </div>
         </label>
@@ -71,7 +71,7 @@ const TambahKategori = () => {
           className="w-full mt-8 p-2 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
-
+            
         <input
           type="text"
           value={title}

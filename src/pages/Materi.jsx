@@ -1,13 +1,15 @@
 // src/page.jsx
 import React from "react";
+import TambahKategori from "../components/TambahKategori";
+import TambahMateri from "../components/TambahMateri";
+import EditMateri from "../components/EditMateri";
 
-import ModulCard from "../components/ModulCard";
 
 
 function Materi() {
   return (
     <div>
-      <ModulCard />
+      <TambahKategori/>
     </div>
   );
 }
