@@ -70,6 +70,15 @@ const TambahKategori = () => {
           placeholder ="Tambahkan Judul"
           className="w-full mt-8 p-2 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
+
+
+        <input
+          type="text"
+          value={title}
+          onChange={handleTitleChange}
+          placeholder ="Deskripsi Singkat"
+          className="w-full mt-8 p-8 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+        />
         
         <div className="flex gap-3 mt-8 mb-3">
           <button
@@ -82,7 +91,7 @@ const TambahKategori = () => {
             className="flex-1 py-3 px-4 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
             onClick={handleSubmit}
           >
-            Lanjut menambahkan materi
+            Simpan
           </button>
         </div>
       </div>
