@@ -1,14 +1,20 @@
-// src/components/CoachCard.js
-
-import { Trash2 } from "lucide-react";
+// CoachCard.js
 import React from "react";
+import { Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function CoachCard({ name, email, phone, schedule, imgUrl }) {
+  const navigate = useNavigate();
+
+  const handleEditClick = () => {
+    navigate("/pembinaan/edit"); // Navigasi ke halaman edit
+  };
+
   return (
     <div className="relative bg-white rounded-xl shadow-lg p-4 flex flex-col items-center space-y-4">
       {/* Icon Hapus */}
       <button className="absolute top-2 right-2 text-red-500 text-lg">
-        <Trash2 />
+      <Trash2 />
       </button>
 
       {/* Foto Profil */}
@@ -37,7 +43,10 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
       </div>
 
       {/* Tombol Edit */}
-      <button className="w-full mt-8 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg text-sm">
+      <button
+        onClick={handleEditClick} // Panggil fungsi untuk navigasi ke halaman edit
+        className="w-full mt-8 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg text-sm"
+      >
         Edit
       </button>
     </div>

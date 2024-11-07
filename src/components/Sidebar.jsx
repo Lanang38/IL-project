@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import { Menu } from "lucide-react";
 import { useContext, createContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -37,8 +36,8 @@ export function SidebarItem({ icon, text, to, alert, onClick }) {
   const { expanded } = useContext(SidebarContext);
   const location = useLocation();
 
-  // Cek apakah item ini aktif berdasarkan lokasi saat ini
-  const isActive = location.pathname === to;
+  // Periksa apakah lokasi saat ini dimulai dengan path yang diinginkan
+  const isActive = location.pathname.startsWith(to);
 
   return (
     <li
