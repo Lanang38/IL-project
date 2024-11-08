@@ -3,6 +3,9 @@ import CoachCard from '../components/CoachCard';
 import Pagination from '../components/Pagination';
 
 export default function Pembinaan() {
+  const [photo, setPhoto] = useState(null); // State untuk foto yang diunggah
+  const [currentPage, setCurrentPage] = useState(1);
+
   const coaches = [
     { name: "azharrrr", email: "azhar24@gmail.com", phone: "085673826197", schedule: "4 November 2024", imgUrl: "https://via.placeholder.com/80" },
     { name: "KING SIGMA", email: "rama@example.com", phone: "089812128731", schedule: "8 November 2024", imgUrl: "https://via.placeholder.com/80" },
@@ -15,7 +18,6 @@ export default function Pembinaan() {
   ];
 
   const itemsPerPage = 4;
-  const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(coaches.length / itemsPerPage);
 
   // Calculate the current items to display based on pagination
@@ -28,6 +30,14 @@ export default function Pembinaan() {
     setCurrentPage(page);
   };
 
+  // Fungsi untuk menangani unggahan gambar
+  const handlePhotoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPhoto(URL.createObjectURL(file));
+    }
+  };
+
   return (
     <div className="p-5 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-semibold mb-4">Pembina</h1>
@@ -37,9 +47,22 @@ export default function Pembinaan() {
         <div className="flex items-start space-x-6">
           <div className="flex flex-col items-center">
             <h2 className="text-lg font-semibold text-center mb-2">Profil</h2>
-            <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-500 text-sm">Tambah Foto</span>
-            </div>
+            <label htmlFor="photo-upload" className="cursor-pointer">
+              <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                {photo ? (
+                  <img src={photo} alt="Uploaded" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-gray-500 text-sm">Tambah Foto</span>
+                )}
+              </div>
+            </label>
+            <input
+              type="file"
+              id="photo-upload"
+              className="hidden"
+              accept="image/*"
+              onChange={handlePhotoUpload}
+            />
           </div>
 
           {/* Insert the form fields here */}
