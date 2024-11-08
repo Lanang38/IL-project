@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { FilePlus } from 'lucide-react';
 import axios from 'axios';
 
 const TambahKategori = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState(''); // Added state for description
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -14,20 +14,26 @@ const TambahKategori = () => {
     setTitle(e.target.value);
   };
 
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value); // Update description state
+  };
+
   const handleCancel = () => {
     setFile(null);
     setTitle('');
+    setDescription(''); // Clear description on cancel
   };
 
   const handleSubmit = async () => {
-    if (!file || !title) {
-      alert('Please add a file and title before submitting');
+    if (!file || !title || !description) {
+      alert('Please add a file, title, and description before submitting');
       return;
     }
 
     const formData = new FormData();
     formData.append('file', file);
     formData.append('title', title);
+    formData.append('description', description); // Append description to formData
 
     try {
       const response = await axios.post('/api/upload', formData, {
@@ -44,7 +50,7 @@ const TambahKategori = () => {
   };
 
   return (
-    <div className="max-w-43 w-full mx-auto p-5  rounded-lg ">
+    <div className="max-w-43 w-full mx-auto p-5 rounded-lg">
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Tambah Kategori</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-2">Menambahkan Kategori</p>
@@ -56,9 +62,9 @@ const TambahKategori = () => {
               <p className="text-gray-700">{file.name}</p>
             ) : (
               <p className="flex flex-col items-center text-gray-500">
-              <span className="text-3xl mb-2">📂</span>
-              <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-          </p>
+                <span className="text-3xl mb-2">📂</span>
+                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
+              </p>
             )}
           </div>
         </label>
@@ -67,16 +73,15 @@ const TambahKategori = () => {
           type="text"
           value={title}
           onChange={handleTitleChange}
-          placeholder ="Tambahkan Judul"
+          placeholder="Tambahkan Judul"
           className="w-full mt-8 p-2 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
-            
         <input
           type="text"
-          value={title}
-          onChange={handleTitleChange}
-          placeholder ="Deskripsi Singkat"
+          value={description}
+          onChange={handleDescriptionChange} // Handle description change
+          placeholder="Deskripsi Singkat"
           className="w-full mt-8 p-8 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
         
