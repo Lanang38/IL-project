@@ -1,4 +1,3 @@
-// AlertOut.js
 import Swal from 'sweetalert2'
 
 export default function AlertOut(callback) {
