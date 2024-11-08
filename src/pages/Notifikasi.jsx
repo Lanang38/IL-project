@@ -1,51 +1,109 @@
-// SendNotifPage.js
 import React from 'react';
-import NotificationCard from '../components/Notificationcard';
 
-export default function Notifikasi() {
+function NotificationCard({ title, color, fields }) {
   return (
-    <div className="flex flex-col items-start py-10 space-y-10 px-6">
-      <h1 className="text-3xl font-semibold mb-4">Kirim Pemberitahuan</h1>
-
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-        <NotificationCard
-          title="Peringatan!!!"
-          placeholder="Judul Notifikasi"
-          placeholder2="Keterangan Notifikasi"
-          bgColor="bg-red-500"
-          btnColor=" bg-red-700"
-        />
-        <NotificationCard
-          title="Pengingat Jadwal"
-          placeholder="Judul Notifikasi"
-          placeholder2="Tanggal dan waktu"
-          bgColor="bg-yellow-500"
-          btnColor="bg-yellow-700"
-        />
-        <NotificationCard
-          title="Umum"
-          placeholder="Judul Notifikasi"
-          placeholder2="Keterangan Notifikasi"
-          bgColor="bg-blue-500"
-          btnColor="bg-blue-700"
-        />
-        <NotificationCard
-          title="Berhasil"
-          placeholder="Judul Notifikasi"
-          placeholder2="Ucapan Selamat"
-          bgColor="bg-green-500"
-          btnColor="bg-green-700"
-        />
+    <div className="bg-white rounded-lg shadow-lg w-full">
+      <div className={`bg-${color}-500 text-white text-center py-4 rounded-t-lg`}>
+        <h1 className="text-2xl font-bold">{title}</h1>
       </div>
+      <div className="p-6">
+        <form className="space-y-4">
+          {fields.map((field, index) => (
+            <div key={index}>
+              <label className="block text-sm font-semibold text-gray-700" htmlFor={field.id}>
+                {field.label}
+              </label>
+              {field.type === 'textarea' ? (
+                <textarea
+                  id={field.id}
+                  placeholder="Ketik disini"
+                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400 h-24`}
+                />
+              ) : (
+                <input
+                  type="text"
+                  id={field.id}
+                  placeholder="Ketik disini"
+                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400`}
+                />
+              )}
+            </div>
+          ))}
+          <button
+            type="submit"
+            className={`w-full bg-${color}-500 text-white font-semibold py-2 mt-4 rounded-lg hover:bg-${color}-600 transition duration-200`}
+          >
+            Kirim
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
 
-      {/* Bagian Tambahan untuk Daftar Notifikasi */}
-      <div className="w-full max-w-4xl p-4 bg-gray-100 rounded-lg shadow-lg">
-        <h2 className="text-lg font-semibold mb-4 text-left">Keterangan</h2>
-        <div className="flex flex-wrap gap-3">
-          <span className="bg-red-500 text-white px-4 py-2 rounded-full">Pemberitahuan Peringatan</span>
-          <span className="bg-yellow-500 text-white px-4 py-2 rounded-full">Pemberitahuan Pengingat</span>
-          <span className="bg-blue-500 text-white px-4 py-2 rounded-full">Pemberitahuan Umum</span>
-          <span className="bg-green-500 text-white px-4 py-2 rounded-full">Pemberitahuan Berhasil</span>
+export default function NotificationPage() {
+  const notifications = [
+    {
+      title: 'Peringatan!!!',
+      color: 'red',
+      fields: [
+        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
+        { id: 'keterangan', label: 'Keterangan Notifikasi', type: 'textarea' },
+      ],
+    },
+    {
+      title: 'Pengingat Jadwal',
+      color: 'yellow',
+      fields: [
+        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
+        { id: 'tanggal', label: 'Tanggal dan waktu', type: 'textarea' },
+      ],
+    },
+    {
+      title: 'Umum',
+      color: 'blue',
+      fields: [
+        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
+        { id: 'keterangan', label: 'Keterangan Notifikasi', type: 'textarea' },
+      ],
+    },
+    {
+      title: 'Berhasil',
+      color: 'green',
+      fields: [
+        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
+        { id: 'ucapan', label: 'Ucapan Selamat', type: 'textarea' },
+      ],
+    },
+  ];
+
+  return (
+    <div className="bg-gray-100 min-h-screen p-5 flex flex-col items-center">
+      <div className="w-full max-w-4xl">
+        {/* Title */}
+        <h1 className="text-3xl font-semibold mb-6 text-left">Pemberitahuan</h1>
+
+        {/* Notification Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-8">
+          {notifications.map((notification, index) => (
+            <NotificationCard
+              key={index}
+              title={notification.title}
+              color={notification.color}
+              fields={notification.fields}
+            />
+          ))}
+        </div>
+
+        {/* Additional Section for Notification Legend */}
+        <div className="bg-white p-4 rounded-lg shadow-lg">
+          <h2 className="text-lg font-semibold mb-4">Keterangan</h2>
+          <div className="flex flex-wrap gap-3">
+            <span className="bg-red-500 text-white px-4 py-2 rounded-full">Pemberitahuan Peringatan</span>
+            <span className="bg-yellow-500 text-white px-4 py-2 rounded-full">Pemberitahuan Pengingat</span>
+            <span className="bg-blue-500 text-white px-4 py-2 rounded-full">Pemberitahuan Umum</span>
+            <span className="bg-green-500 text-white px-4 py-2 rounded-full">Pemberitahuan Berhasil</span>
+          </div>
         </div>
       </div>
     </div>
