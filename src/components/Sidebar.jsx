@@ -8,7 +8,7 @@ export default function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <aside className="h-screen">
+    <aside className={`h-screen ${expanded ? "w-64" : "w-16"} transition-all duration-300`}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
@@ -20,7 +20,7 @@ export default function Sidebar({ children }) {
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
-            {expanded ? <Menu /> : <Menu />}
+            <Menu />
           </button>
         </div>
 
@@ -49,7 +49,7 @@ export function SidebarItem({ icon, text, to, alert, onClick }) {
     >
       <Link to={to} className="flex items-center">
         {icon}
-        <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
+        <span className={`overflow-hidden transition-all duration-300 ${expanded ? "w-52 ml-3" : "w-0"}`}>
           {text}
         </span>
         {alert && (
