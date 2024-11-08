@@ -10,7 +10,7 @@ export default function Dashboard() {
       <h2> Halo KING SIGMA RAMA selamat datang kembali</h2>
       <h1 className="text-3xl font-semibold mb-4">Dashboard Anda Hari Ini</h1>
 
-      {/* Grid container untuk layout */}
+
       <div
         style={{
           display: "grid",
@@ -19,10 +19,8 @@ export default function Dashboard() {
           gap: "20px",
         }}
       >
-        {/* Daftar Pengguna Aktif */}
         <UserActivity />
 
-        {/* Kontainer grid untuk bagian bawah */}
         <div
           style={{
             display: "grid",
@@ -30,10 +28,8 @@ export default function Dashboard() {
             gap: "20px",
           }}
         >
-          {/* Pemateri Hari Ini */}
           <TodaySpeakers />
 
-          {/* Kalender */}
           <CustomCalendar />
         </div>
       </div>
