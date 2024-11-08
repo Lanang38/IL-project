@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FilePlus, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 
 const EditMateri = () => {
+  const navigate = useNavigate(); // Initialize navigate
   const [fileImage, setFileImage] = useState(null);
   const [filePdf, setFilePdf] = useState(null);
   const [fileVideo, setFileVideo] = useState(null);
@@ -30,11 +32,7 @@ const EditMateri = () => {
   };
 
   const handleCancel = () => {
-    setFileImage(null);
-    setFilePdf(null);
-    setFileVideo(null);
-    setTitle('');
-    setText('');
+    navigate(-1); // Go back to the previous page
   };
 
   const handleSubmit = async () => {

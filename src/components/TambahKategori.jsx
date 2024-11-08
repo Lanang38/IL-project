@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const TambahKategori = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
+
   const [description, setDescription] = useState(''); // Added state for description
 
   const handleFileChange = (e) => {
@@ -21,6 +23,7 @@ const TambahKategori = () => {
   const handleCancel = () => {
     setFile(null);
     setTitle('');
+    
     setDescription(''); // Clear description on cancel
   };
 
@@ -54,7 +57,7 @@ const TambahKategori = () => {
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Tambah Kategori</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-2">Menambahkan Kategori</p>
-        
+
         <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
           <input type="file" onChange={handleFileChange} className="hidden" />
           <div className="text-center">
@@ -68,7 +71,7 @@ const TambahKategori = () => {
             )}
           </div>
         </label>
-        
+
         <input
           type="text"
           value={title}
@@ -79,12 +82,13 @@ const TambahKategori = () => {
 
         <input
           type="text"
+
           value={description}
           onChange={handleDescriptionChange} // Handle description change
           placeholder="Deskripsi Singkat"
           className="w-full mt-8 p-8 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
-        
+
         <div className="flex gap-3 mt-8 mb-3">
           <button
             className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
