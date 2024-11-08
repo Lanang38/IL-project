@@ -48,28 +48,32 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200">
+    <div className="min-h-screen flex bg-gray-200">
       {!isAuthenticated ? (
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       ) : (
-        <div className="flex w-full">
-          <Sidebar>
-            <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
-            <hr className="my-6" />
-            <SidebarItem icon={<Users size={20} />} text="Pengguna" to="/pengguna" />
-            <SidebarItem icon={<BookOpen size={20} />} text="Materi" to="/materi" />
-            <SidebarItem icon={<User size={20} />} text="Pembina" to="/pembinaan" />
-            <SidebarItem icon={<ClipboardList size={20} />} text="Analisis & Laporan" to="/analisis-laporan" />
-            <SidebarItem icon={<Bell size={20} />} text="Pemberitahuan" to="/notifikasi" />
-            <hr className="my-6" />
-            <SidebarItem icon={<Settings size={20} />} text="Pengaturan" to="/pengaturan" />
-            <SidebarItem icon={<LogOut size={20} />} text="Keluar" onClick={handleLogout} />
-          </Sidebar>
+        <>
+          {/* Fixed Left Sidebar */}
+          <div className="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-10">
+            <Sidebar>
+              <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
+              <hr className="my-6" />
+              <SidebarItem icon={<Users size={20} />} text="Pengguna" to="/pengguna" />
+              <SidebarItem icon={<BookOpen size={20} />} text="Materi" to="/materi" />
+              <SidebarItem icon={<User size={20} />} text="Pembina" to="/pembinaan" />
+              <SidebarItem icon={<ClipboardList size={20} />} text="Analisis & Laporan" to="/analisis-laporan" />
+              <SidebarItem icon={<Bell size={20} />} text="Pemberitahuan" to="/notifikasi" />
+              <hr className="my-6" />
+              <SidebarItem icon={<Settings size={20} />} text="Pengaturan" to="/pengaturan" />
+              <SidebarItem icon={<LogOut size={20} />} text="Keluar" onClick={handleLogout} />
+            </Sidebar>
+          </div>
 
-          <div className="flex-grow p-6 bg-gray-100">
+          {/* Main content with flex layout */}
+          <div className="flex-grow ml-64 mr-64 p-6 bg-gray-100 overflow-auto">
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pengguna" element={<Pengguna />} />
@@ -86,8 +90,11 @@ function App() {
             </Routes>
           </div>
 
-          <RightSidebar />
-        </div>
+          {/* Fixed Right Sidebar */}
+          <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-10">
+            <RightSidebar />
+          </div>
+        </>
       )}
     </div>
   );
