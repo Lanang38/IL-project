@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { FilePlus } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const TambahKategori = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
-  const navigate = useNavigate(); // Inisialisasi navigate
+
+  const [description, setDescription] = useState(''); // Added state for description
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -16,21 +16,27 @@ const TambahKategori = () => {
     setTitle(e.target.value);
   };
 
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value); // Update description state
+  };
+
   const handleCancel = () => {
     setFile(null);
     setTitle('');
-    navigate(-1); // Kembali ke halaman sebelumnya
+    
+    setDescription(''); // Clear description on cancel
   };
 
   const handleSubmit = async () => {
-    if (!file || !title) {
-      alert('Please add a file and title before submitting');
+    if (!file || !title || !description) {
+      alert('Please add a file, title, and description before submitting');
       return;
     }
 
     const formData = new FormData();
     formData.append('file', file);
     formData.append('title', title);
+    formData.append('description', description); // Append description to formData
 
     try {
       const response = await axios.post('/api/upload', formData, {
@@ -76,8 +82,9 @@ const TambahKategori = () => {
 
         <input
           type="text"
-          value={title}
-          onChange={handleTitleChange}
+
+          value={description}
+          onChange={handleDescriptionChange} // Handle description change
           placeholder="Deskripsi Singkat"
           className="w-full mt-8 p-8 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
