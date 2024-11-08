@@ -24,7 +24,7 @@ function ModulCard() {
 
   return (
     <div className="p-5">
-      <h2 className="text-2xl font-semibold mb-6">Daftar Kategori</h2>
+      <h2 className="text-3xl font-semibold mb-6">Daftar Kategori</h2>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {modules.map((module, index) => (
