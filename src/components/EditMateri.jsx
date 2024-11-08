@@ -3,31 +3,52 @@ import { FilePlus, Plus } from 'lucide-react';
 import axios from 'axios';
 
 const EditMateri = () => {
-  const [file, setFile] = useState(null);
+  const [fileImage, setFileImage] = useState(null);
+  const [filePdf, setFilePdf] = useState(null);
+  const [fileVideo, setFileVideo] = useState(null);
   const [title, setTitle] = useState('');
+  const [text, setText] = useState(''); // Separate state for "Tambahkan Teks"
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleFileImageChange = (e) => {
+    setFileImage(e.target.files[0]);
+  };
+
+  const handleFilePdfChange = (e) => {
+    setFilePdf(e.target.files[0]);
+  };
+
+  const handleFileVideoChange = (e) => {
+    setFileVideo(e.target.files[0]);
   };
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
+  const handleTextChange = (e) => {
+    setText(e.target.value); // Handle text change for "Tambahkan Teks"
+  };
+
   const handleCancel = () => {
-    setFile(null);
+    setFileImage(null);
+    setFilePdf(null);
+    setFileVideo(null);
     setTitle('');
+    setText('');
   };
 
   const handleSubmit = async () => {
-    if (!file || !title) {
-      alert('Please add a file and title before submitting');
+    if (!fileImage || !filePdf || !fileVideo || !title || !text) {
+      alert('Please fill in all fields before submitting');
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('fileImage', fileImage);
+    formData.append('filePdf', filePdf);
+    formData.append('fileVideo', fileVideo);
     formData.append('title', title);
+    formData.append('text', text);
 
     try {
       const response = await axios.post('/api/upload', formData, {
@@ -35,16 +56,16 @@ const EditMateri = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert('File uploaded successfully');
+      alert('Files uploaded successfully');
       console.log(response.data);
     } catch (error) {
-      alert('Failed to upload file');
+      alert('Failed to upload files');
       console.error(error);
     }
   };
 
   return (
-    <div className="max-w-43 w-full mx-auto p-5  rounded-lg ">
+    <div className="max-w-43 w-full mx-auto p-5 rounded-lg">
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Edit Materi</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-5">Mengubah Materi</p>
@@ -53,64 +74,65 @@ const EditMateri = () => {
           type="text"
           value={title}
           onChange={handleTitleChange}
-          placeholder =" Ketik Judul"
+          placeholder="Ketik Judul"
           className="w-full mb-8 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
-       <p className="text-lg font-medium mb-5">Unggah File Gambar</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl ">
-            <input type="file" onChange={handleFileChange} className="hidden" />
-            {/* Dashed Line and Folder Icon */}
-            <div className="absolute top-0 left-0 w-full h-px border-t-2 border-dashed border-gray-300 rounded-t-xl"></div>
-            <div className="absolute top-2 left-2 text-yellow-500">
-                <Plus className="w-6 h-6" />
-            </div>
+        
+        <p className="text-lg font-medium mb-5">Unggah File Gambar</p>
+        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
+          <input type="file" onChange={handleFileImageChange} className="hidden" />
+          <div className="absolute top-0 left-0 w-full h-px border-t-2 border-dashed border-gray-300 rounded-t-xl"></div>
+          <div className="absolute top-2 left-2 text-yellow-500">
+            <Plus className="w-6 h-6" />
+          </div>
 
-            <div className="flex flex-col items-center justify-center text-center">
-                {file ? (
-                <p className="text-gray-700">{file.name}</p>
-                ) : (
-                <p className="flex flex-col items-center text-gray-500">
-                    <span className="text-3xl mb-2">📂</span> 
-                    <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-                </p>
-                )}
-            </div>
+          <div className="flex flex-col items-center justify-center text-center">
+            {fileImage ? (
+              <p className="text-gray-700">{fileImage.name}</p>
+            ) : (
+              <p className="flex flex-col items-center text-gray-500">
+                <span className="text-3xl mb-2">📂</span>
+                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
+              </p>
+            )}
+          </div>
         </label>
-        <p className="text-lg font-medium mt-8 ">Menambah Teks</p>
 
+        <p className="text-lg font-medium mt-8">Menambah Teks</p>
         <input
           type="text"
-          value={title}
-          onChange={handleTitleChange}
-          placeholder ="Tambahkan Teks"
+          value={text} // Use the 'text' state for this input
+          onChange={handleTextChange} // Handle text change
+          placeholder="Tambahkan Teks"
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
-       <p className="text-lg font-medium mt-8">Unggah File Pdf</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6 ">
-          <input type="file" onChange={handleFileChange} className="hidden" />
+
+        <p className="text-lg font-medium mt-8">Unggah File Pdf</p>
+        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
+          <input type="file" onChange={handleFilePdfChange} className="hidden" />
           <div className="text-center">
-            {file ? (
-              <p className="text-gray-700">{file.name}</p>
+            {filePdf ? (
+              <p className="text-gray-700">{filePdf.name}</p>
             ) : (
-                <p className="flex flex-col items-center text-gray-500">
-                    <span className="text-3xl mb-2">📂</span> 
-                    <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-                </p>
+              <p className="flex flex-col items-center text-gray-500">
+                <span className="text-3xl mb-2">📂</span>
+                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
+              </p>
             )}
           </div>
         </label>
         
         <p className="text-lg font-medium mt-8">Unggah File Video</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6 ">
-          <input type="file" onChange={handleFileChange} className="hidden" />
+        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
+          <input type="file" onChange={handleFileVideoChange} className="hidden" />
           <div className="text-center">
-            {file ? (
-              <p className="text-gray-700">{file.name}</p>
+            {fileVideo ? (
+              <p className="text-gray-700">{fileVideo.name}</p>
             ) : (
-                <p className="flex flex-col items-center text-gray-500">
-                    <span className="text-3xl mb-2">📂</span> 
-                    <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-                </p>
+              <p className="flex flex-col items-center text-gray-500">
+                <span className="text-3xl mb-2">📂</span>
+                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
+              </p>
             )}
           </div>
         </label>
