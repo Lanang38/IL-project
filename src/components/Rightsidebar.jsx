@@ -3,11 +3,11 @@ import { ChevronFirst, Bell, Trash, Plus, Trash2 } from "lucide-react";
 
 export default function RightSidebar({ right }) {
   return (
-    <div className="w-1/6 p-3 bg-gray-50 text-gray-800">
+    <div className="fixed top-0 right-0 h-full w-64 p-3 bg-gray-50 text-gray-800 shadow-lg z-10">
       {/* Profile Section */}
       <div className="flex items-center mb-8">
         <img
-          src="https://e7.pngegg.com/pngimages/980/304/png-clipart-computer-icons-user-profile-avatar-heroes-silhouette.png" // Replace with actual image source
+          src="https://e7.pngegg.com/pngimages/980/304/png-clipart-computer-icons-user-profile-avatar-heroes-silhouette.png" // Ganti dengan sumber gambar sebenarnya
           alt="Profile"
           className="w-12 h-12 rounded-full mr-3"
         />
