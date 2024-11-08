@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import Sidebar, { SidebarItem } from "./components/sidebar";
-import RightSidebar from "./components/Rightsidebar";
+import Sidebar, { SidebarItem } from "./components/Sidebar";
+import RightSidebar from "./components/RightSidebar";
 import AlertOut from "./components/Alert";
 import {
   Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid
@@ -55,10 +55,11 @@ function App() {
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       ) : (
-        <>
-          {/* Fixed Left Sidebar */}
-          <div className="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-10">
+        <div className="flex w-full">
+          {/* Sidebar Kiri yang tetap berada di kiri, tidak bisa di-scroll */}
+          <div className="fixed top-0 left-0 h-full bg-white shadow-lg z-10">
             <Sidebar>
+            <div className="my-8" />
               <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
               <hr className="my-6" />
               <SidebarItem icon={<Users size={20} />} text="Pengguna" to="/pengguna" />
@@ -72,16 +73,16 @@ function App() {
             </Sidebar>
           </div>
 
-          {/* Main content with flex layout */}
+          {/* Konten utama dengan padding untuk sidebar kiri */}
           <div className="flex-grow ml-64 mr-64 p-6 bg-gray-100 overflow-auto">
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pengguna" element={<Pengguna />} />
               <Route path="/materi" element={<Materi />} />
               <Route path="/materi/data" element={<Datamateri />} />
-              <Route path="/materi/tambah" element={<TambahKategori />} /> 
-              <Route path="/materi/tambahmateri" element={<TambahMateri />} /> 
-              <Route path="/materi/editmateri" element={<EditMateri/> }/>
+              <Route path="/materi/tambah" element={<TambahKategori />} />
+              <Route path="/materi/tambahmateri" element={<TambahMateri />} />
+              <Route path="/materi/editmateri" element={<EditMateri />} />
               <Route path="/pembinaan" element={<Pembinaan />} />
               <Route path="/pembinaan/edit" element={<EditPage />} />
               <Route path="/analisis-laporan" element={<AnalisisLaporan />} />
@@ -90,11 +91,11 @@ function App() {
             </Routes>
           </div>
 
-          {/* Fixed Right Sidebar */}
+          {/* Sidebar Kanan yang tetap berada di kanan */}
           <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-10">
             <RightSidebar />
           </div>
-        </>
+        </div>
       )}
     </div>
   );
