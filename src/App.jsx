@@ -50,16 +50,18 @@ function App() {
   return (
     <div className="min-h-screen flex bg-gray-200">
       {!isAuthenticated ? (
-        <Routes>
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
+        <div className="flex items-center justify-center min-h-screen w-full bg-gray-200">
+          <Routes>
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        </div>
       ) : (
         <div className="flex w-full">
           {/* Sidebar Kiri yang tetap berada di kiri, tidak bisa di-scroll */}
           <div className="fixed top-0 left-0 h-full bg-white shadow-lg z-10">
             <Sidebar>
-            <div className="my-8" />
+              <div className="my-8" />
               <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
               <hr className="my-6" />
               <SidebarItem icon={<Users size={20} />} text="Pengguna" to="/pengguna" />
@@ -102,3 +104,4 @@ function App() {
 }
 
 export default App;
+
