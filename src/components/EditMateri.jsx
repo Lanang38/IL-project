@@ -64,13 +64,13 @@ const EditMateri = () => {
             <div className="absolute top-2 left-2 text-yellow-500">
                 <Plus className="w-6 h-6" />
             </div>
-            {/* Centered Text */}
+
             <div className="flex flex-col items-center justify-center text-center">
                 {file ? (
                 <p className="text-gray-700">{file.name}</p>
                 ) : (
                 <p className="flex flex-col items-center text-gray-500">
-                    <span className="text-3xl mb-2">📂</span> {/* Placeholder for folder icon */}
+                    <span className="text-3xl mb-2">📂</span> 
                     <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
                 </p>
                 )}
@@ -93,7 +93,7 @@ const EditMateri = () => {
               <p className="text-gray-700">{file.name}</p>
             ) : (
                 <p className="flex flex-col items-center text-gray-500">
-                    <span className="text-3xl mb-2">📂</span> {/* Placeholder for folder icon */}
+                    <span className="text-3xl mb-2">📂</span> 
                     <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
                 </p>
             )}
@@ -108,7 +108,7 @@ const EditMateri = () => {
               <p className="text-gray-700">{file.name}</p>
             ) : (
                 <p className="flex flex-col items-center text-gray-500">
-                    <span className="text-3xl mb-2">📂</span> {/* Placeholder for folder icon */}
+                    <span className="text-3xl mb-2">📂</span> 
                     <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
                 </p>
             )}

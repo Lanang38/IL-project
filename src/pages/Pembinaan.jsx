@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination';
 export default function Pembinaan() {
   const coaches = [
     { name: "azharrrr", email: "azhar24@gmail.com", phone: "085673826197", schedule: "4 November 2024", imgUrl: "https://via.placeholder.com/80" },
-    { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
+    { name: "KING SIGMA", email: "rama@example.com", phone: "089812128731", schedule: "8 November 2024", imgUrl: "https://via.placeholder.com/80" },
     { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
     { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
     { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },

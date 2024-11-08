@@ -1,4 +1,3 @@
-// NotificationCard.js
 import React from 'react';
 
 export default function NotificationCard({ title, placeholder, bgColor, btnColor }) {

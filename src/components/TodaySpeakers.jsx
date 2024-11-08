@@ -1,4 +1,3 @@
-// TodaySpeakers.js
 import React from "react";
 import { CircleUser } from "lucide-react";
 
