@@ -3,16 +3,22 @@ import Pagination from './Pagination';
 
 function MembershipCard({ name, email, phone }) {
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
+        <div className="p-4 bg-white rounded-lg shadow-lg flex flex-col items-center w-full sm:w-60 md:w-64">
             <img
                 src="https://via.placeholder.com/80"
                 alt="Profile"
-                className="w-20 h-20 rounded-full mb-4"
+                className="w-20 h-20 rounded-full mb-2"
             />
-            <p className="font-semibold text-gray-700">Admin</p>
-            <p className="text-lg font-bold">{name}</p>
-            <p className="text-sm text-gray-500">{email}</p>
-            <p className="text-sm text-gray-500">{phone}</p>
+            <div className="bg-blue-500 text-white font-semibold text-sm px-4 py-1 rounded-full mb-2 shadow-md">
+                Admin
+            </div>
+            <p className="text-base font-semibold mb-1">{name}</p>
+            <div className="bg-gray-100 w-full rounded-md py-1 px-3 mb-1 text-center shadow-sm">
+                <p className="text-gray-700 text-xs">{email}</p>
+            </div>
+            <div className="bg-gray-100 w-full rounded-md py-1 px-3 text-center shadow-sm">
+                <p className="text-gray-700 text-xs">{phone}</p>
+            </div>
         </div>
     );
 }
@@ -32,7 +38,7 @@ export default function Membership() {
     ];
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 8;
+    const itemsPerPage = 6;
 
     // Hitung jumlah halaman
     const totalPages = Math.ceil(members.length / itemsPerPage);
@@ -44,8 +50,8 @@ export default function Membership() {
     );
 
     return (
-        <div className="p-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="p-8 bg-gray-100 min-h-screen flex flex-col items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentMembers.map((member, index) => (
                     <MembershipCard
                         key={index}
@@ -55,11 +61,13 @@ export default function Membership() {
                     />
                 ))}
             </div>
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={(page) => setCurrentPage(page)}
-            />
+            <div className="flex justify-center mt-6">
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => setCurrentPage(page)}
+                />
+            </div>
         </div>
     );
 }
