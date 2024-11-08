@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { FilePlus, Plus } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const TambahMateri = () => {
   const [fileImage, setFileImage] = useState(null);
   const [filePdf, setFilePdf] = useState(null);
   const [fileVideo, setFileVideo] = useState(null);
   const [title, setTitle] = useState('');
-  const [text, setText] = useState(''); // Separate state for "Tambahkan Teks"
+  const [text, setText] = useState('');
+  const navigate = useNavigate(); // Inisialisasi navigate
 
   const handleFileImageChange = (e) => {
     setFileImage(e.target.files[0]);
@@ -26,7 +28,7 @@ const TambahMateri = () => {
   };
 
   const handleTextChange = (e) => {
-    setText(e.target.value); // Handle text change for "Tambahkan Teks"
+    setText(e.target.value);
   };
 
   const handleCancel = () => {
@@ -35,6 +37,7 @@ const TambahMateri = () => {
     setFileVideo(null);
     setTitle('');
     setText('');
+    navigate(-1); // Kembali ke halaman sebelumnya
   };
 
   const handleSubmit = async () => {
@@ -69,7 +72,7 @@ const TambahMateri = () => {
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Tambah Materi</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-5">Menambah Materi</p>
-        
+
         <input
           type="text"
           value={title}
@@ -77,7 +80,7 @@ const TambahMateri = () => {
           placeholder="Ketik Judul"
           className="w-full mb-8 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
-        
+
         <p className="text-lg font-medium mb-5">Unggah File Gambar</p>
         <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
           <input type="file" onChange={handleFileImageChange} className="hidden" />
@@ -121,7 +124,7 @@ const TambahMateri = () => {
             )}
           </div>
         </label>
-        
+
         <p className="text-lg font-medium mt-8">Unggah File Video</p>
         <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
           <input type="file" onChange={handleFileVideoChange} className="hidden" />
@@ -136,7 +139,7 @@ const TambahMateri = () => {
             )}
           </div>
         </label>
-    
+
         <div className="flex gap-3 mt-8 mb-3">
           <button
             className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-2xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"

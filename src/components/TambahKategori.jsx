@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const TambahKategori = () => {
+  const navigate = useNavigate(); // Initialize navigate
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
-
   const [description, setDescription] = useState(''); // Added state for description
 
   const handleFileChange = (e) => {
@@ -21,10 +21,7 @@ const TambahKategori = () => {
   };
 
   const handleCancel = () => {
-    setFile(null);
-    setTitle('');
-    
-    setDescription(''); // Clear description on cancel
+    navigate(-1); // Go back to the previous page
   };
 
   const handleSubmit = async () => {
@@ -82,7 +79,6 @@ const TambahKategori = () => {
 
         <input
           type="text"
-
           value={description}
           onChange={handleDescriptionChange} // Handle description change
           placeholder="Deskripsi Singkat"
