@@ -3,7 +3,7 @@ import { ChevronFirst, Bell, Trash, Plus, Trash2 } from "lucide-react";
 
 export default function RightSidebar({ right }) {
   return (
-    <div className="fixed top-0 right-0 h-full w-64 p-3 bg-gray-50 text-gray-800 shadow-lg z-10">
+    <div className="fixed top-0 right-0 h-full w-64 p-3 bg-gray-50 text-gray-800 shadow-lg z-10 lg:block hidden"> {/* Menambahkan kelas lg:block dan hidden */}
       {/* Profile Section */}
       <div className="flex items-center mb-8">
         <img
