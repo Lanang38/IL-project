@@ -19,7 +19,7 @@ export default function DataMateri() {
   ];
 
   return (
-    <div className="max-w-43 w-full mx-auto p-5  rounded-lg ">
+    <div className="max-w-screen-lg w-full mx-auto p-8 rounded-lg ">
       <h1 className="text-3xl font-semibold mb-6">Daftar Materi</h1>
 
       {/* Main Content Container */}
@@ -52,7 +52,7 @@ export default function DataMateri() {
                 className="flex-1 py-3 px-4 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
                 onClick={() => navigate("/materi/tambahmateri")}
               >
-                TAMBAH MATERI
+                Tambah Materi
               </button>
             </div>
           </div>
@@ -65,23 +65,23 @@ export default function DataMateri() {
           <table className="min-w-full border">
             <thead>
               <tr className="bg-green-600 text-white">
-                <th className="py-2 px-4 border text-center font-semibold">Modul</th>
-                <th className="py-2 px-4 border text-center font-semibold">Tanggal</th>
-                <th className="py-2 px-4 border text-center font-semibold">Hapus</th>
-                <th className="py-2 px-4 border text-center font-semibold">Edit</th>
+                <th className="py-3 px-4 border text-center font-semibold">Modul</th>
+                <th className="py-3 px-4 border text-center font-semibold">Tanggal</th>
+                <th className="py-3 px-4 border text-center font-semibold">Hapus</th>
+                <th className="py-3 px-4 border text-center font-semibold">Edit</th>
               </tr>
             </thead>
             <tbody>
               {data.map((item, index) => (
                 <tr key={index} className="border-t">
-                  <td className="py-2 px-4 border text-center">{item.modul}</td>
-                  <td className="py-2 px-4 border text-center">{item.tanggal}</td>
-                  <td className="py-2 px-4 border text-center">
+                  <td className="py-3 px-4 border text-center">{item.modul}</td>
+                  <td className="py-3 px-4 border text-center">{item.tanggal}</td>
+                  <td className="py-3 px-4 border text-center">
                     <button className="text-red-500">
                       <Trash2 size={18} />
                     </button>
                   </td>
-                  <td className="py-2 px-4 border text-center">
+                  <td className="py-3 px-4 border text-center">
                     <button className="text-blue-500" onClick={() => navigate("/materi/editmateri")}>
                       <Edit3 size={18} />
                     </button>
