@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { AlertKirim } from '../components/Alert';
+import React, { useState } from "react";
+import { AlertKirim } from "../components/Alert";
 
 function NotificationCard({ title, color, fields }) {
   const [formData, setFormData] = useState(
-    fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {})
+    fields.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {})
   );
 
   const handleChange = (e) => {
@@ -19,22 +19,29 @@ function NotificationCard({ title, color, fields }) {
     AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
 
     // Clear form data
-    setFormData(fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {}));
+    setFormData(
+      fields.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {})
+    );
   };
 
   return (
     <div className="bg-white rounded-lg shadow-lg w-full">
-      <div className={`bg-${color}-500 text-white text-center py-4 rounded-t-lg`}>
+      <div
+        className={`bg-${color}-500 text-white text-center py-4 rounded-t-lg`}
+      >
         <h1 className="text-2xl font-bold">{title}</h1>
       </div>
       <div className="p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           {fields.map((field) => (
             <div key={field.id}>
-              <label className="block text-sm font-semibold text-gray-700" htmlFor={field.id}>
+              <label
+                className="block text-sm font-semibold text-gray-700"
+                htmlFor={field.id}
+              >
                 {field.label}
               </label>
-              {field.type === 'textarea' ? (
+              {field.type === "textarea" ? (
                 <textarea
                   id={field.id}
                   placeholder="Ketik disini"
@@ -69,35 +76,35 @@ function NotificationCard({ title, color, fields }) {
 export default function NotificationPage() {
   const notifications = [
     {
-      title: 'Peringatan!!!',
-      color: 'red',
+      title: "Peringatan!!!",
+      color: "red",
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
-        { id: 'keterangan', label: 'Keterangan Notifikasi', type: 'textarea' },
+        { id: "judul", label: "Judul Notifikasi", type: "text" },
+        { id: "keterangan", label: "Keterangan Notifikasi", type: "textarea" },
       ],
     },
     {
-      title: 'Pengingat Jadwal',
-      color: 'yellow',
+      title: "Pengingat Jadwal",
+      color: "yellow",
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
-        { id: 'tanggal', label: 'Tanggal dan waktu', type: 'textarea' },
+        { id: "judul", label: "Judul Notifikasi", type: "text" },
+        { id: "tanggal", label: "Tanggal dan waktu", type: "textarea" },
       ],
     },
     {
-      title: 'Umum',
-      color: 'blue',
+      title: "Umum",
+      color: "blue",
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
-        { id: 'keterangan', label: 'Keterangan Notifikasi', type: 'textarea' },
+        { id: "judul", label: "Judul Notifikasi", type: "text" },
+        { id: "keterangan", label: "Keterangan Notifikasi", type: "textarea" },
       ],
     },
     {
-      title: 'Berhasil',
-      color: 'green',
+      title: "Berhasil",
+      color: "green",
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
-        { id: 'ucapan', label: 'Ucapan Selamat', type: 'textarea' },
+        { id: "judul", label: "Judul Notifikasi", type: "text" },
+        { id: "ucapan", label: "Ucapan Selamat", type: "textarea" },
       ],
     },
   ];
@@ -124,10 +131,18 @@ export default function NotificationPage() {
         <div className="bg-white p-4 rounded-lg shadow-lg">
           <h2 className="text-lg font-semibold mb-4">Keterangan</h2>
           <div className="flex flex-wrap gap-3">
-            <span className="bg-red-500 text-white px-4 py-2 rounded-full">Pemberitahuan Peringatan</span>
-            <span className="bg-yellow-500 text-white px-4 py-2 rounded-full">Pemberitahuan Pengingat</span>
-            <span className="bg-blue-500 text-white px-4 py-2 rounded-full">Pemberitahuan Umum</span>
-            <span className="bg-green-500 text-white px-4 py-2 rounded-full">Pemberitahuan Berhasil</span>
+            <span className="bg-red-500 text-white px-4 py-2 text-sm rounded-full">
+              Pemberitahuan Peringatan
+            </span>
+            <span className="bg-yellow-500 text-white px-4 py-2 text-sm rounded-full">
+              Pemberitahuan Pengingat
+            </span>
+            <span className="bg-blue-500 text-white px-4 py-2 text-sm rounded-full">
+              Pemberitahuan Umum
+            </span>
+            <span className="bg-green-500 text-white px-4 py-2 text-sm rounded-full">
+              Pemberitahuan Berhasil
+            </span>
           </div>
         </div>
       </div>
