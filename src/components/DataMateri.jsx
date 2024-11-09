@@ -38,27 +38,28 @@ export default function DataMateri() {
           />
           <div className="flex-1">
             <h2 className="text-2xl font-semibold mb-2">Kacang Tanah</h2>
-            <textarea
-              placeholder="KING RAMA KEBINGUNGAN"
+            <p
               className="w-full p-2 border rounded-lg resize-none"
-              rows="3"
               readOnly
-            ></textarea>
+            >
+              IADSUIuadiSIDUId
+            </p>
             
             {/* Tombol Kembali dan Tambah Materi */}
             <div className="flex gap-2 mt-3 mb-1">
-              <button
-                className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-2xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                onClick={() => navigate("/materi")}
-              >
-                Kembali
-              </button>
               <button
                 className="flex-1 py-3 px-4 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
                 onClick={() => navigate("/materi/tambahmateri")}
               >
                 Tambah Materi
               </button>
+              <button
+                className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-2xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+                onClick={() => navigate("/materi")}
+              >
+                Kembali
+              </button>
+              
             </div>
           </div>
         </div>
@@ -66,27 +67,27 @@ export default function DataMateri() {
         
 
          {/* Tabel Data Materi */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full border">
+        <div className="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
+          <table className="min-w-full bg-white">
             <thead>
               <tr className="bg-green-600 text-white">
-                <th className="py-3 px-4 border text-center font-semibold">Modul</th>
-                <th className="py-3 px-4 border text-center font-semibold">Tanggal</th>
-                <th className="py-3 px-4 border text-center font-semibold">Hapus</th>
-                <th className="py-3 px-4 border text-center font-semibold">Edit</th>
+                <th className="py-3 px-4  text-center font-semibold">Modul</th>
+                <th className="py-3 px-4  text-center font-semibold">Tanggal</th>
+                <th className="py-3 px-4  text-center font-semibold">Hapus</th>
+                <th className="py-3 px-4  text-center font-semibold">Edit</th>
               </tr>
             </thead>
             <tbody>
               {data.map((item, index) => (
                 <tr key={index} className="border-t">
-                  <td className="py-3 px-4 border text-center">{item.modul}</td>
-                  <td className="py-3 px-4 border text-center">{item.tanggal}</td>
-                  <td className="py-3 px-4 border text-center">
+                  <td className="py-3 px-4  text-center">{item.modul}</td>
+                  <td className="py-3 px-4  text-center">{item.tanggal}</td>
+                  <td className="py-3 px-4  text-center">
                   <button className="text-red-500" onClick={() => handleDelete(item.modul)}>
                       <Trash2 size={18} />
                     </button>
                   </td>
-                  <td className="py-3 px-4 border text-center">
+                  <td className="py-3 px-4 text-center">
                     <button className="text-blue-500" onClick={() => navigate("/materi/editmateri")}>
                       <Edit3 size={18} />
                     </button>

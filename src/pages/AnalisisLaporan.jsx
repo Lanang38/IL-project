@@ -96,8 +96,8 @@ export default function AnalisisLaporan() {
         {/* Mentor Doughnut Chart */}
         <div className="flex-1 min-w-[430px] bg-white p-4 rounded-lg shadow-md">
           <div className="mb-5 text-left text-lg font-semibold">
-            <h1>Daftar Pembina Aktif</h1>
-            <p className="text-base">Oktober 2024</p>
+            <h1 className="text-center">Daftar Pembina Aktif</h1>
+            <p className="text-base text-center">Oktober 2024</p>
           </div>
           <div className="w-full h-72">
             <Doughnut data={mentorData} options={{ responsive: true, maintainAspectRatio: false }} />
@@ -123,8 +123,8 @@ export default function AnalisisLaporan() {
         {/* User Doughnut Chart */}
         <div className="flex-1 min-w-[430px] bg-white p-4 rounded-lg shadow-md">
           <div className="mb-5 text-left text-lg font-semibold">
-            <h1>Daftar Pengguna Aktif</h1>
-            <p className="text-base">Oktober 2024</p>
+            <h1 className="text-center">Daftar Pengguna Aktif</h1>
+            <p className="text-base text-center">Oktober 2024</p>
           </div>
           <div className="w-full h-72">
             <Doughnut data={userData} options={{ responsive: true, maintainAspectRatio: false }} />
