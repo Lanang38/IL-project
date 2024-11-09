@@ -15,6 +15,8 @@ export default function MembershipCard() {
     { name: "Balqis", email: "email@example.com", phone: "No.Telephone",  imgUrl: "https://via.placeholder.com/80" },
     { name: "Loici", email: "email@example.com", phone: "No.Telephone",  imgUrl: "https://via.placeholder.com/80" },
     { name: "Daniel", email: "email@example.com", phone: "No.Telephone",  imgUrl: "https://via.placeholder.com/80" },
+    { name: "Daniel", email: "email@example.com", phone: "No.Telephone",  imgUrl: "https://via.placeholder.com/80" },
+    { name: "Daniel", email: "email@example.com", phone: "No.Telephone",  imgUrl: "https://via.placeholder.com/80" },
   ];
 
   const itemsPerPage = 8;

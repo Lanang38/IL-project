@@ -76,7 +76,7 @@ function App() {
           </div>
 
           {/* Konten utama dengan padding untuk sidebar kiri */}
-          <div className="flex-grow ml-64 mr-64 p-6 bg-gray-100 overflow-auto">
+          <div className="flex-grow ml-64 mr-64 p-6 bg-gray-100 scroll-hidden" style={{ height: "100vh" }}>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pengguna" element={<Pengguna />} />
