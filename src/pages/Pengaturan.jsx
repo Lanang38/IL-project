@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import Navbar from "../components/NavbarSetting";
 import Membership from "../components/MembershipCard";
+import { AlertEdit } from "../components/Alert";
 
 export default function Pengaturan() {
   const [activePage, setActivePage] = useState('Profile');
+
+  const handleAddPhoto = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      console.log("Foto ditambahkan:", file.name);
+    }
+  };
+
+  const handleSave = () => {
+    AlertEdit("Data telah disimpan", "Perubahan telah berhasil disimpan.");
+  };
 
   return (
     <div className="p-5 bg-gray-100 min-h-screen">
@@ -24,20 +37,29 @@ export default function Pengaturan() {
                   <h3 className="text-lg font-semibold">Azhar Rizqullah</h3>
                   <p>azhar24@gmail.com</p>
                 </div>
-                <div className="flex w-full sm:w-96 space-x-2 mt-2 sm:mt-0 ">
-                  <button
-                    type="submit"
-                    className="w-1/2 px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
-                  >
-                    Tambah Foto
-                  </button>
-                  <button
-                    type="submit"
-                    className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
-                  >
-                    Hapus Foto
-                  </button>
-                </div>
+                <div className="flex w-full sm:w-96 space-x-2 mt-2 sm:mt-0">
+              <label className="w-1/2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAddPhoto}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+                  onClick={() => document.querySelector('input[type="file"]').click()}
+                >
+                  Tambah Foto
+                </button>
+              </label>
+              <button
+                type="button"
+                className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
+              >
+                Hapus Foto
+              </button>
+            </div>
               </div>
 
               {/* Form Fields */}
@@ -87,11 +109,12 @@ export default function Pengaturan() {
 
             {/* Simpan Button */}
             <button
-              type="submit"
-              className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
-            >
-              Simpan
-            </button>
+          type="button"
+          onClick={handleSave}
+          className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+        >
+          Simpan
+        </button>
           </div>
         ) : (
           <Membership />

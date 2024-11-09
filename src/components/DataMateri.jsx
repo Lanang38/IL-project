@@ -1,6 +1,7 @@
 import React from "react";
 import { Trash2, Edit3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AlertDelete } from "./Alert";
 
 // Komponen DataMateri untuk menampilkan daftar materi
 export default function DataMateri() {
@@ -17,6 +18,10 @@ export default function DataMateri() {
     { modul: "Memanen", tanggal: "28/10/2024" },
     { modul: "Tengkulak", tanggal: "28/10/2024" },
   ];
+
+  const handleDelete = (modul) => {
+    AlertDelete(modul); // Call AlertDelete function when delete is clicked
+  };
 
   return (
     <div className="max-w-screen-lg w-full mx-auto p-8 rounded-lg ">
@@ -77,7 +82,7 @@ export default function DataMateri() {
                   <td className="py-3 px-4 border text-center">{item.modul}</td>
                   <td className="py-3 px-4 border text-center">{item.tanggal}</td>
                   <td className="py-3 px-4 border text-center">
-                    <button className="text-red-500">
+                  <button className="text-red-500" onClick={() => handleDelete(item.modul)}>
                       <Trash2 size={18} />
                     </button>
                   </td>

@@ -6,6 +6,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AlertDelete } from "./Alert"; // Import the AlertDelete function
 
 // Komponen untuk kartu kategori modul
 function ModulCard() {
@@ -22,6 +23,15 @@ function ModulCard() {
     { title: "Kacang Pistachio", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
     { title: "Kacang Macadamia", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
   ];
+
+  // Function to handle module deletion
+  const handleDelete = (moduleTitle) => {
+    AlertDelete(() => {
+      // Callback after confirming deletion
+      console.log(`${moduleTitle} has been deleted.`);
+      // You can remove the module from the state here or perform any other logic
+    });
+  };
 
   return (
     <div className="p-5">
@@ -52,7 +62,7 @@ function ModulCard() {
             <div className="flex w-full mt-10">
               <div className="flex items-center space-x-2 ml-auto">
                 {/* Tombol hapus */}
-                <button className="text-red-500">
+                <button className="text-red-500" onClick={() => handleDelete(module.title)}>
                   <Trash2 size={20} />
                 </button>
                 {/* Tombol menuju materi */}

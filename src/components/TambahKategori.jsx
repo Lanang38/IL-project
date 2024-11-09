@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AlertSimpan } from './Alert'; // Make sure to import the AlertSimpan function
 
 const TambahKategori = () => {
   const navigate = useNavigate(); // Initialize navigate
@@ -25,28 +26,12 @@ const TambahKategori = () => {
   };
 
   const handleSubmit = async () => {
-    if (!file || !title || !description) {
-      alert('Please add a file, title, and description before submitting');
-      return;
-    }
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('title', title);
-    formData.append('description', description); // Append description to formData
+    AlertSimpan();
+    setTimeout(() => {
+      navigate(-1); // Go back to the previous page after the alert
+    }, 1200);  // Call the AlertSimpan function here
 
-    try {
-      const response = await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('File uploaded successfully');
-      console.log(response.data);
-    } catch (error) {
-      alert('Failed to upload file');
-      console.error(error);
-    }
   };
 
   return (

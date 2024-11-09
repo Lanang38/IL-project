@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FilePlus, Plus } from 'lucide-react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { AlertSimpan } from './Alert'; // Import useNavigate
 
 const TambahMateri = () => {
   const [fileImage, setFileImage] = useState(null);
@@ -41,30 +42,10 @@ const TambahMateri = () => {
   };
 
   const handleSubmit = async () => {
-    if (!fileImage || !filePdf || !fileVideo || !title || !text) {
-      alert('Please fill in all fields before submitting');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('fileImage', fileImage);
-    formData.append('filePdf', filePdf);
-    formData.append('fileVideo', fileVideo);
-    formData.append('title', title);
-    formData.append('text', text);
-
-    try {
-      const response = await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('Files uploaded successfully');
-      console.log(response.data);
-    } catch (error) {
-      alert('Failed to upload files');
-      console.error(error);
-    }
+    AlertSimpan();
+    setTimeout(() => {
+      navigate(-1); // Go back to the previous page after the alert
+    }, 1200);
   };
 
   return (

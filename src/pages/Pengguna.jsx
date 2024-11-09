@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Pagination from "../components/Pagination";
+import { AlertDelete } from "../components/Alert";
 
 function Pengguna() {
   const data = [...Array(30)].map((_, index) => ({
@@ -7,7 +8,7 @@ function Pengguna() {
     name: `Nama Pengguna ${index + 1}`,
     email: `email${index + 1}@example.com`,
     date: "2024-11-04",
-    status: "Aktif"
+    status: "Aktif",
   }));
 
   const itemsPerPage = 8;
@@ -19,6 +20,13 @@ function Pengguna() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleDelete = () => {
+    // Call the AlertDeletePengguna function when the button is clicked
+    AlertDelete(() => {
+      console.log("Data Pengguna telah dihapus."); // Logic after deletion (e.g., refresh or update state)
+    });
+  };
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
@@ -42,10 +50,11 @@ function Pengguna() {
               className="p-2 border border-gray-300 rounded-lg w-full"
             />
           </div>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+          <button className="px-8 py-2 bg-blue-500 text-white rounded-lg">
             Cari
           </button>
-          <button className="px-4 py-2 bg-red-500 text-white rounded-lg">
+          <button className="px-6 py-2 bg-red-500 text-white rounded-lg"
+          onClick={handleDelete}>
             Hapus
           </button>
         </div>
@@ -56,12 +65,24 @@ function Pengguna() {
         <table className="min-w-full bg-white">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">Centang</th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">ID Pengguna</th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">Nama Pengguna</th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">E-mail</th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">Tgl Pendaftaran</th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">Riwayat Akun</th>
+              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+                Centang
+              </th>
+              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+                ID Pengguna
+              </th>
+              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+                Nama Pengguna
+              </th>
+              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+                E-mail
+              </th>
+              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+                Tgl Pendaftaran
+              </th>
+              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+                Riwayat Akun
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -74,7 +95,9 @@ function Pengguna() {
                 <td className="py-2 px-4 border-b">{user.name}</td>
                 <td className="py-2 px-4 border-b">{user.email}</td>
                 <td className="py-2 px-4 border-b text-center">{user.date}</td>
-                <td className="py-2 px-4 border-b text-center">{user.status}</td>
+                <td className="py-2 px-4 border-b text-center">
+                  {user.status}
+                </td>
               </tr>
             ))}
           </tbody>
