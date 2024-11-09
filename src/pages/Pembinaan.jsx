@@ -95,7 +95,7 @@ export default function Pembinaan() {
               <input
                 type="text"
                 placeholder="DD/MM/YYYY"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
+                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm "
               />
               <input
                 type="text"
@@ -111,11 +111,21 @@ export default function Pembinaan() {
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
               />
             </div>
+
+            <button
+                className="flex-1 py-3 px-3 bg-red-500 text-white font-medium rounded-2xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+                onClick={() => navigate("/materi")}
+              >
+                Kembali
+              </button>
+              <button
+                className="flex-1 py-3 px-3 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                onClick={() => navigate("/materi/tambahmateri")}
+              >
+                Tambah Materi
+              </button>
           </div>
         </div>
-        <button className="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded-lg mt-4">
-          Daftarkan
-        </button>
       </div>
 
       {/* Daftar Coach Cards */}

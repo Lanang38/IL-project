@@ -1,6 +1,6 @@
 // CoachCard.js
 import React from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function CoachCard({ name, email, phone, schedule, imgUrl }) {
@@ -16,7 +16,7 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
       <Trash2 />
       </button>
 
-      <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4">
+      <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gray-200 mb-4 mt-4">
         <img
           src={imgUrl}
           alt="Profile"
@@ -35,17 +35,18 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
         <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600">
           {phone}
         </div>
-        <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600 whitespace-pre-line">
+        <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600 whitespace-pre-line h-16">
           {schedule}
         </div>
-      </div>
 
-      <button
+        <button
         onClick={handleEditClick} // Panggil fungsi untuk navigasi ke halaman edit
         className="w-full mt-8 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg text-sm"
       >
         Edit
       </button>
+
+      </div>
     </div>
   );
 }
