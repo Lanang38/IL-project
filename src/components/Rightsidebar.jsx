@@ -32,8 +32,8 @@ export default function RightSidebar({ right }) {
         </div>
 
         {/* "New Fitur" and "Fitur Baru" Items */}
-        <div className="space-y-3 ">
-          <div className="flex justify-between items-center p-3 rounded-lg bg-orange-100">
+        <div className="space-y-2 ">
+          <div className="flex justify-between items-center p-3 rounded-lg bg-orange-100 mt-4">
             <div className="flex items-center">
               <Bell className="text-orange-500 mr-2" />
               <span className="font-medium text-gray-800">Fitur Baru</span>

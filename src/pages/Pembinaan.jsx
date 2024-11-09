@@ -97,96 +97,107 @@ export default function Pembinaan() {
 
       {/* Form Profil Mentor */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-8 space-y-4">
-        <div className="flex items-start space-x-6">
-          <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold text-center mb-2">Profil</h2>
-            <label htmlFor="photo-upload" className="cursor-pointer">
-              <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                {photo ? (
-                  <img
-                    src={photo}
-                    alt="Uploaded"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="text-gray-500 text-sm">Tambah Foto</span>
-                )}
-              </div>
-            </label>
-            <input
-              type="file"
-              id="photo-upload"
-              className="hidden"
-              accept="image/*"
-              onChange={handlePhotoUpload}
+  <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-4 lg:space-y-0 lg:space-x-6">
+    <div className="flex flex-col items-center">
+      <h2 className="text-lg font-semibold text-center mb-2">Profil</h2>
+      <label htmlFor="photo-upload" className="cursor-pointer">
+        <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+          {photo ? (
+            <img
+              src={photo}
+              alt="Uploaded"
+              className="w-full h-full object-cover"
             />
-          </div>
-
-          {/* Insert the form fields here */}
-          <div className="flex-grow grid grid-cols-2 gap-4">
-            <div className="col-span-2 md:col-span-1">
-              <label className="block text-xs font-medium text-gray-600">
-                Nama
-              </label>
-              <input
-                type="text"
-                placeholder="Masukkan Nama"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
-              />
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <label className="block text-xs font-medium text-gray-600">
-                Jadwal Coaching
-              </label>
-              <input
-                type="text"
-                placeholder="Link Zoom"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
-              />
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <label className="block text-xs font-medium text-gray-600">
-                E-mail
-              </label>
-              <input
-                type="email"
-                placeholder="Masukkan E-mail"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
-              />
-            </div>
-            <div className="col-span-2 md:col-span-1 grid grid-cols-2 gap-2">
-              <input
-                type="text"
-                placeholder="DD/MM/YYYY"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm "
-              />
-              <input
-                type="text"
-                placeholder="00.00"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
-              />
-            </div>
-            <div className="col-span-2">
-              <label className="block text-xs font-medium text-gray-600">
-                ID Pembina
-              </label>
-              <input
-                type="text"
-                placeholder="Masukkan User ID"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
-              />
-            </div>
-            <div className="col-span-2 flex justify-end">
-              <button
-                className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
-                onClick={handleSaveAlert}
-              >
-                Tambah Pembina
-              </button>
-            </div>
-          </div>
+          ) : (
+            <span className="text-gray-500 text-sm">Tambah Foto</span>
+          )}
         </div>
+      </label>
+      <input
+        type="file"
+        id="photo-upload"
+        className="hidden"
+        accept="image/*"
+        onChange={handlePhotoUpload}
+      />
+    </div>
+
+    {/* Form Fields */}
+    <div className="flex-grow grid grid-cols-2 gap-4">
+  <div className="col-span-2 md:col-span-1">
+    <label className="block text-xs font-medium text-gray-600">
+      Nama
+    </label>
+    <input
+      type="text"
+      placeholder="Masukkan Nama"
+      className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
+    />
+  </div>
+
+  <div className="col-span-2 md:col-span-1">
+    <label className="block text-xs font-medium text-gray-600">
+      Jadwal Coaching
+    </label>
+    <input
+      type="text"
+      placeholder="Link Zoom"
+      className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
+    />
+  </div>
+
+  <div className="col-span-2 md:col-span-1">
+    <label className="block text-xs font-medium text-gray-600">
+      E-mail
+    </label>
+    <input
+      type="email"
+      placeholder="Masukkan E-mail"
+      className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
+    />
+  </div>
+
+  <div className="col-span-2 md:col-span-1 grid grid-cols-2 gap-2">
+    <input
+      type="text"
+      placeholder="DD/MM/YYYY"
+      className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
+    />
+    <input
+      type="text"
+      placeholder="00.00"
+      className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
+    />
+  </div>
+
+  <div className="col-span-2">
+    <label className="block text-xs font-medium text-gray-600">
+      ID Pembina
+    </label>
+    <input
+      type="text"
+      placeholder="Masukkan User ID"
+      className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
+    />
+  </div>
+
+
+
+      {/* Tombol Tambah Pembina */}
+      <div className="col-span-2 flex justify-center lg:justify-end">
+        <button
+          className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
+          onClick={handleSaveAlert}
+        >
+          Tambah Pembina
+        </button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+
 
       {/* Daftar Coach Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

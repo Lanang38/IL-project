@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AlertEdit } from "../components/Alert"; // Pastikan AlertEdit sudah diimport
+import { AlertEdit } from "../components/Alert"; // Make sure AlertEdit is imported
 
 function EditPage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -17,11 +17,11 @@ function EditPage() {
   };
 
   return (
-    <div className="p-5 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-semibold mb-6">Edit Pembina</h2>
-      <div className="w-full max-w-4xl px-0 ">
+    <div className="p-5 bg-gray-100 min-h-screen flex flex-col items-center">
+      <h2 className="text-3xl font-semibold mb-6 self-start">Edit Pembina</h2>
+      <div className="w-full max-w-4xl px-0 flex flex-col items-center">
         {/* Profile Section */}
-        <div className="p-6 bg-white rounded-lg mt-4 shadow-lg text-black">
+        <div className="p-6 bg-white rounded-lg mt-4 shadow-lg text-black w-full">
           <div className="flex flex-col sm:flex-row items-center space-x-4 px-6 mb-6">
             <img
               src="https://via.placeholder.com/80"
@@ -64,7 +64,7 @@ function EditPage() {
               <input
                 type="text"
                 defaultValue="Azhar"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -72,7 +72,7 @@ function EditPage() {
               <input
                 type="email"
                 defaultValue="azhar24@gmail.com"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-400 border border-gray-300"
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-400 focus:outline-none border border-gray-300"
                 readOnly
               />
             </div>
@@ -81,27 +81,29 @@ function EditPage() {
               <input
                 type="tel"
                 defaultValue="085673826197"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <label className="w-full sm:w-1/3 font-medium">Jadwal zoom</label>
               <textarea
                 defaultValue="https://us06web.zoom.us/j/84052976236?pwd=KkoXykJsDaazsme9TF6wb28Dv2MZKh.1"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
           </form>
         </div>
 
         {/* Simpan Button */}
-        <button
-          type="button"
-          onClick={handleSave}
-          className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
-        >
-          Simpan
-        </button>
+        <div className="w-full flex justify-center sm:justify-start">
+          <button
+            type="button"
+            onClick={handleSave}
+            className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+          >
+            Simpan
+          </button>
+        </div>
       </div>
     </div>
   );
