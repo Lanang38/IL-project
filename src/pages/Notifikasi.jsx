@@ -47,7 +47,7 @@ function NotificationCard({ title, color, fields }) {
                   placeholder="Ketik disini"
                   value={formData[field.id]}
                   onChange={handleChange}
-                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400 h-24 resize-none`}
+                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:border-${color}-500 h-24 resize-none`}
                 />
               ) : (
                 <input
@@ -56,7 +56,7 @@ function NotificationCard({ title, color, fields }) {
                   placeholder="Ketik disini"
                   value={formData[field.id]}
                   onChange={handleChange}
-                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400`}
+                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:border-${color}-500`}
                 />
               )}
             </div>

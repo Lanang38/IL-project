@@ -69,7 +69,7 @@ export default function Pengaturan() {
                   <input
                     type="text"
                     defaultValue="Azhar"
-                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -77,7 +77,7 @@ export default function Pengaturan() {
                   <input
                     type="email"
                     defaultValue="azhar24@gmail.com"
-                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-400 border border-gray-300"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-400 focus:outline-none border border-gray-300"
                     readOnly
                   />
                 </div>
@@ -86,7 +86,7 @@ export default function Pengaturan() {
                   <input
                     type="text"
                     defaultValue="Jakarta, 24 Mei 1998"
-                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -94,14 +94,14 @@ export default function Pengaturan() {
                   <input
                     type="tel"
                     defaultValue="085673826197"
-                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                   <label className="w-full sm:w-1/3 font-medium text-black">Alamat</label>
                   <textarea
                     defaultValue="Jl. Bougenville Blok C No.5, Java Residence, Kebayoran, Jakarta"
-                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 border border-gray-300"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
               </form>

@@ -35,30 +35,33 @@ function Pengguna() {
 
       {/* Search Box */}
       <div className="bg-white p-4 rounded-lg shadow mb-8">
-        <div className="flex items-center space-x-4 mb-4">
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Masukkan Nama"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-            />
-          </div>
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Masukkan ID Pengguna"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-            />
-          </div>
-          <button className="px-8 py-2 bg-blue-500 text-white rounded-lg">
-            Cari
-          </button>
-          <button className="px-6 py-2 bg-red-500 text-white rounded-lg"
-          onClick={handleDelete}>
-            Hapus
-          </button>
-        </div>
-      </div>
+  <div className="flex flex-col sm:flex-row items-center sm:space-x-4 mb-4">
+    <div className="flex-1 mb-4 sm:mb-0">
+      <input
+        type="text"
+        placeholder="Masukkan Nama"
+        className="p-2 border border-gray-300 rounded-lg w-full focus:outline-none"
+      />
+    </div>
+    <div className="flex-1 mb-4 sm:mb-0">
+      <input
+        type="text"
+        placeholder="Masukkan ID Pengguna"
+        className="p-2 border border-gray-300 rounded-lg w-full focus:outline-none"
+      />
+    </div>
+    <button className="px-8 py-2 bg-blue-500 text-white rounded-lg w-full sm:w-auto mb-4 sm:mb-0 sm:ml-4">
+      Cari
+    </button>
+    <button
+      className="px-6 py-2 bg-red-500 text-white rounded-lg w-full sm:w-auto sm:ml-4"
+      onClick={handleDelete}
+    >
+      Hapus
+    </button>
+  </div>
+</div>
+
 
       {/* Table */}
       <div className="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
