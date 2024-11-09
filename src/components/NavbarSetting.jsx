@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function NavbarSetting({ activePage, setActivePage }) {
     return (
-        <nav className="bg-transparent">
+        <nav className="bg-transparent px-1">
             <div className="container mx-auto flex items-center justify-between">
                 <div className="flex space-x-4">
                     <button
