@@ -75,9 +75,9 @@ function App() {
 
           {/* Adjust main content margin based on sidebar width */}
           <div
-  className={`flex-grow transition-all duration-300 ease-in-out ${
+  className={`flex-grow transition-all duration-100 ease-in-out ${
     sidebarExpanded ? "ml-64" : "ml-16"
-  } mr-64 p-6 bg-gray-100`}
+  } mr-64 p-6 bg-gray-100 scroll-hidden`} // Menambahkan overflow-hidden di sini
   style={{ height: "100vh" }}
 >
             <Routes>
