@@ -2,8 +2,8 @@ import Swal from 'sweetalert2'
 
 export default function AlertOut(callback) {
     Swal.fire({
-        title: "Apakah anda yakin?",
-        text: "Anda tidak akan dapat mengembalikannya!",
+        title: "Apakah anda ingin keluar?",
+        text: "Anda akan kembali ke halaman Login!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -21,3 +21,4 @@ export default function AlertOut(callback) {
         }
     });
 }
+

@@ -57,7 +57,7 @@ function App() {
           </Routes>
         </div>
       ) : (
-        <div className="flex w-full">
+        <div className="flex w-full ">
           {/* Sidebar Kiri yang tetap berada di kiri, tidak bisa di-scroll */}
           <div className="fixed top-0 left-0 h-full bg-white shadow-lg z-10">
             <Sidebar>
