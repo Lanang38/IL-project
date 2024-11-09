@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+// Komponen untuk kartu kategori modul
 function ModulCard() {
   const navigate = useNavigate();
   const modules = [
@@ -32,7 +33,7 @@ function ModulCard() {
             key={index}
             className="relative bg-white rounded-lg shadow-lg p-4 flex flex-col"
           >
-
+            {/* Gambar modul */}
             <div className="w-full h-32 rounded-lg overflow-hidden mb-4">
               <img
                 src={module.imgUrl}
@@ -40,19 +41,21 @@ function ModulCard() {
                 className="w-full h-full object-cover"
               />
             </div>
-
+            {/* Detail judul dan jumlah materi */}
             <div className="mb-4 pl-2">
               <h3 className="text-lg font-semibold text-left">{module.title}</h3>
               <p className="text-sm text-gray-500 text-left">
                 {module.moduleCount} Materi
               </p>
             </div>
-
+            {/* Tombol Aksi */}
             <div className="flex w-full mt-10">
               <div className="flex items-center space-x-2 ml-auto">
+                {/* Tombol hapus */}
                 <button className="text-red-500">
                   <Trash2 size={20} />
                 </button>
+                {/* Tombol menuju materi */}
                 <button className="text-green-500" onClick={() => navigate("/materi/data")}>
                   <ArrowRight size={20} />
                 </button>
@@ -60,7 +63,7 @@ function ModulCard() {
             </div>
           </div>
         ))}
-
+        {/* Tombol tambah kategori */}
         <div className="bg-green-100 rounded-lg flex items-center justify-center text-4xl text-green-500">
           <button onClick={() => navigate("/materi/tambah")}>
             <Plus size={36} />

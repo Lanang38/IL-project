@@ -51,20 +51,20 @@ export default function Dashboard() {
           <div style={styles.userActivityContent}>
             <div style={styles.userStats}>
               <div style={styles.userStat}>
-                <CircleUser size={50} color="#46bd84" />
+                <CircleUser size={60} color="#46bd84" />
                 <span style={{ ...styles.statText, color: "#46bd84" }}>75% Daftar Pengguna Aktif</span>
               </div>
               <div style={styles.userStat}>
-                <CircleUser size={65} color="#dd3838" />
+                <CircleUser size={60} color="#dd3838" />
                 <span style={{ ...styles.statText, color: "#dd3838" }}>25% Daftar Pengguna Kurang Aktif</span>
               </div>
             </div>
             <div style={styles.chartContainer}>
               <Doughnut data={userData} options={options} />
-              <div style={styles.chartCenterText}>
-                75%
-                <br />
-                <span style={{ fontSize: "14px", color: "#888" }}>Keaktifan</span>
+                <div style={styles.chartCenterText}>
+                  <span style={styles.percentageText}>75%</span>
+                  <br />
+                  <span style={styles.labelText}>Keaktifan</span>
               </div>
             </div>
           </div>
@@ -162,13 +162,19 @@ const styles = {
   },
   chartCenterText: {
     position: "absolute",
-    top: "50%",
+    top: "55%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    fontSize: "36px",
+    textAlign: "center",
+  },
+  percentageText: {
+    fontSize: "36px", // Untuk angka 75%
     fontWeight: "bold",
     color: "#46bd84",
-    textAlign: "center",
+  },
+  labelText: {
+    fontSize: "14px", // Untuk label "Keaktifan"
+    color: "#888",
   },
   todaySpeakers: {
     backgroundColor: "#e0f2e0",
@@ -216,6 +222,7 @@ const styles = {
     chartContainer: {
       width: "100%",
       height: "200px",
+      position: "relative",
     },
   },
 };
