@@ -73,13 +73,13 @@ function App() {
             </Sidebar>
           </div>
 
-          {/* Adjust main content margin based on sidebar width */}
+          {/* Main content area, adjust margin based on whether RightSidebar is visible */}
           <div
-  className={`flex-grow transition-all duration-100 ease-in-out ${
-    sidebarExpanded ? "ml-64" : "ml-16"
-  } mr-64 p-6 bg-gray-100 scroll-hidden`} // Menambahkan overflow-hidden di sini
-  style={{ height: "100vh" }}
->
+            className={`flex-grow transition-all duration-100 ease-in-out ${
+              sidebarExpanded ? "ml-64" : "ml-16"
+            } mr-0 p-6 bg-gray-100 scroll-hidden lg:mr-64`} // Adjust margin-right for large screens
+            style={{ height: "100vh" }}
+          >
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pengguna" element={<Pengguna />} />
@@ -96,7 +96,8 @@ function App() {
             </Routes>
           </div>
 
-          <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-10">
+          {/* Right Sidebar */}
+          <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-10 hidden lg:block">
             <RightSidebar />
           </div>
         </div>
