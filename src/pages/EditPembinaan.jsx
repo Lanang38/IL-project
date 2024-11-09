@@ -2,82 +2,83 @@ import React from "react";
 
 function EditPage() {
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      {/* Judul */}
-      <h1 className="text-3xl font-semibold mb-4">Edit</h1>
+    <div className="p-5 bg-gray-100 min-h-screen">
+      <h2 className="text-3xl font-semibold mb-6">Edit Pembina</h2>
+          <div className="w-full max-w-4xl px-0 ">
+            {/* Profile Section */}
+            <div className="p-6 bg-green-600 rounded-lg mt-4 shadow-lg text-white">
+              <div className="flex flex-col sm:flex-row items-center space-x-4 px-6 mb-6">
+                <img
+                  src="https://via.placeholder.com/80"
+                  alt="Profile"
+                  className="w-20 h-20 rounded-full border-4 border-white"
+                />
+                <div className="px-2 text-center sm:text-left">
+                  <h3 className="text-lg font-semibold">Azhar Rizqullah</h3>
+                  <p>azhar24@gmail.com</p>
+                </div>
+                <div className="flex w-full sm:w-96 space-x-2 mt-2 sm:mt-0">
+                  <button
+                    type="submit"
+                    className="w-1/2 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-800"
+                  >
+                    Tambah Foto
+                  </button>
+                  <button
+                    type="submit"
+                    className="w-1/2 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-800"
+                  >
+                    Hapus Foto
+                  </button>
+                </div>
+              </div>
 
-      <div className="bg-green-500 p-6 rounded-lg shadow-md mb-8 space-y-4 text-white relative">
-        {/* Bagian Profil */}
-        <div className="flex items-center mb-8">
-          <img
-            src="https://via.placeholder.com/80" // Ganti dengan sumber gambar profil yang sesuai
-            alt="Profil"
-            className="w-20 h-20 rounded-full mr-6"
-          />
-          <div>
-            <h3 className="text-xl font-semibold">Azharrrrrrrrrr</h3>
-            <p className="text-lg">azhar24@gmail.com</p>
-          </div>
-          <button className="ml-auto text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-7 h-7"
+              {/* Form Fields */}
+              <form className="space-y-4 p-6 mb-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <label className="w-full sm:w-1/3 font-medium">Nama Lengkap</label>
+                  <input
+                    type="text"
+                    defaultValue="Azhar"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800"
+                  />
+                </div>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <label className="w-full sm:w-1/3 font-medium">Email</label>
+                  <input
+                    type="email"
+                    defaultValue="azhar24@gmail.com"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800"
+                    readOnly
+                  />
+                </div>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <label className="w-full sm:w-1/3 font-medium">No. Telp</label>
+                  <input
+                    type="tel"
+                    defaultValue="085673826197"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800"
+                  />
+                </div>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <label className="w-full sm:w-1/3 font-medium">Jadwal zoom</label>
+                  <textarea
+                    defaultValue="https://us06web.zoom.us/j/84052976236?pwd=KkoXykJsDaazsme9TF6wb28Dv2MZKh.1"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800"
+                  />
+                </div>
+              </form>
+            </div>
+
+            {/* Simpan Button */}
+            <button
+              type="submit"
+              className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-800 rounded hover:bg-green-600"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15.232 4.232l4.536 4.536M14.14 4.933l4.536 4.536M4.636 14.14l9.06-9.06a1.5 1.5 0 112.122 2.122l-9.06 9.06a4.5 4.5 0 01-3.196 1.323H2.5v-.958a4.5 4.5 0 011.323-3.196z"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Formulir Edit */}
-        <div className="space-y-6">
-          <label className="block text-lg">
-            <span className="text-white">Nama Lengkap</span>
-            <input
-              type="text"
-              defaultValue="Azhar"
-              className="mt-2 block w-full bg-white border border-gray-300 rounded-md p-3 text-black text-lg"
-            />
-          </label>
-          <label className="block text-lg">
-            <span className="text-white">Email</span>
-            <input
-              type="email"
-              defaultValue="Harrrrr@gmail.com"
-              className="mt-2 block w-full bg-white border border-gray-300 rounded-md p-3 text-black text-lg"
-            />
-          </label>
-          <label className="block text-lg">
-            <span className="text-white">No. Telp</span>
-            <input
-              type="text"
-              defaultValue="08981335730"
-              className="mt-2 block w-full bg-white border border-gray-300 rounded-md p-3 text-black text-lg"
-            />
-          </label>
-          <label className="block text-lg">
-            <span className="text-white">Jadwal Coaching</span>
-            <textarea
-              className="mt-2 block w-full bg-white border border-gray-300 rounded-md p-3 text-black text-lg"
-              rows="4"
-              defaultValue="https://zoom.com\nSenin, 4 November 2024\nMateri Kacang Tanah"
-            />
-          </label>
-        </div>
+              Simpan
+            </button>
+          </div>
       </div>
-
-      {/* Tombol Simpan */}
-      <button className="mt-8 w-1/3 bg-green-600 text-white font-bold py-3 text-lg rounded-lg hover:bg-green-700">
-        Simpan
-      </button>
-    </div>
   );
 }
 
