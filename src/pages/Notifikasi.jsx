@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AlertKirim } from '../components/Alert';
 
 function NotificationCard({ title, color, fields }) {
+  const [formData, setFormData] = useState(
+    fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {})
+  );
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
+
+    // Clear form data
+    setFormData(fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {}));
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg w-full">
       <div className={`bg-${color}-500 text-white text-center py-4 rounded-t-lg`}>
         <h1 className="text-2xl font-bold">{title}</h1>
       </div>
       <div className="p-6">
-        <form className="space-y-4">
-          {fields.map((field, index) => (
-            <div key={index}>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {fields.map((field) => (
+            <div key={field.id}>
               <label className="block text-sm font-semibold text-gray-700" htmlFor={field.id}>
                 {field.label}
               </label>
@@ -17,13 +38,17 @@ function NotificationCard({ title, color, fields }) {
                 <textarea
                   id={field.id}
                   placeholder="Ketik disini"
-                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400 h-24`}
+                  value={formData[field.id]}
+                  onChange={handleChange}
+                  className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400 h-24 resize-none`}
                 />
               ) : (
                 <input
                   type="text"
                   id={field.id}
                   placeholder="Ketik disini"
+                  value={formData[field.id]}
+                  onChange={handleChange}
                   className={`w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-${color}-400`}
                 />
               )}

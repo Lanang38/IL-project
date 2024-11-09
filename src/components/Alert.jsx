@@ -86,3 +86,21 @@ export function AlertEdit(callback) {
         }
     });
 }
+
+export function AlertKirim(callback) {
+    Swal.fire({
+        title: "Apakah Anda Akan Mengirim Pemberitahuan?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Kirim",
+        denyButtonText: "Jangan Kirim"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire("Dikirim!", "", "success").then(() => {
+                if (callback) callback(); // Execute callback after confirmation if provided
+            });
+        } else if (result.isDenied) {
+            Swal.fire("Pemberitahuan Tidak Dikirim", "", "info");
+        }
+    });
+}
