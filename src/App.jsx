@@ -6,8 +6,6 @@ import AlertOut from "./components/Alert";
 import {
   Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid
 } from "lucide-react";
-
-// Import halaman-halaman
 import Dashboard from "./pages/Dashboard";
 import Pengguna from "./pages/Pengguna";
 import Materi from "./pages/Materi";
@@ -25,6 +23,7 @@ import EditMateri from "./components/EditMateri";
 function App() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -57,10 +56,9 @@ function App() {
           </Routes>
         </div>
       ) : (
-        <div className="flex w-full ">
-          {/* Sidebar Kiri yang tetap berada di kiri, tidak bisa di-scroll */}
+        <div className="flex w-full">
           <div className="fixed top-0 left-0 h-full bg-white shadow-lg z-10">
-            <Sidebar>
+            <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded}>
               <div className="my-8" />
               <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
               <hr className="my-6" />
@@ -75,8 +73,13 @@ function App() {
             </Sidebar>
           </div>
 
-          {/* Konten utama dengan padding untuk sidebar kiri */}
-          <div className="flex-grow ml-64 mr-64 p-6 bg-gray-100 scroll-hidden" style={{ height: "100vh" }}>
+          {/* Adjust main content margin based on sidebar width */}
+          <div
+  className={`flex-grow transition-all duration-300 ease-in-out ${
+    sidebarExpanded ? "ml-64" : "ml-16"
+  } mr-64 p-6 bg-gray-100`}
+  style={{ height: "100vh" }}
+>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pengguna" element={<Pengguna />} />
@@ -93,7 +96,6 @@ function App() {
             </Routes>
           </div>
 
-          {/* Sidebar Kanan yang tetap berada di kanan */}
           <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-10">
             <RightSidebar />
           </div>
@@ -104,4 +106,3 @@ function App() {
 }
 
 export default App;
-
