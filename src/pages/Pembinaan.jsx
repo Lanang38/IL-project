@@ -181,7 +181,7 @@ export default function Pembinaan() {
                 className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
                 onClick={handleSaveAlert}
               >
-                Tambah Materi
+                Tambah Pembina
               </button>
             </div>
           </div>

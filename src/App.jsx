@@ -48,7 +48,7 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <div className="min-h-screen flex bg-gray-200">
+    <div className="min-h-screen flex bg-gray-200 font-sans">
       {!isAuthenticated ? (
         <div className="flex items-center justify-center min-h-screen w-full bg-gray-200">
           <Routes>
