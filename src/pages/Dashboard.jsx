@@ -8,6 +8,8 @@ import 'react-calendar/dist/Calendar.css';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Dashboard() {
+
+  
   const userData = {
     labels: ["Aktif", "Tidak Aktif"],
     datasets: [
