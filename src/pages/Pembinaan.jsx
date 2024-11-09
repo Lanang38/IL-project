@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CoachCard from "../components/CoachCard";
 import Pagination from "../components/Pagination";
+import { AlertSimpan } from "../components/Alert";
 
 export default function Pembinaan() {
   const [photo, setPhoto] = useState(null); // State untuk foto yang diunggah
@@ -84,6 +85,10 @@ export default function Pembinaan() {
     if (file) {
       setPhoto(URL.createObjectURL(file));
     }
+  };
+
+  const handleSaveAlert = () => {
+    AlertSimpan(); // Display the save alert
   };
 
   return (
@@ -173,8 +178,8 @@ export default function Pembinaan() {
             </div>
             <div className="col-span-2 flex justify-end">
               <button
-                className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-                onClick={() => navigate("/materi/tambahmateri")}
+                className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
+                onClick={handleSaveAlert}
               >
                 Tambah Materi
               </button>

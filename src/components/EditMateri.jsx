@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { FilePlus, Plus } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AlertEdit } from './Alert';
 
 const EditMateri = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const [fileImage, setFileImage] = useState(null);
   const [filePdf, setFilePdf] = useState(null);
   const [fileVideo, setFileVideo] = useState(null);
   const [title, setTitle] = useState('');
-  const [text, setText] = useState(''); // Separate state for "Tambahkan Teks"
+  const [text, setText] = useState('');
 
   const handleFileImageChange = (e) => {
     setFileImage(e.target.files[0]);
@@ -28,38 +29,18 @@ const EditMateri = () => {
   };
 
   const handleTextChange = (e) => {
-    setText(e.target.value); // Handle text change for "Tambahkan Teks"
+    setText(e.target.value);
   };
 
   const handleCancel = () => {
-    navigate(-1); // Go back to the previous page
+    navigate(-1);
   };
 
-  const handleSubmit = async () => {
-    if (!fileImage || !filePdf || !fileVideo || !title || !text) {
-      alert('Please fill in all fields before submitting');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('fileImage', fileImage);
-    formData.append('filePdf', filePdf);
-    formData.append('fileVideo', fileVideo);
-    formData.append('title', title);
-    formData.append('text', text);
-
-    try {
-      const response = await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('Files uploaded successfully');
-      console.log(response.data);
-    } catch (error) {
-      alert('Failed to upload files');
-      console.error(error);
-    }
+  const handleSubmit = () => {
+    AlertEdit(() => {
+      // Callback function to handle navigation or other actions after saving is confirmed
+      navigate(-1); // Navigate back to the previous page
+    });
   };
 
   return (
@@ -99,8 +80,8 @@ const EditMateri = () => {
         <p className="text-lg font-medium mt-8">Menambah Teks</p>
         <input
           type="text"
-          value={text} // Use the 'text' state for this input
-          onChange={handleTextChange} // Handle text change
+          value={text}
+          onChange={handleTextChange}
           placeholder="Tambahkan Teks"
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />

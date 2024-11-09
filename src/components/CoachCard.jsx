@@ -1,30 +1,39 @@
 // CoachCard.js
 import React from "react";
-import { Trash2, } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AlertDelete } from "./Alert"; // Import the delete alert
 
 function CoachCard({ name, email, phone, schedule, imgUrl }) {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate("/pembinaan/edit"); // Navigasi ke halaman edit
+    navigate("/pembinaan/edit"); // Navigate to edit page
+  };
+
+  const handleDeleteClick = () => {
+    AlertDelete().then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with delete action, e.g., call an API or update state
+        console.log("Item deleted");
+      }
+    });
   };
 
   return (
     <div className="relative bg-white rounded-xl shadow-lg p-4 flex flex-col items-center space-y-4">
-      <button className="absolute top-2 right-2 text-red-500 text-lg">
-      <Trash2 />
+      <button
+        className="absolute top-2 right-2 text-red-500 text-lg"
+        onClick={handleDeleteClick} // Trigger delete alert on click
+      >
+        <Trash2 />
       </button>
 
       <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gray-200 mb-4 mt-4">
-        <img
-          src={imgUrl}
-          alt="Profile"
-          className="w-full h-full object-cover"
-        />
+        <img src={imgUrl} alt="Profile" className="w-full h-full object-cover" />
       </div>
 
-      {/* Informasi Profil */}
+      {/* Profile Information */}
       <div className="text-center space-y-4">
         <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700">
           {name}
@@ -40,12 +49,11 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
         </div>
 
         <button
-        onClick={handleEditClick} // Panggil fungsi untuk navigasi ke halaman edit
-        className="w-full mt-8 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg text-sm"
-      >
-        Edit
-      </button>
-
+          onClick={handleEditClick} // Call function to navigate to edit page
+          className="w-full mt-8 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg text-sm"
+        >
+          Edit
+        </button>
       </div>
     </div>
   );
