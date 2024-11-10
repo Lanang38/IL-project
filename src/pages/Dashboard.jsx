@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { CircleUser } from "lucide-react";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
-import { MdPadding } from "react-icons/md";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Dashboard() {
+  const [isMobile, setIsMobile] = useState(false);
 
-  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // Event listener untuk perubahan ukuran layar
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const userData = {
     labels: ["Aktif", "Tidak Aktif"],
     datasets: [
@@ -48,30 +67,33 @@ export default function Dashboard() {
       <h1 style={styles.headerText}>Dashboard Anda hari ini</h1>
 
       <div style={styles.gridContainer}>
-        <div style={styles.userActivityContainer}>
-          <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
-          <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
-          <div style={styles.userActivityContent}>
-            <div style={styles.userStats}>
-              <div style={styles.userStat}>
-                <CircleUser size={60} color="#46bd84" />
-                <span style={{ ...styles.statText, color: "#46bd84" }}>75% Daftar Pengguna Aktif</span>
+        {/* Hanya tampilkan userActivityContainer dan chartContainer jika bukan mobile */}
+        {!isMobile && (
+          <div style={styles.userActivityContainer}>
+            <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
+            <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
+            <div style={styles.userActivityContent}>
+              <div style={styles.userStats}>
+                <div style={styles.userStat}>
+                  <CircleUser size={60} color="#46bd84" />
+                  <span style={{ ...styles.statText, color: "#46bd84" }}>75% Daftar Pengguna Aktif</span>
+                </div>
+                <div style={styles.userStat}>
+                  <CircleUser size={60} color="#dd3838" />
+                  <span style={{ ...styles.statText, color: "#dd3838" }}>25% Daftar Pengguna Kurang Aktif</span>
+                </div>
               </div>
-              <div style={styles.userStat}>
-                <CircleUser size={60} color="#dd3838" />
-                <span style={{ ...styles.statText, color: "#dd3838" }}>25% Daftar Pengguna Kurang Aktif</span>
-              </div>
-            </div>
-            <div style={styles.chartContainer}>
-              <Doughnut data={userData} options={options} />
+              <div style={styles.chartContainer}>
+                <Doughnut data={userData} options={options} />
                 <div style={styles.chartCenterText}>
                   <span style={styles.percentageText}>75%</span>
                   <br />
                   <span style={styles.labelText}>Keaktifan</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div style={styles.todaySpeakers}>
           <h2 style={styles.sectionHeader}>Pemateri Hari ini</h2>
@@ -89,10 +111,13 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div style={styles.calendarContainer}>
-          <Calendar onChange={setDate} value={date} />
-          <p style={styles.dateText}>Hari ini: {date.toLocaleDateString()}</p>
-        </div>
+        {/* Hanya tampilkan kalender jika bukan perangkat mobile */}
+        {!isMobile && (
+          <div style={styles.calendarContainer}>
+            <Calendar onChange={setDate} value={date} />
+            <p style={styles.dateText}>Hari ini: {date.toLocaleDateString()}</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -115,7 +140,7 @@ const styles = {
   },
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "2fr 1fr",
+    gridTemplateColumns: "3fr 1fr", // Lebih lebar untuk bagian kiri pada desktop
     gap: "20px",
   },
   userActivityContainer: {
@@ -166,12 +191,12 @@ const styles = {
     textAlign: "center",
   },
   percentageText: {
-    fontSize: "36px", // Untuk angka 75%
+    fontSize: "36px",
     fontWeight: "bold",
     color: "#46bd84",
   },
   labelText: {
-    fontSize: "14px", // Untuk label "Keaktifan"
+    fontSize: "14px",
     color: "#888",
   },
   todaySpeakers: {
@@ -179,7 +204,11 @@ const styles = {
     padding: "20px",
     borderRadius: "8px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+    width: "100%", // Memperlebar ke kanan
+    height: "auto",
   },
   speakerItem: {
     display: "flex",
@@ -188,6 +217,7 @@ const styles = {
     padding: "10px",
     borderRadius: "8px",
     marginTop: "10px",
+    width: "100%",
   },
   speakerInfo: {
     marginLeft: "10px",
@@ -202,35 +232,41 @@ const styles = {
     borderRadius: "8px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
     position: "relative",
-
-},
+  },
   dateText: {
     marginTop: "30px",
     alignSelf: "center",
     textAlign: "center",
   },
-  infoBox: {
-    backgroundColor: "#ffffff",
-    padding: "15px",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    marginTop: "15px",
-    textAlign: "center",
-  },
-  "@media (max-width: 768px)": {
-    gridContainer: {
-      gridTemplateColumns: "1fr",
-    },
-    userActivityContent: {
-      flexDirection: "column",
-    },
-    chartContainer: {
-      width: "100%",
-      height: "200px",
-      position: "relative",
-      padding: "20px"
-    },
-  },
 
+  // Responsif untuk layar kecil (Mobile)
+  '@media (max-width: 768px)': {
+    gridContainer: {
+      gridTemplateColumns: "1fr", // Grid jadi satu kolom
+      gap: "10px",
+    },
+    todaySpeakers: {
+      padding: "10px",
+      gap: "10px",
+    },
+    speakerItem: {
+      padding: "8px",
+    },
+    calendarContainer: {
+      display: "none", // Menyembunyikan kalender saat responsif
+    },
+    userActivityContainer: {
+      display: "none", // Menyembunyikan user activity container saat responsif
+    },
+  },
   
+  // Responsif untuk ukuran lebih kecil dari mobile
+  '@media (max-width: 480px)': {
+    dashboard: {
+      padding: "10px",
+    },
+    todaySpeakers: {
+      padding: "8px",
+    },
+  },
 };
