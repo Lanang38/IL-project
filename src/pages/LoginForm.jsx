@@ -66,7 +66,7 @@ function Login({ onLogin }) {
         {/* Right Side */}
         <div className="relative hidden md:block">
           <img
-            src="/path/to/your/image.jpg" // Replace with the actual path to your image
+            src="src/assets/login1.jpg" // Replace with the actual path to your image
             alt="Background"
             className="w-[400px] h-full rounded-r-2xl object-cover"
           />

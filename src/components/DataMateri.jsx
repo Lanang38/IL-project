@@ -25,14 +25,14 @@ export default function DataMateri() {
 
   return (
     <div className="max-w-screen-lg w-full mx-auto p-8 rounded-lg">
-      <h1 className="text-3xl font-semibold mb-6 text-center">Daftar Materi</h1>
+      <h1 className="text-3xl font-semibold mb-6">Daftar Materi</h1>
 
       {/* Main Content Container */}
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto overflow-hidden break-words">
   {/* Header Gambar dan Deskripsi */}
   <div className="flex flex-col items-center lg:flex-row lg:items-start justify-center lg:space-x-12 mb-4">
     <img
-      src="/path-to-your-image.jpg"
+      src="src/assets/Datamateri.jpg"
       alt="Kacang Tanah"
       className="w-32 h-32 rounded-lg object-cover mb-4 lg:mb-0"
     />

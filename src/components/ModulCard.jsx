@@ -12,16 +12,16 @@ import { AlertDelete } from "./Alert"; // Import the AlertDelete function
 function ModulCard() {
   const navigate = useNavigate();
   const modules = [
-    { title: "Kacang Tanah", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Hijau", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Almond", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Merah", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Polong", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Kedelai", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Mete", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Kenari", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Pistachio", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
-    { title: "Kacang Macadamia", moduleCount: 6, imgUrl: "https://via.placeholder.com/150" },
+    { title: "Kacang Tanah", moduleCount: 6, imgUrl: "src/assets/kacang tanah.jpg" },
+    { title: "Kacang Hijau", moduleCount: 6, imgUrl: "src/assets/kacang hijau.jpg" },
+    { title: "Kacang Almond", moduleCount: 6, imgUrl: "src/assets/kacang almond.jpg" },
+    { title: "Kacang Merah", moduleCount: 6, imgUrl: "src/assets/kacang merah.jpg" },
+    { title: "Kacang Polong", moduleCount: 6, imgUrl: "src/assets/kacang polong.jpg" },
+    { title: "Kacang Kedelai", moduleCount: 6, imgUrl: "src/assets/Kacang kedelai.jpg" },
+    { title: "Kacang Mete", moduleCount: 6, imgUrl: "src/assets/kacang mete.jpg" },
+    { title: "Kacang Kenari", moduleCount: 6, imgUrl: "src/assets/kacang kenari.jpg" },
+    { title: "Kacang Pistachio", moduleCount: 6, imgUrl: "src/assets/kacang pistachio.jpg" },
+    { title: "Kacang Macadamia", moduleCount: 6, imgUrl: "src/assets/kacang macadamia.jpg" },
   ];
 
   // Function to handle module deletion
