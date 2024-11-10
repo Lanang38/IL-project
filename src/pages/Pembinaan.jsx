@@ -9,7 +9,7 @@ export default function Pembinaan() {
   const coaches = [
     { name: "azharrrr", email: "azhar24@gmail.com", phone: "085673826197", schedule: "4 November 2024", imgUrl: "https://via.placeholder.com/80" },
     { name: "KING SIGMA", email: "rama@example.com", phone: "089812128731", schedule: "8 November 2024", imgUrl: "https://via.placeholder.com/80" },
-    { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
+    { name: "Balqis", email: "balqisnk.p@gmail.com", phone: "089646673211", schedule: "9 Desember 2924", imgUrl: "https://via.placeholder.com/80" },
     { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
     { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
     { name: "Nama Pengguna", email: "email@example.com", phone: "No.Telephone", schedule: "Jadwal Coaching", imgUrl: "https://via.placeholder.com/80" },
@@ -76,7 +76,7 @@ export default function Pembinaan() {
               />
             </div>
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-xs font-medium text-gray-600">Jadwal Coaching</label>
+              <label className="block text-xs font-medium text-gray-600">Jadwal Pelatihan</label>
               <input
                 type="text"
                 placeholder="Link Zoom"
@@ -107,14 +107,14 @@ export default function Pembinaan() {
               <label className="block text-xs font-medium text-gray-600">ID Pembina</label>
               <input
                 type="text"
-                placeholder="Masukkan User ID"
+                placeholder="Masukkan ID Pembina"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm"
               />
             </div>
           </div>
         </div>
-        <button className="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded-lg mt-4">
-          Daftarkan
+        <button className="w-full px-4 py-2 bg-customGreen text-white font-semibold rounded-lg mt-4">
+        Daftarkan
         </button>
       </div>
 

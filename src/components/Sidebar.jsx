@@ -44,7 +44,7 @@ export function SidebarItem({ icon, text, to, alert, onClick }) {
       className={`relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-all group
-        ${isActive ? "bg-green-500 text-white" : "text-black-600 hover:bg-indigo-50 text-gray-600"}
+        ${isActive ? "bg-customGreen text-white" : "text-black-600 hover:bg-indigo-50 text-gray-600"}
       `}
     >
       <Link to={to} className="flex items-center">

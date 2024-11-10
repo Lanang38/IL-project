@@ -89,7 +89,7 @@ export default function AnalisisLaporan() {
   
   return (
     <div className="p-5">
-      <h1 className="text-3xl font-semibold mb-4">Laporan dan Analisis</h1>
+      <h1 className="text-3xl font-semibold mb-4">Analisis dan Laporan</h1>
 
       {/* Statistik Jumlah Mentor dan User */}
       <div className="flex flex-wrap justify-between gap-5 mb-8">

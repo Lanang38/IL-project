@@ -62,7 +62,7 @@ function App() {
           <div className="fixed top-0 left-0 h-full bg-white shadow-lg z-10">
             <Sidebar>
               <div className="my-8" />
-              <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
+              <SidebarItem icon={<LayoutGrid size={20} />} text="Dasbor" to="/dashboard" />
               <hr className="my-6" />
               <SidebarItem icon={<Users size={20} />} text="Pengguna" to="/pengguna" />
               <SidebarItem icon={<BookOpen size={20} />} text="Materi" to="/materi" />

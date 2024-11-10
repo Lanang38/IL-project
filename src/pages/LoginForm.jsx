@@ -10,9 +10,9 @@ function Login({ onLogin }) {
       <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 max-w-screen-md">
         {/* Left Side */}
         <div className="flex flex-col justify-center p-8 md:p-14">
-          <span className="mb-3 text-4xl font-bold">Welcome back</span>
+          <span className="mb-3 text-4xl font-bold">Selamat Datang</span>
           <span className="font-light text-gray-400 mb-8">
-            Welcome back! Please enter your details
+            Masuk untuk mengakses akun admin
           </span>
 
           <div className="py-4">
@@ -22,20 +22,20 @@ function Login({ onLogin }) {
               className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
               name="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Masukkan email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="py-4">
-            <label className="mb-2 text-md" htmlFor="pass">Password</label>
+            <label className="mb-2 text-md" htmlFor="pass">Kata Sandi</label>
             <input
               type="password"
               name="pass"
               id="pass"
               className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-              placeholder="Enter your password"
+              placeholder="Masukkan kata sandi"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -51,7 +51,7 @@ function Login({ onLogin }) {
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
               />
-              Remember for 30 days
+              Ingat saya dalam 30 hari
             </label>
           </div>
 
@@ -59,7 +59,7 @@ function Login({ onLogin }) {
             onClick={onLogin}
             className="w-full bg-green-500 text-white p-2 rounded-lg mb-6 hover:bg-green-700 "
           >
-            Login
+            Masuk
           </button>
         </div>
 

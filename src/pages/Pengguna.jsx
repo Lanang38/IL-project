@@ -63,16 +63,16 @@ function Pengguna() {
       {/* Table */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Centang</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">ID Pengguna</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Nama Pengguna</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">E-mail</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Tgl Pendaftaran</th>
-              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">Riwayat Akun</th>
-            </tr>
-          </thead>
+  <thead>
+  <tr>
+    <th className="py-2 px-4 border-b font-semibold text-left bg-customGreen text-white">Centang</th>
+    <th className="py-2 px-4 border-b font-semibold text-left bg-customGreen text-white">ID Pengguna</th>
+    <th className="py-2 px-4 border-b font-semibold text-left bg-customGreen text-white">Nama Pengguna</th>
+    <th className="py-2 px-4 border-b font-semibold text-left bg-customGreen text-white">E-mail</th>
+    <th className="py-2 px-4 border-b font-semibold text-left bg-customGreen text-white">Tgl Pendaftaran</th>
+    <th className="py-2 px-4 border-b font-semibold text-left bg-customGreen text-white">Riwayat Akun</th>
+  </tr>
+</thead>
           <tbody>
             {currentData.map((user) => (
               <tr key={user.id}>

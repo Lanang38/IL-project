@@ -47,15 +47,15 @@ export default function NotificationPage() {
       title: 'Peringatan!!!',
       color: 'red',
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
-        { id: 'keterangan', label: 'Keterangan Notifikasi', type: 'textarea' },
+        { id: 'judul', label: 'Judul Pemberitahuan', type: 'text' },
+        { id: 'keterangan', label: 'Keterangan Pemberitahuan', type: 'textarea' },
       ],
     },
     {
       title: 'Pengingat Jadwal',
       color: 'yellow',
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
+        { id: 'judul', label: 'Judul Pemberitahuan', type: 'text' },
         { id: 'tanggal', label: 'Tanggal dan waktu', type: 'textarea' },
       ],
     },
@@ -63,15 +63,15 @@ export default function NotificationPage() {
       title: 'Umum',
       color: 'blue',
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
-        { id: 'keterangan', label: 'Keterangan Notifikasi', type: 'textarea' },
+        { id: 'judul', label: 'Judul Pemberitahuan', type: 'text' },
+        { id: 'keterangan', label: 'Keterangan Pemberitahuan', type: 'textarea' },
       ],
     },
     {
       title: 'Berhasil',
       color: 'green',
       fields: [
-        { id: 'judul', label: 'Judul Notifikasi', type: 'text' },
+        { id: 'judul', label: 'Judul Pemberitahauan', type: 'text' },
         { id: 'ucapan', label: 'Ucapan Selamat', type: 'textarea' },
       ],
     },

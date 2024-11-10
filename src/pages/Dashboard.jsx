@@ -7,7 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function Dashboard() {
+export default function Dasbor() {
   const userData = {
     labels: ["Aktif", "Tidak Aktif"],
     datasets: [
@@ -40,9 +40,9 @@ export default function Dashboard() {
   const [date, setDate] = React.useState(new Date());
 
   return (
-    <div style={styles.dashboard}>
+    <div style={styles.dasbor}>
       <h2 style={styles.welcomeText}>Halo Vodka, Selamat datang kembali 👋</h2>
-      <h1 style={styles.headerText}>Dashboard Anda hari ini</h1>
+      <h1 style={styles.headerText}>Dasbor Anda hari ini</h1>
 
       <div style={styles.gridContainer}>
         <div style={styles.userActivityContainer}>
@@ -101,7 +101,7 @@ export default function Dashboard() {
 }
 
 const styles = {
-  dashboard: {
+  dasbor: {
     padding: "20px",
     maxWidth: "1200px",
     margin: "0 auto",

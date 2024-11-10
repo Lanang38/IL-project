@@ -28,13 +28,13 @@ export default function Pengaturan() {
                                   type="submit"
                                   className="w-full px-4 py-2 mt-4 font-semibold text-white bg-green-800 rounded"
                               >
-                                  Tambah/Edit Foto
+                                  Tambah/Edit Photo
                               </button>
                               <button
                                   type="submit"
                                   className="w-full px-4 py-2 mt-4 font-semibold text-white bg-green-800 rounded"
                               >
-                                  Hapus Foto
+                                  Hapus Photo
                               </button>
                           </div>
 
@@ -58,7 +58,7 @@ export default function Pengaturan() {
                                   />
                               </div>
                               <div>
-                                  <label className="block font-medium">Tempat Tanggal Lahir</label>
+                                  <label className="block font-medium">Tempat, Tanggal Lahir</label>
                                   <input
                                       type="text"
                                       defaultValue="Jakarta, 24 Mei 1998"
