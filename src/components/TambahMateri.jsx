@@ -71,7 +71,7 @@ const TambahMateri = () => {
     <div className="max-w-43 w-full mx-auto p-5 rounded-lg">
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Tambah Materi</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
-        <p className="text-lg font-medium mb-5">Menambah Materi</p>
+        <p className="text-lg font-medium mb-5">Menambahkan Judul</p>
 
         <input
           type="text"
@@ -101,7 +101,7 @@ const TambahMateri = () => {
           </div>
         </label>
 
-        <p className="text-lg font-medium mt-8">Menambah Teks</p>
+        <p className="text-lg font-medium mt-8">Menambahkan Teks</p>
         <input
           type="text"
           value={text} // Use the 'text' state for this input
