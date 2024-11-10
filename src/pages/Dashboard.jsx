@@ -68,7 +68,7 @@ export default function Dashboard() {
 
       <div style={styles.gridContainer}>
         {/* Hanya tampilkan userActivityContainer dan chartContainer jika bukan mobile */}
-        {!isMobile && (
+
           <div style={styles.userActivityContainer}>
             <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
             <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
@@ -93,7 +93,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-        )}
+        
 
         <div style={styles.todaySpeakers}>
           <h2 style={styles.sectionHeader}>Pemateri Hari ini</h2>
@@ -140,8 +140,8 @@ const styles = {
   },
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "3fr 1fr", // Lebih lebar untuk bagian kiri pada desktop
     gap: "20px",
+    gridTemplateColumns: "1fr", // Default for small screens
   },
   userActivityContainer: {
     gridColumn: "1 / span 2",
@@ -228,7 +228,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#f9f9f9",
-    padding: "90px",
+    padding: "20px",
     borderRadius: "8px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
     position: "relative",
@@ -250,13 +250,13 @@ const styles = {
       gap: "10px",
     },
     speakerItem: {
-      padding: "8px",
+      padding: "10px",
     },
     calendarContainer: {
-      display: "none", // Menyembunyikan kalender saat responsif
+      padding: "10px", // Menyembunyikan kalender saat responsif
     },
     userActivityContainer: {
-      display: "none", // Menyembunyikan user activity container saat responsif
+      display: "", // Menyembunyikan user activity container saat responsif
     },
   },
   
@@ -265,8 +265,19 @@ const styles = {
     dashboard: {
       padding: "10px",
     },
+    gridContainer: {
+      gridTemplateColumns: "1fr", // Grid jadi satu kolom
+      gap: "10px",
+    },
     todaySpeakers: {
-      padding: "8px",
+      padding: "10px",
+      gap: "10px",
+    },
+    speakerItem: {
+      padding: "10px",
+    },
+    calendarContainer: {
+      padding: "10px", // Menyembunyikan kalender saat responsif
     },
   },
 };
