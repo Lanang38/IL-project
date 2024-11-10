@@ -70,7 +70,7 @@ export default function Dashboard() {
 
   return (
     <div style={styles.dashboard}>
-      <h2 style={styles.welcomeText}>Halo Vodka, Selamat datang kembali 👋</h2>
+      <h2 style={styles.welcomeText}>Halo Azhar, Selamat datang kembali 👋</h2>
       <h1 style={styles.headerText}>Dashboard Anda hari ini</h1>
 
       <div style={styles.gridContainer}>

@@ -7,12 +7,12 @@ export default function RightSidebar({ right }) {
       {/* Profile Section */}
       <div className="flex items-center mb-8">
         <img
-          src="https://e7.pngegg.com/pngimages/980/304/png-clipart-computer-icons-user-profile-avatar-heroes-silhouette.png" // Ganti dengan sumber gambar sebenarnya
+          src="https://via.placeholder.com/80" // Ganti dengan sumber gambar sebenarnya
           alt="Profile"
           className="w-12 h-12 rounded-full mr-3"
         />
         <div>
-          <h3 className="text-sm font-medium">KING SIGMA RAMA</h3>
+          <h3 className="text-sm font-medium">Azhar</h3>
         </div>
         <ul className="flex-1 px-3">{right}</ul>
       </div>
