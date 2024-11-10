@@ -9,6 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Dashboard() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,6 +17,12 @@ export default function Dashboard() {
         setIsMobile(true);
       } else {
         setIsMobile(false);
+      }
+
+      if (window.innerWidth <= 684) {
+        setIsSmallScreen(true);
+      } else {
+        setIsSmallScreen(false);
       }
     };
 
@@ -68,21 +75,22 @@ export default function Dashboard() {
 
       <div style={styles.gridContainer}>
         {/* Hanya tampilkan userActivityContainer dan chartContainer jika bukan mobile */}
-
-          <div style={styles.userActivityContainer}>
-            <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
-            <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
-            <div style={styles.userActivityContent}>
-              <div style={styles.userStats}>
-                <div style={styles.userStat}>
-                  <CircleUser size={60} color="#46bd84" />
-                  <span style={{ ...styles.statText, color: "#46bd84" }}>75% Daftar Pengguna Aktif</span>
-                </div>
-                <div style={styles.userStat}>
-                  <CircleUser size={60} color="#dd3838" />
-                  <span style={{ ...styles.statText, color: "#dd3838" }}>25% Daftar Pengguna Kurang Aktif</span>
-                </div>
+        <div style={styles.userActivityContainer}>
+          <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
+          <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
+          <div style={styles.userActivityContent}>
+            <div style={styles.userStats}>
+              <div style={styles.userStat}>
+                <CircleUser size={60} color="#46bd84" />
+                <span style={{ ...styles.statText, color: "#46bd84" }}>75% Daftar Pengguna Aktif</span>
               </div>
+              <div style={styles.userStat}>
+                <CircleUser size={60} color="#dd3838" />
+                <span style={{ ...styles.statText, color: "#dd3838" }}>25% Daftar Pengguna Kurang Aktif</span>
+              </div>
+            </div>
+            {/* Tampilkan chart hanya jika layar lebih besar dari 684px */}
+            {!isSmallScreen && (
               <div style={styles.chartContainer}>
                 <Doughnut data={userData} options={options} />
                 <div style={styles.chartCenterText}>
@@ -91,9 +99,9 @@ export default function Dashboard() {
                   <span style={styles.labelText}>Keaktifan</span>
                 </div>
               </div>
-            </div>
+            )}
           </div>
-        
+        </div>
 
         <div style={styles.todaySpeakers}>
           <h2 style={styles.sectionHeader}>Pemateri Hari ini</h2>
@@ -237,47 +245,5 @@ const styles = {
     marginTop: "30px",
     alignSelf: "center",
     textAlign: "center",
-  },
-
-  // Responsif untuk layar kecil (Mobile)
-  '@media (max-width: 768px)': {
-    gridContainer: {
-      gridTemplateColumns: "1fr", // Grid jadi satu kolom
-      gap: "10px",
-    },
-    todaySpeakers: {
-      padding: "10px",
-      gap: "10px",
-    },
-    speakerItem: {
-      padding: "10px",
-    },
-    calendarContainer: {
-      padding: "10px", // Menyembunyikan kalender saat responsif
-    },
-    userActivityContainer: {
-      display: "", // Menyembunyikan user activity container saat responsif
-    },
-  },
-  
-  // Responsif untuk ukuran lebih kecil dari mobile
-  '@media (max-width: 480px)': {
-    dashboard: {
-      padding: "10px",
-    },
-    gridContainer: {
-      gridTemplateColumns: "1fr", // Grid jadi satu kolom
-      gap: "10px",
-    },
-    todaySpeakers: {
-      padding: "10px",
-      gap: "10px",
-    },
-    speakerItem: {
-      padding: "10px",
-    },
-    calendarContainer: {
-      padding: "10px", // Menyembunyikan kalender saat responsif
-    },
   },
 };
