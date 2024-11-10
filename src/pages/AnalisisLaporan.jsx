@@ -10,9 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { CircleUser } from "lucide-react"; // Import icon from lucide-react
+import { CircleUser } from "lucide-react";
 
-// Register Chart.js modules
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
 export default function AnalisisLaporan() {
@@ -94,15 +93,15 @@ export default function AnalisisLaporan() {
       {/* Statistik Jumlah Mentor dan User */}
       <div className="flex flex-wrap justify-between gap-5 mb-8">
         {/* Mentor Doughnut Chart */}
-        <div className="flex-1 min-w-[430px] bg-white p-4 rounded-lg shadow-md">
-          <div className="mb-5 text-left text-lg font-semibold">
-            <h1 className="text-center">Daftar Pembina Aktif</h1>
-            <p className="text-base text-center">Oktober 2024</p>
+        <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
+          <div className="mb-5 text-center text-lg font-semibold">
+            <h1>Daftar Pembina Aktif</h1>
+            <p className="text-base">Oktober 2024</p>
           </div>
           <div className="w-full h-72">
             <Doughnut data={mentorData} options={{ responsive: true, maintainAspectRatio: false }} />
           </div>
-          <div className="mt-10 flex justify-center gap-20 mb-5">
+          <div className="mt-10 flex justify-center gap-10 mb-5 flex-wrap">
             <div className="flex items-center">
               <CircleUser size={50} color="green" className="mr-2" />
               <div>
@@ -121,15 +120,15 @@ export default function AnalisisLaporan() {
         </div>
 
         {/* User Doughnut Chart */}
-        <div className="flex-1 min-w-[430px] bg-white p-4 rounded-lg shadow-md">
-          <div className="mb-5 text-left text-lg font-semibold">
-            <h1 className="text-center">Daftar Pengguna Aktif</h1>
-            <p className="text-base text-center">Oktober 2024</p>
+        <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
+          <div className="mb-5 text-center text-lg font-semibold">
+            <h1>Daftar Pengguna Aktif</h1>
+            <p className="text-base">Oktober 2024</p>
           </div>
           <div className="w-full h-72">
             <Doughnut data={userData} options={{ responsive: true, maintainAspectRatio: false }} />
           </div>
-          <div className="mt-10 flex justify-center gap-20 mb-5">
+          <div className="mt-10 flex justify-center gap-10 mb-5 flex-wrap">
             <div className="flex items-center">
               <CircleUser size={50} color="green" className="mr-2" />
               <div>
