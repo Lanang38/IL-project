@@ -4,6 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { CircleUser } from "lucide-react";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
+import { MdPadding } from "react-icons/md";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -91,11 +92,6 @@ export default function Dashboard() {
         <div style={styles.calendarContainer}>
           <Calendar onChange={setDate} value={date} />
           <p style={styles.dateText}>Hari ini: {date.toLocaleDateString()}</p>
-          {/* Kotak putih tambahan di bawah kalender */}
-          <div style={styles.infoBox}>
-            <h4>Informasi Tambahan</h4>
-            <p>Detail terkait tanggal terpilih atau informasi lainnya dapat ditempatkan di sini.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -183,6 +179,7 @@ const styles = {
     padding: "20px",
     borderRadius: "8px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+
   },
   speakerItem: {
     display: "flex",
@@ -196,14 +193,20 @@ const styles = {
     marginLeft: "10px",
   },
   calendarContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#f9f9f9",
-    padding: "20px",
+    padding: "90px",
     borderRadius: "8px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
     position: "relative",
-  },
+
+},
   dateText: {
-    marginTop: "10px",
+    marginTop: "30px",
+    alignSelf: "center",
     textAlign: "center",
   },
   infoBox: {
@@ -225,6 +228,9 @@ const styles = {
       width: "100%",
       height: "200px",
       position: "relative",
+      padding: "20px"
     },
   },
+
+  
 };
