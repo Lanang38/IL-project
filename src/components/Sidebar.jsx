@@ -1,10 +1,26 @@
 import { Menu } from "lucide-react";
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const SidebarContext = createContext();
 
 export default function Sidebar({ children, expanded, setExpanded }) {
+  const [isMobile, setIsMobile] = useState(false); // State to track if the screen is small
+  
+  // Detect screen size changes
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024); // For example, use 1024px as the breakpoint for mobile
+    };
+    
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize); // Listen for window resize
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Cleanup
+    };
+  }, []);
+
   return (
     <aside
       className="h-screen transition-all duration-500 ease-in-out"
@@ -20,6 +36,7 @@ export default function Sidebar({ children, expanded, setExpanded }) {
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+            disabled={isMobile && !expanded} // Disable button when mobile and sidebar is collapsed
           >
             <Menu />
           </button>
@@ -44,8 +61,7 @@ export function SidebarItem({ icon, text, to, alert, onClick }) {
       className={`relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-all duration-100 ease-in-out group
-        ${isActive ? "bg-green-500 text-white" : "text-black-600 hover:bg-indigo-50 text-gray-600"}
-      `}
+        ${isActive ? "bg-green-500 text-white" : "text-black-600 hover:bg-indigo-50 text-gray-600"}`}
     >
       <Link to={to} className="flex items-center">
         {icon}
