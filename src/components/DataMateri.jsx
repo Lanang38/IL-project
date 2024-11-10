@@ -2,6 +2,9 @@ import React from "react";
 import { Trash2, Edit3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AlertDelete } from "./Alert";
+import DatamateriImage from "../assets/Datamateri.jpg";
+
+
 
 // Komponen DataMateri untuk menampilkan daftar materi
 export default function DataMateri() {
@@ -32,11 +35,11 @@ export default function DataMateri() {
   {/* Header Gambar dan Deskripsi */}
   <div className="flex flex-col items-center lg:flex-row lg:items-start justify-center lg:space-x-12 mb-4">
     <img
-      src="src/assets/Datamateri.jpg"
+      src={DatamateriImage}
       alt="Kacang Tanah"
-      className="w-32 h-32 rounded-lg object-cover mb-4 lg:mb-0"
+      className="w-62 h-40 rounded-lg pl-3 object-cover pt-3 mb-4 lg:mb-0"
     />
-    <div className="flex-1 text-center pt-6 lg:text-left lg:pl-24">
+    <div className="flex-1 text-center pt-3 lg:text-left lg:pl-2">
       <h2 className="text-2xl font-semibold mb-2">Kacang Tanah</h2>
       <div className="w-full p-4 border rounded-lg resize-none break-words whitespace-normal max-w-full mx-auto">
         Katergori Kacang Tanah adalah kategor yang berisi tentang materi penanaman kacang tanah dari proses paling awal 
