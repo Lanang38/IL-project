@@ -46,6 +46,21 @@ function App() {
     }
   }, [isAuthenticated]);
 
+  // Handle responsive sidebar
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setSidebarExpanded(false);
+      } else {
+        setSidebarExpanded(true);
+      }
+    };
+
+    handleResize(); // Check initial screen width
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="min-h-screen flex bg-gray-200 font-sans">
       {!isAuthenticated ? (
@@ -57,7 +72,7 @@ function App() {
         </div>
       ) : (
         <div className="flex w-full">
-          <div className="fixed top-0 left-0 h-full bg-white shadow-lg z-10">
+          <div className={`fixed top-0 left-0 h-full bg-white shadow-lg z-10 ${sidebarExpanded ? 'w-64' : 'w-16'} transition-width duration-300`}>
             <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded}>
               <div className="my-8" />
               <SidebarItem icon={<LayoutGrid size={20} />} text="Dashboard" to="/dashboard" />
@@ -75,7 +90,7 @@ function App() {
 
           {/* Main content area, adjust margin based on whether RightSidebar is visible */}
           <div
-            className={`flex-grow transition-all duration-100 ease-in-out ${
+            className={`flex-grow transition-all duration-300 ease-in-out ${
               sidebarExpanded ? "ml-64" : "ml-16"
             } mr-0 p-6 bg-gray-100 scroll-hidden lg:mr-64`} // Adjust margin-right for large screens
             style={{ height: "100vh" }}
