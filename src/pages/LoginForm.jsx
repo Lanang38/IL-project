@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function Login({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
   return (
@@ -16,7 +16,9 @@ function Login({ onLogin }) {
           </span>
 
           <div className="py-4">
-            <label className="mb-2 text-md" htmlFor="email">Email</label>
+            <label className="mb-2 text-md" htmlFor="email">
+              Email
+            </label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
@@ -29,7 +31,9 @@ function Login({ onLogin }) {
           </div>
 
           <div className="py-4">
-            <label className="mb-2 text-md" htmlFor="pass">Kata Sandi</label>
+            <label className="mb-2 text-md" htmlFor="pass">
+              Kata Sandi
+            </label>
             <input
               type="password"
               name="pass"
@@ -66,14 +70,17 @@ function Login({ onLogin }) {
         {/* Right Side */}
         <div className="relative hidden md:block">
           <img
-            src="src/assets/login1.jpg" // Replace with the actual path to your image
+            src="src/assets/login1.jpg"
             alt="Background"
             className="w-[400px] h-full rounded-r-2xl object-cover"
           />
           {/* Text on Image */}
-          <div className="absolute bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg">
+          <div className="absolute bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg font-semibold">
             <span className="text-white text-xl">
-              "We've been using Untitle to kickstart every new project and can't imagine working without it."
+              <span className="text-green-400">
+                Mari bersama belajar tentang pertanian berkelanjutan untuk
+              </span>{" "}
+              generasi mendatang bersama EduFarm
             </span>
           </div>
         </div>
