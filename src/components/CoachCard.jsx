@@ -2,19 +2,18 @@
 import React from "react";
 import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { AlertDelete } from "./Alert"; // Import the delete alert
+import { AlertDelete } from "./Alert";
 
 function CoachCard({ name, email, phone, schedule, imgUrl }) {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate("/pembinaan/edit"); // Navigate to edit page
+    navigate("/pembinaan/edit");
   };
 
   const handleDeleteClick = () => {
     AlertDelete().then((result) => {
       if (result.isConfirmed) {
-        // Proceed with delete action, e.g., call an API or update state
         console.log("Item deleted");
       }
     });
@@ -24,7 +23,7 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
     <div className="relative bg-white rounded-xl shadow-lg p-4 flex flex-col items-center space-y-4">
       <button
         className="absolute top-2 right-2 text-red-500 text-lg"
-        onClick={handleDeleteClick} // Trigger delete alert on click
+        onClick={handleDeleteClick}
       >
         <Trash2 />
       </button>
@@ -49,7 +48,7 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
         </div>
 
         <button
-          onClick={handleEditClick} // Call function to navigate to edit page
+          onClick={handleEditClick}
           className="w-full mt-8 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg text-sm"
         >
           Edit

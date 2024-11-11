@@ -16,7 +16,7 @@ export default function AlertOut(callback) {
                 text: "Anda telah keluar dari akun.",
                 icon: "success"
             }).then(() => {
-                if (callback) callback(); // Jika ada callback, panggil setelah konfirmasi
+                if (callback) callback();
             });
         }
     });
@@ -28,7 +28,7 @@ const swalWithBootstrapButtons = Swal.mixin({
         cancelButton: "btn btn-danger",
         
     },
-    buttonsStyling: true // Ensure button styling is enabled
+    buttonsStyling: true
 });
 
 export function AlertDelete(callback) {
@@ -39,7 +39,7 @@ export function AlertDelete(callback) {
         showCancelButton: true,
         confirmButtonText: "Ya, hapus!",
         cancelButtonText: "Tidak, batalkan!",
-        reverseButtons: true // Ensures the confirm button is on the left and cancel on the right
+        reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
             swalWithBootstrapButtons.fire({
@@ -47,7 +47,7 @@ export function AlertDelete(callback) {
                 text: "Data telah berhasil dihapus.",
                 icon: "success"
             }).then(() => {
-                if (callback) callback(); // If there is a callback, call it after confirmation
+                if (callback) callback();
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire({
@@ -61,11 +61,11 @@ export function AlertDelete(callback) {
 
 export function AlertSimpan() {
     Swal.fire({
-        position: "center",  // Centering the alert
+        position: "center",
         icon: "success",
         title: "Data berhasil disimpan",
         showConfirmButton: false,
-        timer: 1500  // The alert will close after 1.5 seconds
+        timer: 1500
     });
 }
 
@@ -79,7 +79,7 @@ export function AlertEdit(callback) {
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire("Disimpan!", "", "success").then(() => {
-                if (callback) callback(); // Execute callback after confirmation if provided
+                if (callback) callback();
             });
         } else if (result.isDenied) {
             Swal.fire("Perubahan Tidak Disimpan", "", "info");
@@ -97,7 +97,7 @@ export function AlertKirim(callback) {
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire("Dikirim!", "", "success").then(() => {
-                if (callback) callback(); // Execute callback after confirmation if provided
+                if (callback) callback();
             });
         } else if (result.isDenied) {
             Swal.fire("Pemberitahuan Tidak Dikirim", "", "info");

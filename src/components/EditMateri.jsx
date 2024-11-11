@@ -38,8 +38,7 @@ const EditMateri = () => {
 
   const handleSubmit = () => {
     AlertEdit(() => {
-      // Callback function to handle navigation or other actions after saving is confirmed
-      navigate(-1); // Navigate back to the previous page
+      navigate(-1);
     });
   };
 

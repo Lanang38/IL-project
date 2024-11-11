@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { AlertSimpan } from './Alert'; // Make sure to import the AlertSimpan function
+import { AlertSimpan } from './Alert';
 
 const TambahKategori = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState(''); // Added state for description
+  const [description, setDescription] = useState('');
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -18,19 +18,19 @@ const TambahKategori = () => {
   };
 
   const handleDescriptionChange = (e) => {
-    setDescription(e.target.value); // Update description state
+    setDescription(e.target.value);
   };
 
   const handleCancel = () => {
-    navigate(-1); // Go back to the previous page
+    navigate(-1);
   };
 
   const handleSubmit = async () => {
 
     AlertSimpan();
     setTimeout(() => {
-      navigate(-1); // Go back to the previous page after the alert
-    }, 1200);  // Call the AlertSimpan function here
+      navigate(-1);
+    }, 1200);
 
   };
 
@@ -65,7 +65,7 @@ const TambahKategori = () => {
         <input
           type="text"
           value={description}
-          onChange={handleDescriptionChange} // Handle description change
+          onChange={handleDescriptionChange}
           placeholder="Deskripsi Singkat"
           className="w-full mt-8 p-8 text-gray-700 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />

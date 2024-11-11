@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AlertDelete } from "./Alert";
 import DatamateriImage from "../assets/Datamateri.jpg";
 
-
-
-// Komponen DataMateri untuk menampilkan daftar materi
 export default function DataMateri() {
   const navigate = useNavigate();
   const data = [
@@ -23,31 +20,28 @@ export default function DataMateri() {
   ];
 
   const handleDelete = (modul) => {
-    AlertDelete(modul); // Call AlertDelete function when delete is clicked
+    AlertDelete(modul);
   };
 
   return (
     <div className="max-w-screen-lg w-full mx-auto p-8 rounded-lg">
       <h1 className="text-3xl font-semibold mb-6">Daftar Materi</h1>
-
-      {/* Main Content Container */}
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto overflow-hidden break-words">
-  {/* Header Gambar dan Deskripsi */}
-  <div className="flex flex-col items-center lg:flex-row lg:items-start justify-center lg:space-x-12 mb-4">
-    <img
-      src={DatamateriImage}
-      alt="Kacang Tanah"
-      className="w-62 h-40 rounded-lg pl-3 object-cover pt-3 mb-4 lg:mb-0"
-    />
-    <div className="flex-1 text-center pt-3 lg:text-left lg:pl-2">
-      <h2 className="text-2xl font-semibold mb-2">Kacang Tanah</h2>
-      <div className="w-full p-4 border rounded-lg resize-none break-words whitespace-normal max-w-full mx-auto">
-        Katergori Kacang Tanah adalah kategor yang berisi tentang materi penanaman kacang tanah dari proses paling awal 
-      </div>
-    </div>
-  </div>
+        <div className="flex flex-col items-center lg:flex-row lg:items-start justify-center lg:space-x-12 mb-4">
+          <img
+            src={DatamateriImage}
+            alt="Kacang Tanah"
+            className="w-62 h-40 rounded-lg pl-3 object-cover pt-3 mb-4 lg:mb-0"
+          />
+          <div className="flex-1 text-center pt-3 lg:text-left lg:pl-2">
+            <h2 className="text-2xl font-semibold mb-2">Kacang Tanah</h2>
+            <div className="w-full p-4 border rounded-lg resize-none break-words whitespace-normal max-w-full mx-auto">
+              Katergori Kacang Tanah adalah kategor yang berisi tentang materi
+              penanaman kacang tanah dari proses paling awal
+            </div>
+          </div>
+        </div>
 
-        {/* Tombol Kembali dan Tambah Materi */}
         <div className="mt-3 mb-1">
           <div className="flex gap-2 flex-col lg:flex-row justify-center lg:justify-end">
             <button
@@ -65,7 +59,6 @@ export default function DataMateri() {
           </div>
         </div>
 
-        {/* Tabel Data Materi */}
         <div className="bg-white rounded-lg shadow overflow-hidden overflow-x-auto mt-6">
           <table className="min-w-full bg-white">
             <thead>
