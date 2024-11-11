@@ -24,12 +24,10 @@ function ModulCard() {
     { title: "Kacang Macadamia", moduleCount: 6, imgUrl: "src/assets/kacang macadamia.jpg" },
   ];
 
-  // Function to handle module deletion
   const handleDelete = (moduleTitle) => {
     AlertDelete(() => {
       // Callback after confirming deletion
       console.log(`${moduleTitle} has been deleted.`);
-      // You can remove the module from the state here or perform any other logic
     });
   };
 
@@ -73,7 +71,7 @@ function ModulCard() {
             </div>
           </div>
         ))}
-        {/* Tombol tambah kategori */}
+        
         <div className="bg-green-100 rounded-lg flex items-center justify-center text-4xl text-green-500">
           <button onClick={() => navigate("/materi/tambah")}>
             <Plus size={36} />

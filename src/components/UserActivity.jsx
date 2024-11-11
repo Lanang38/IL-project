@@ -2,7 +2,7 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { CircleUser } from "lucide-react";
-// Mengaktifkan elemen dan plugin untuk ChartJS
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function UserActivity() {
@@ -13,11 +13,10 @@ export default function UserActivity() {
         data: [75, 25],
         backgroundColor: ["#46bd84", "#dd3838"],
         hoverBackgroundColor: ["#46bd84", "#dd3838"],
-        cutout: "80%",// Rasio tengah kosong pada chart
+        cutout: "80%",
       },
     ],
   };
-  // Opsi konfigurasi untuk chart agar responsif dan tanpa tooltip
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -45,7 +44,6 @@ export default function UserActivity() {
       <p style={{ color: "#888", fontSize: "16px", marginBottom: "20px" }}>Juli - Desember 2024</p>
 
       <div style={{ display: "flex", alignItems: "center" }}>
-      {/* Statistik pengguna aktif dan tidak aktif dengan ikon */}
         <div style={{ flex: 1, paddingRight: "200px" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: "15px" }}>
             <CircleUser size={50} color="#46bd84" />
@@ -58,7 +56,6 @@ export default function UserActivity() {
           </div>
         </div>
 
-        {/* Grafik Donut menunjukkan persentase pengguna aktif */}
         <div style={{ width: "300px", height: "230px", position: "relative" }}> 
           <Doughnut data={userData} options={options} />
           <div

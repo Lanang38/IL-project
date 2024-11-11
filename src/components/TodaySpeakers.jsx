@@ -1,10 +1,7 @@
 import React from "react";
 import { CircleUser } from "lucide-react";
 
-
-// Komponen TodaySpeakers untuk nampilin daftar pemateri hari ini
 const TodaySpeakers = () => {
- // Data pemateri dengan nama dan topik materi
   const speakers = [
     { name: "KING SIGMA RAMA", topic: "MEMBUAT PULAU" },
     { name: "AZHAR", topic: "MEMBANGUNGKAN KING" },
@@ -21,11 +18,9 @@ const TodaySpeakers = () => {
         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
-      {/* Judul untuk komponen ini */}
       <h2 style={{ fontWeight: "bold", marginBottom: "5px", fontSize: "28px" }}>Pemateri Hari ini</h2>
       
       <div>
-        {/* Mapping data speakers untuk membuat setiap item pemateri */}
         {speakers.map((speaker, index) => (
           <div
             key={index}
@@ -38,7 +33,6 @@ const TodaySpeakers = () => {
               marginTop: index === 0 ? "0" : "10px",
             }}
           >
-            {/* Menampilkan ikon CircleUser di sebelah nama pemateri */}
             <CircleUser size={30} />
             <div style={{ marginLeft: "10px" }}>
               <h4>{speaker.name}</h4>

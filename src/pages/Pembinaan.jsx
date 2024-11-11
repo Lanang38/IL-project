@@ -4,7 +4,7 @@ import Pagination from "../components/Pagination";
 import { AlertSimpan } from "../components/Alert";
 
 export default function Pembinaan() {
-  const [photo, setPhoto] = useState(null); // State untuk foto yang diunggah
+  const [photo, setPhoto] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const coaches = [

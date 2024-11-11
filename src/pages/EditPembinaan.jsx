@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AlertEdit } from "../components/Alert"; // Make sure AlertEdit is imported
+import { AlertEdit } from "../components/Alert";
 
 function EditPage() {
   const [selectedFile, setSelectedFile] = useState(null);
