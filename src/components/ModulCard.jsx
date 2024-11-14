@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Trash,
   ArrowRight,
   Plus,
   Trash2,
