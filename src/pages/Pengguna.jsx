@@ -74,10 +74,10 @@ function Pengguna() {
               <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
                 ID Pengguna
               </th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">
                 Nama Pengguna
               </th>
-              <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
+              <th className="py-2 px-4 border-b font-semibold text-left bg-green-500 text-white">
                 E-mail
               </th>
               <th className="py-2 px-4 border-b font-semibold text-center bg-green-500 text-white">
