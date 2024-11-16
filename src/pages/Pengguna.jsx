@@ -27,7 +27,7 @@ function Pengguna() {
   };
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+    <div className="p-5 bg-gray-100 min-h-screen">
       {/* Page Title */}
       <h1 className="text-3xl font-semibold mb-4">Pengguna</h1>
 
@@ -44,7 +44,7 @@ function Pengguna() {
           <div className="flex-1 mb-4 sm:mb-0">
             <input
               type="text"
-              placeholder="Masukkan ID Pengguna"
+              placeholder="Masukkan Email Pengguna"
               className="p-2 border border-gray-300 rounded-lg w-full focus:outline-none"
             />
           </div>

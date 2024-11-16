@@ -53,7 +53,7 @@ function ModulCard() {
             <div className="mb-4 pl-2">
               <h3 className="text-lg font-semibold text-left">{module.title}</h3>
               <p className="text-sm text-gray-500 text-left">
-                {module.moduleCount} Materi
+                {module.moduleCount} Pengguna
               </p>
             </div>
             {/* Tombol Aksi */}
