@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Sidebar, { SidebarItem } from "./components/Sidebar";
-import RightSidebar from "./components/RightSidebar";
+import RightSidebar from "./components/Rightsidebar";
 import AlertOut from "./components/Alert";
 import {
   Users, BookOpen, User, ClipboardList, Bell, Settings, LogOut, LayoutGrid
@@ -92,7 +92,7 @@ function App() {
           <div
             className={`flex-grow transition-all duration-300 ease-in-out ${
               sidebarExpanded ? "ml-64" : "ml-16"
-            } mr-0 p-6 bg-gray-100 scroll-hidden lg:mr-64`} // Adjust margin-right for large screens
+            } mr-0 p-6 bg-gray-100 scroll-hidden lg:mr-64`}
             style={{ height: "100vh" }}
           >
             <Routes>

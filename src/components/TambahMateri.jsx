@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FilePlus, Plus } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { AlertSimpan } from './Alert'; // Import useNavigate
+import { AlertSimpan } from './Alert';
 
 const TambahMateri = () => {
   const [fileImage, setFileImage] = useState(null);
@@ -10,7 +10,7 @@ const TambahMateri = () => {
   const [fileVideo, setFileVideo] = useState(null);
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const navigate = useNavigate(); // Inisialisasi navigate
+  const navigate = useNavigate();
 
   const handleFileImageChange = (e) => {
     setFileImage(e.target.files[0]);
@@ -38,13 +38,13 @@ const TambahMateri = () => {
     setFileVideo(null);
     setTitle('');
     setText('');
-    navigate(-1); // Kembali ke halaman sebelumnya
+    navigate(-1);
   };
 
   const handleSubmit = async () => {
     AlertSimpan();
     setTimeout(() => {
-      navigate(-1); // Go back to the previous page after the alert
+      navigate(-1);
     }, 1200);
   };
 
@@ -85,8 +85,8 @@ const TambahMateri = () => {
         <p className="text-lg font-medium mt-8">Menambah Teks</p>
         <input
           type="text"
-          value={text} // Use the 'text' state for this input
-          onChange={handleTextChange} // Handle text change
+          value={text}
+          onChange={handleTextChange}
           placeholder="Tambahkan Teks"
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />

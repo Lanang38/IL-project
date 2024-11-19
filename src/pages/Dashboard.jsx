@@ -26,10 +26,8 @@ export default function Dashboard() {
       }
     };
 
-    // Initial check
     handleResize();
 
-    // Event listener untuk perubahan ukuran layar
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -74,7 +72,6 @@ export default function Dashboard() {
       <h1 style={styles.headerText}>Dashboard Anda hari ini</h1>
 
       <div style={styles.gridContainer}>
-        {/* Hanya tampilkan userActivityContainer dan chartContainer jika bukan mobile */}
         <div style={styles.userActivityContainer}>
           <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
           <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
@@ -149,7 +146,7 @@ const styles = {
   gridContainer: {
     display: "grid",
     gap: "20px",
-    gridTemplateColumns: "1fr", // Default for small screens
+    gridTemplateColumns: "1fr",
   },
   userActivityContainer: {
     gridColumn: "1 / span 2",
@@ -215,7 +212,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-    width: "100%", // Memperlebar ke kanan
+    width: "100%",
     height: "auto",
   },
   speakerItem: {

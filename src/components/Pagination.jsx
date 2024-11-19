@@ -9,7 +9,6 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
     if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
-  // Menentukan halaman-halaman yang ditampilkan di sekitar halaman aktif
   const getPageNumbers = () => {
     if (totalPages <= 3) {
       return Array.from({ length: totalPages }, (_, index) => index + 1);
@@ -26,7 +25,6 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
 
   return (
     <div className="flex justify-center items-center space-x-2 mt-4">
-      {/* Tombol Sebelumnya */}
       <button
         onClick={handlePrev}
         disabled={currentPage === 1}
@@ -37,7 +35,6 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         &lt;
       </button>
 
-      {/* Nomor Halaman */}
       {pageNumbers.map((page) => (
         <button
           key={page}
@@ -52,7 +49,6 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         </button>
       ))}
 
-      {/* Tombol Selanjutnya */}
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}

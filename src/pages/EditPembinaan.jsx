@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { AlertEdit } from "../components/Alert"; // Make sure AlertEdit is imported
+import { useNavigate } from "react-router-dom";
+import { AlertEdit } from "../components/Alert";
 
 function EditPage() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleAddPhoto = (event) => {
     const file = event.target.files[0];
@@ -77,29 +79,84 @@ function EditPage() {
               />
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <label className="w-full sm:w-1/3 font-medium">No. Telp</label>
+              <label className="w-full sm:w-1/3 font-medium">Nomor Telepon</label>
               <input
                 type="tel"
                 defaultValue="085673826197"
                 className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
+
+            {/* Kategori Dropdown */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <label className="w-full sm:w-1/3 font-medium">Jadwal zoom</label>
+              <label className="w-full sm:w-1/3 font-medium">Kategori</label>
+              <select
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+              >
+                <option value="" disabled selected hidden>
+                  Kategori 1
+                </option>
+                <option value="kategori1">Kategori 1</option>
+                <option value="kategori2">Kategori 2</option>
+                <option value="kategori3">Kategori 3</option>
+              </select>
+            </div>
+
+            {/* Tanggal */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <label className="w-full sm:w-1/3 font-medium">Tanggal</label>
+              <input
+                type="date"
+                defaultValue="2024-11-15"
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+              />
+            </div>
+
+            {/* Jam Mulai and Jam Selesai */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <label className="w-full sm:w-1/3 font-medium">Jam</label>
+              <div className="w-full sm:w-2/3 flex space-x-2">
+                <input
+                  type="time"
+                  defaultValue="15:00"
+                  className="w-1/2 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                />
+                <input
+                  type="time"
+                  defaultValue="17:00"
+                  className="w-1/2 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                />
+              </div>
+            </div>
+
+            {/* Jadwal Zoom */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <label className="w-full sm:w-1/3 font-medium">Jadwal Zoom</label>
               <textarea
                 defaultValue="https://us06web.zoom.us/j/84052976236?pwd=KkoXykJsDaazsme9TF6wb28Dv2MZKh.1"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300 resize-none"
+                rows="3"
               />
             </div>
           </form>
         </div>
 
-        {/* Simpan Button */}
-        <div className="w-full flex justify-center sm:justify-start">
+        {/* Button Section */}
+        <div className="w-full flex justify-center sm:justify-start space-x-4 mt-7">
+          {/* Button Kembali */}
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-full sm:w-36 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
+          >
+            Kembali
+          </button>
+
+          {/* Button Simpan */}
           <button
             type="button"
             onClick={handleSave}
-            className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+            className="w-full sm:w-36 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
           >
             Simpan
           </button>

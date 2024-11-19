@@ -3,7 +3,7 @@ import SettingCard from '../components/SettingCard';
 import Pagination from '../components/Pagination';
 
 export default function MembershipCard() {
-  const [photo, setPhoto] = useState(null); // State untuk foto yang diunggah
+  const [photo, setPhoto] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const coaches = [
@@ -22,7 +22,6 @@ export default function MembershipCard() {
   const itemsPerPage = 8;
   const totalPages = Math.ceil(coaches.length / itemsPerPage);
 
-  // Calculate the current items to display based on pagination
   const currentItems = coaches.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -32,7 +31,6 @@ export default function MembershipCard() {
     setCurrentPage(page);
   };
 
-  // Fungsi untuk menangani unggahan gambar
   const handlePhotoUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -56,7 +54,6 @@ export default function MembershipCard() {
         ))}
       </div>
 
-      {/* Pagination Component */}
       <div className="mt-8" >
       <Pagination
         currentPage={currentPage}

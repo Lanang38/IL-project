@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-transparent">
@@ -21,7 +21,7 @@ function Login({ onLogin }) {
             </label>
             <input
               type="text"
-              className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+              className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-transparent"
               name="email"
               id="email"
               placeholder="Masukkan email"
@@ -35,10 +35,10 @@ function Login({ onLogin }) {
               Kata Sandi
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="pass"
               id="pass"
-              className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+              className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-transparent"
               placeholder="Masukkan kata sandi"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -49,19 +49,19 @@ function Login({ onLogin }) {
             <label className="flex items-center text-md">
               <input
                 type="checkbox"
-                name="remember"
-                id="remember"
+                name="showPassword"
+                id="showPassword"
                 className="mr-2"
-                checked={remember}
-                onChange={(e) => setRemember(e.target.checked)}
+                checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)}
               />
-              Ingat saya dalam 30 hari
+              Tampilkan Password
             </label>
           </div>
 
           <button
             onClick={onLogin}
-            className="w-full bg-green-500 text-white p-2 rounded-lg mb-6 hover:bg-green-700 "
+            className="w-full bg-green-500 text-white p-2 rounded-lg mb-6 hover:bg-green-700"
           >
             Masuk
           </button>
@@ -70,7 +70,7 @@ function Login({ onLogin }) {
         {/* Right Side */}
         <div className="relative hidden md:block">
           <img
-            src="src/assets/login1.jpg" // Replace with the actual path to your image
+            src="src/assets/login1.jpg"
             alt="Background"
             className="w-[400px] h-full rounded-r-2xl object-cover"
           />

@@ -7,7 +7,7 @@ function SettingCard({ name, email, phone, imgUrl }) {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate(""); // Navigasi ke halaman edit 
+    navigate("");
   };
 
   return (
