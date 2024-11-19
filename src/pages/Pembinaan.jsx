@@ -155,16 +155,6 @@ export default function Pembinaan() {
               />
             </div>
 
-            <div className="col-span-2 md:col-span-1">
-              <label className="block text-xs font-medium text-gray-600">
-                Tanggal
-              </label>
-              <input
-                type="date"
-                placeholder="DD/MM/YYYY"
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500 placeholder-gray-500"
-              />
-            </div>
 
             <div className="col-span-2 md:col-span-1">
               <label className="block text-xs font-medium text-gray-600">
