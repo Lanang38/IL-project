@@ -4,7 +4,7 @@ import Membership from "../components/MembershipCard";
 import { AlertEdit } from "../components/Alert";
 
 export default function Pengaturan() {
-  const [activePage, setActivePage] = useState('Profile');
+  const [activePage, setActivePage] = useState("Profile");
 
   const handleAddPhoto = (event) => {
     const file = event.target.files[0];
@@ -23,7 +23,7 @@ export default function Pengaturan() {
       <h2 className="text-3xl font-semibold mb-6">Pengaturan</h2>
       <Navbar activePage={activePage} setActivePage={setActivePage} />
       <div className="flex justify-center p-4 sm:p-2">
-        {activePage === 'Profile' ? (
+        {activePage === "Profile" ? (
           <div className="w-full max-w-4xl px-0 ">
             {/* Profile Section */}
             <div className="p-6 bg-white rounded-lg mt-4 shadow-lg text-black">
@@ -38,42 +38,61 @@ export default function Pengaturan() {
                   <p>azhar24@gmail.com</p>
                 </div>
                 <div className="flex w-full sm:w-96 space-x-2 mt-2 sm:mt-0">
-              <label className="w-1/2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAddPhoto}
-                  className="hidden"
-                />
-                <button
-                  type="button"
-                  className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
-                  onClick={() => document.querySelector('input[type="file"]').click()}
-                >
-                  Tambah Foto
-                </button>
-              </label>
-              <button
-                type="button"
-                className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
-              >
-                Hapus Foto
-              </button>
-            </div>
+                  <label className="w-1/2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAddPhoto}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+                      onClick={() =>
+                        document.querySelector('input[type="file"]').click()
+                      }
+                    >
+                      Tambah Foto
+                    </button>
+                  </label>
+                  <button
+                    type="button"
+                    className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
+                  >
+                    Hapus Foto
+                  </button>
+                </div>
               </div>
 
               {/* Form Fields */}
               <form className="space-y-4 p-6 mb-4">
+                {/* Nama Lengkap */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <label className="w-full sm:w-1/3 font-medium text-black">Nama Lengkap</label>
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    Nama Lengkap
+                  </label>
                   <input
                     type="text"
                     defaultValue="Azhar"
                     className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
+                {/* Nama Panggilan */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <label className="w-full sm:w-1/3 font-medium text-black">Email</label>
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    Nama Panggilan
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue="Az"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                  />
+                </div>
+                {/* Email */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    Email
+                  </label>
                   <input
                     type="email"
                     defaultValue="azhar24@gmail.com"
@@ -81,27 +100,47 @@ export default function Pengaturan() {
                     readOnly
                   />
                 </div>
+                {/* Tempat Lahir */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <label className="w-full sm:w-1/3 font-medium text-black">Tempat Tanggal Lahir</label>
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    Tempat Lahir
+                  </label>
                   <input
                     type="text"
-                    defaultValue="Jakarta, 24 Mei 1998"
+                    defaultValue="Jakarta"
                     className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
+                {/* Tanggal Lahir */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <label className="w-full sm:w-1/3 font-medium text-black">No. Telp</label>
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    Tanggal Lahir
+                  </label>
+                  <input
+                    type="date"
+                    defaultValue="1998-05-24"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                  />
+                </div>
+                {/* No. Telp */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    No. Telp
+                  </label>
                   <input
                     type="tel"
                     defaultValue="085673826197"
                     className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
+                {/* Alamat */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <label className="w-full sm:w-1/3 font-medium text-black">Alamat</label>
+                  <label className="w-full sm:w-1/3 font-medium text-black">
+                    Alamat
+                  </label>
                   <textarea
                     defaultValue="Jl. Bougenville Blok C No.5, Java Residence, Kebayoran, Jakarta"
-                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                    className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300 resize-none h-24"
                   />
                 </div>
               </form>
@@ -109,12 +148,12 @@ export default function Pengaturan() {
 
             {/* Simpan Button */}
             <button
-          type="button"
-          onClick={handleSave}
-          className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
-        >
-          Simpan
-        </button>
+              type="button"
+              onClick={handleSave}
+              className="w-full sm:w-72 mt-7 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+            >
+              Simpan
+            </button>
           </div>
         ) : (
           <Membership />
