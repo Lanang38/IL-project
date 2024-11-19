@@ -155,7 +155,6 @@ export default function Pembinaan() {
               />
             </div>
 
-
             <div className="col-span-2 md:col-span-1">
               <label className="block text-xs font-medium text-gray-600">
                 Nomor Telepon
