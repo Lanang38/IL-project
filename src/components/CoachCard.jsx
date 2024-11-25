@@ -1,20 +1,25 @@
-// CoachCard.js
 import React from "react";
 import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AlertDelete } from "./Alert";
 
-function CoachCard({ name, email, phone, schedule, imgUrl }) {
+function CoachCard({ id, name, email, phone, schedule, imgUrl, onRefresh }) {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate("/pembinaan/edit");
+    navigate(`/pembinaan/edit/${id}`); // Navigasi ke halaman edit dengan ID
   };
 
   const handleDeleteClick = () => {
-    AlertDelete().then((result) => {
+    AlertDelete().then(async (result) => {
       if (result.isConfirmed) {
-        console.log("Item deleted");
+        try {
+          await apiClient.delete(`/coaches/${id}`);
+          console.log("Item deleted");
+          onRefresh(); // Refresh data setelah penghapusan
+        } catch (error) {
+          console.error("Error deleting coach:", error);
+        }
       }
     });
   };
