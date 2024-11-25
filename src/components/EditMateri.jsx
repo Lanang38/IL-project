@@ -1,45 +1,64 @@
-import React, { useState } from 'react';
-import { FilePlus, Plus } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { FilePlus, Plus } from 'lucide-react';
 import { AlertEdit } from './Alert';
 
 const EditMateri = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { modul } = location.state;  // Mengambil modul yang dikirim saat navigasi ke halaman edit
   const [fileImage, setFileImage] = useState(null);
   const [filePdf, setFilePdf] = useState(null);
   const [fileVideo, setFileVideo] = useState(null);
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [title, setTitle] = useState(modul?.nama_modul || '');
+  const [text, setText] = useState(modul?.text_module || '');
+  const [kategoriId, setKategoriId] = useState(modul?.kategori_id || ''); // Menyimpan kategori_id
+  const [loading, setLoading] = useState(false);
 
-  const handleFileImageChange = (e) => {
-    setFileImage(e.target.files[0]);
-  };
+  const handleFileImageChange = (e) => setFileImage(e.target.files[0]);
+  const handleFilePdfChange = (e) => setFilePdf(e.target.files[0]);
+  const handleFileVideoChange = (e) => setFileVideo(e.target.files[0]);
 
-  const handleFilePdfChange = (e) => {
-    setFilePdf(e.target.files[0]);
-  };
+  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleTextChange = (e) => setText(e.target.value);
 
-  const handleFileVideoChange = (e) => {
-    setFileVideo(e.target.files[0]);
-  };
+  const handleKategoriChange = (e) => setKategoriId(e.target.value); // Menangani perubahan kategori
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  const handleCancel = () => navigate(-1);
 
-  const handleTextChange = (e) => {
-    setText(e.target.value);
-  };
+  const handleSubmit = async () => {
+    if (!title || !text || !kategoriId) {
+      alert("Judul, teks, dan kategori harus diisi!");
+      return;
+    }
 
-  const handleCancel = () => {
-    navigate(-1);
-  };
+    const formData = new FormData();
+    formData.append("nama_modul", title);
+    formData.append("text_module", text);
+    formData.append("kategori_id", kategoriId);  // Pastikan kategori_id diisi
+    if (fileImage) formData.append("gambar", fileImage);
+    if (filePdf) formData.append("file", filePdf);
+    if (fileVideo) formData.append("video", fileVideo);
 
-  const handleSubmit = () => {
-    AlertEdit(() => {
-      navigate(-1);
-    });
+    try {
+      setLoading(true);
+      const response = await axios.put(
+        `http://localhost:3000/api/v1/modul/${modul.modul_id}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      if (response.data.success) {
+        AlertEdit(() => navigate(-1));
+      } else {
+        console.error("Error:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error saat mengedit modul:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,7 +82,6 @@ const EditMateri = () => {
           <div className="absolute top-2 left-2 text-yellow-500">
             <Plus className="w-6 h-6" />
           </div>
-
           <div className="flex flex-col items-center justify-center text-center">
             {fileImage ? (
               <p className="text-gray-700">{fileImage.name}</p>
@@ -77,13 +95,25 @@ const EditMateri = () => {
         </label>
 
         <p className="text-lg font-medium mt-8">Menambah Teks</p>
-        <input
-          type="text"
+        <textarea
           value={text}
           onChange={handleTextChange}
           placeholder="Tambahkan Teks"
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
+        
+        <p className="text-lg font-medium mt-8">Pilih Kategori</p>
+        <select 
+          value={kategoriId} 
+          onChange={handleKategoriChange} 
+          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+        >
+          <option value="">Pilih Kategori</option>
+          <option value="1">Kategori 1</option>
+          <option value="2">Kategori 2</option>
+          <option value="3">Kategori 3</option>
+          {/* Tambahkan kategori lainnya sesuai kebutuhan */}
+        </select>
 
         <p className="text-lg font-medium mt-8">Unggah File Pdf</p>
         <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
@@ -114,7 +144,7 @@ const EditMateri = () => {
             )}
           </div>
         </label>
-    
+
         <div className="flex gap-3 mt-8 mb-3">
           <button
             className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-2xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
