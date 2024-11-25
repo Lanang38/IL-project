@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { AlertSimpan } from './Alert';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AlertSimpan } from "./Alert";
 
 const TambahKategori = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -26,12 +26,43 @@ const TambahKategori = () => {
   };
 
   const handleSubmit = async () => {
+    // Validasi input
+    if (!file || !title || !description) {
+      alert("Semua data wajib diisi!");
+      return;
+    }
 
-    AlertSimpan();
-    setTimeout(() => {
-      navigate(-1);
-    }, 1200);
+    // Buat FormData
+    const formData = new FormData();
+    formData.append("gambar", file); // file input
+    formData.append("nama_kategori", title); // title input
+    formData.append("penjelasan", description); // description input
 
+    try {
+      // Panggil API POST dengan Axios
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/kategori",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Periksa respons API
+      if (response.data.success) {
+        AlertSimpan(); // Tampilkan alert sukses
+        setTimeout(() => {
+          navigate(-1); // Kembali ke halaman sebelumnya
+        }, 1200);
+      } else {
+        alert("Gagal menyimpan data: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("Error saat menyimpan kategori:", error);
+      alert("Terjadi kesalahan saat menyimpan kategori.");
+    }
   };
 
   return (
