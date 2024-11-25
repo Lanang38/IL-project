@@ -23,13 +23,12 @@ const EditMateri = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleTextChange = (e) => setText(e.target.value);
 
-  const handleKategoriChange = (e) => setKategoriId(e.target.value); // Menangani perubahan kategori
 
   const handleCancel = () => navigate(-1);
 
   const handleSubmit = async () => {
-    if (!title || !text || !kategoriId) {
-      alert("Judul, teks, dan kategori harus diisi!");
+    if (!title || !kategoriId) {
+      alert("Judul harus diisi!");
       return;
     }
 
@@ -102,18 +101,6 @@ const EditMateri = () => {
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
         
-        <p className="text-lg font-medium mt-8">Pilih Kategori</p>
-        <select 
-          value={kategoriId} 
-          onChange={handleKategoriChange} 
-          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
-        >
-          <option value="">Pilih Kategori</option>
-          <option value="1">Kategori 1</option>
-          <option value="2">Kategori 2</option>
-          <option value="3">Kategori 3</option>
-          {/* Tambahkan kategori lainnya sesuai kebutuhan */}
-        </select>
 
         <p className="text-lg font-medium mt-8">Unggah File Pdf</p>
         <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
