@@ -15,6 +15,12 @@ function CoachCard({ name, email, phone, schedule, imgUrl }) {
     AlertDelete().then((result) => {
       if (result.isConfirmed) {
         console.log("Item deleted");
+
+
+
+
+
+
       }
     });
   };

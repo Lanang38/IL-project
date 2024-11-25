@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import CoachCard from "../components/CoachCard";
 import Pagination from "../components/Pagination";
 import { AlertSimpan } from "../components/Alert";
@@ -6,65 +7,7 @@ import { AlertSimpan } from "../components/Alert";
 export default function Pembinaan() {
   const [photo, setPhoto] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const coaches = [
-    {
-      name: "azharrrr",
-      email: "azhar24@gmail.com",
-      phone: "085673826197",
-      schedule: "4 November 2024",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "KING SIGMA",
-      email: "rama@example.com",
-      phone: "089812128731",
-      schedule: "8 November 2024",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "Nama Pengguna",
-      email: "email@example.com",
-      phone: "No.Telephone",
-      schedule: "Jadwal Coaching",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "Nama Pengguna",
-      email: "email@example.com",
-      phone: "No.Telephone",
-      schedule: "Jadwal Coaching",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "Nama Pengguna",
-      email: "email@example.com",
-      phone: "No.Telephone",
-      schedule: "Jadwal Coaching",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "Nama Pengguna",
-      email: "email@example.com",
-      phone: "No.Telephone",
-      schedule: "Jadwal Coaching",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "Nama Pengguna",
-      email: "email@example.com",
-      phone: "No.Telephone",
-      schedule: "Jadwal Coaching",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-    {
-      name: "Nama Pengguna",
-      email: "email@example.com",
-      phone: "No.Telephone",
-      schedule: "Jadwal Coaching",
-      imgUrl: "https://via.placeholder.com/80",
-    },
-  ];
+  const [coaches, setCoaches] = useState([]);  // State to store fetched mentors
 
   const itemsPerPage = 4;
   const totalPages = Math.ceil(coaches.length / itemsPerPage);
@@ -73,6 +16,20 @@ export default function Pembinaan() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  useEffect(() => {
+    // Fetch mentor data from the backend
+    const fetchMentors = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/mentor");
+        setCoaches(response.data.data);  // Assuming 'data' contains the mentor data
+      } catch (error) {
+        console.error("Error fetching mentors:", error);
+      }
+    };
+
+    fetchMentors();
+  }, []);  // Empty dependency array ensures it runs only once when the component mounts
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -217,11 +174,11 @@ export default function Pembinaan() {
         {currentItems.map((coach, index) => (
           <CoachCard
             key={index}
-            name={coach.name}
-            email={coach.email}
-            phone={coach.phone}
-            schedule={coach.schedule}
-            imgUrl={coach.imgUrl}
+            name={coach.nama_mentor}  // Updated to match the backend property
+            email={coach.email_mentor}  // Updated to match the backend property
+            phone={coach.telepon_mentor}  // Updated to match the backend property
+            schedule={coach.link_zoom}  // Provide a default value if no schedule is available
+            imgUrl={"https://via.placeholder.com/80"}  // Placeholder, you can update this if you have images for the mentors
           />
         ))}
       </div>
