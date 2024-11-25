@@ -40,10 +40,11 @@ function ModulCard() {
 
         if (response.data.success) {
           console.log(`Kategori dengan ID ${kategoriId} berhasil dihapus.`);
-          
-          // Hapus kategori yang dihapus dari state modules
-          setModules((prevModules) => prevModules.filter((module) => module.kategori_id !== kategoriId));
 
+          // Hapus kategori yang dihapus dari state modules
+          setModules((prevModules) =>
+            prevModules.filter((module) => module.kategori_id !== kategoriId)
+          );
         } else {
           console.error("Penghapusan kategori gagal:", response.data.message);
         }
@@ -77,7 +78,9 @@ function ModulCard() {
               </div>
               {/* Detail nama dan penjelasan */}
               <div className="mb-4 pl-2">
-                <h3 className="text-lg font-semibold text-left">{module.nama_kategori}</h3>
+                <h3 className="text-lg font-semibold text-left">
+                  {module.nama_kategori}
+                </h3>
                 <p className="text-sm text-gray-500 text-left">
                   {module.penjelasan.split(" ").slice(0, 6).join(" ")}
                   {module.penjelasan.split(" ").length > 6 && "..."}
@@ -96,7 +99,11 @@ function ModulCard() {
                   {/* Tombol menuju halaman materi */}
                   <button
                     className="text-green-500"
-                    onClick={() => navigate("/materi/data")}
+                    onClick={() =>
+                      navigate("/materi/data", {
+                        state: { selectedCategory: module },
+                      })
+                    }
                   >
                     <ArrowRight size={20} />
                   </button>
