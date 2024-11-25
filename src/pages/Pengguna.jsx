@@ -6,14 +6,15 @@ import dayjs from "dayjs";
 
 function Pengguna() {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [searchEmail, setSearchEmail] = useState("");
 
   const itemsPerPage = 8;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const currentData = data.slice(
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const currentData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -21,13 +22,9 @@ function Pengguna() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/pengguna", {
-        params: {
-          nama_user: searchName,
-          email_user: searchEmail,
-        },
-      });
+      const response = await axios.get("http://localhost:3000/api/v1/pengguna");
       setData(response.data.data);
+      setFilteredData(response.data.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -35,11 +32,25 @@ function Pengguna() {
     }
   };
 
+  const handleSearch = () => {
+    const lowerCaseName = searchName.toLowerCase();
+    const lowerCaseEmail = searchEmail.toLowerCase();
+    const filtered = data.filter(
+      (user) =>
+        (!searchName || user.nama_user.toLowerCase().includes(lowerCaseName)) &&
+        (!searchEmail || user.email_user.toLowerCase().includes(lowerCaseEmail))
+    );
+    setFilteredData(filtered);
+    setCurrentPage(1); // Reset ke halaman pertama
+  };
+
   const handleDelete = async (email_user) => {
     AlertDelete(async () => {
       try {
         await axios.delete(`http://localhost:3000/api/v1/pengguna/${email_user}`);
-        setData(data.filter((user) => user.email_user !== email_user));
+        const updatedData = data.filter((user) => user.email_user !== email_user);
+        setData(updatedData);
+        setFilteredData(updatedData);
       } catch (error) {
         console.error("Error deleting user:", error);
       }
@@ -71,7 +82,7 @@ function Pengguna() {
           />
           <button
             className="px-20 py-3 bg-blue-500 text-white rounded-lg mt-3"
-            onClick={fetchUsers}
+            onClick={handleSearch}
           >
             Cari
           </button>
@@ -81,7 +92,7 @@ function Pengguna() {
       <div className="bg-white rounded-lg shadow overflow-hidden">
         {loading ? (
           <p className="text-center py-4">Loading...</p>
-        ) : (
+        ) : currentData.length > 0 ? (
           <table className="min-w-full bg-white text-left">
             <thead>
               <tr>
@@ -113,6 +124,8 @@ function Pengguna() {
               ))}
             </tbody>
           </table>
+        ) : (
+          <p className="text-center py-4">Data tidak ditemukan.</p>
         )}
       </div>
       <Pagination

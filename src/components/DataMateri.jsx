@@ -36,8 +36,9 @@ export default function DataMateri() {
   };
 
   useEffect(() => {
+    // Menjalankan fetchModules setiap kali komponen ini di-render ulang
     fetchModules();
-  }, [selectedCategory]);
+  }, [location]);
 
   const handleDelete = async (modulId) => {
     AlertDelete(async () => {
@@ -58,6 +59,22 @@ export default function DataMateri() {
         console.error("Error saat menghapus modul:", error);
       }
     });
+  };
+
+  const handleAddMateri = () => {
+    navigate("/materi/tambahmateri", {
+      state: { kategoriId: selectedCategory?.kategori_id },
+    });
+  };
+
+  const handleEditMateri = (module) => {
+    navigate("/materi/editmateri", {
+      state: { modul: module }, // Kirim data modul ke halaman edit
+    });
+  };
+
+  const handleBack = () => {
+    navigate("/materi");
   };
 
   return (
@@ -84,17 +101,13 @@ export default function DataMateri() {
           <div className="flex gap-2 flex-col lg:flex-row justify-center lg:justify-end">
             <button
               className="py-2 px-4 bg-green-500 text-white text-sm font-medium rounded-2xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-              onClick={() =>
-                navigate("/materi/tambahmateri", {
-                  state: { kategoriId: selectedCategory?.kategori_id },
-                })
-              }
+              onClick={handleAddMateri}
             >
               Tambah Materi
             </button>
             <button
               className="py-2 px-4 bg-red-500 text-white text-sm font-medium rounded-2xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-              onClick={() => navigate("/materi")}
+              onClick={handleBack}
             >
               Kembali
             </button>
@@ -109,9 +122,7 @@ export default function DataMateri() {
               <thead>
                 <tr className="bg-green-600 text-white">
                   <th className="py-3 px-4 text-center font-semibold">Modul</th>
-                  <th className="py-3 px-4 text-center font-semibold">
-                    Tanggal
-                  </th>
+                  <th className="py-3 px-4 text-center font-semibold">Tanggal</th>
                   <th className="py-3 px-4 text-center font-semibold">Hapus</th>
                   <th className="py-3 px-4 text-center font-semibold">Edit</th>
                 </tr>
@@ -119,9 +130,7 @@ export default function DataMateri() {
               <tbody>
                 {modules.map((module) => (
                   <tr key={module.modul_id} className="border-t">
-                    <td className="py-3 px-4 text-center">
-                      {module.nama_modul}
-                    </td>
+                    <td className="py-3 px-4 text-center">{module.nama_modul}</td>
                     <td className="py-3 px-4 text-center">
                       {module.tanggal_modul
                         ? new Date(module.tanggal_modul).toLocaleDateString(
@@ -140,11 +149,7 @@ export default function DataMateri() {
                     <td className="py-3 px-4 text-center">
                       <button
                         className="text-blue-500"
-                        onClick={() =>
-                          navigate("/materi/editmateri", {
-                            state: { modul: module }, // Kirim data modul ke halaman edit
-                          })
-                        }
+                        onClick={() => handleEditMateri(module)}
                       >
                         <Edit3 size={18} />
                       </button>

@@ -7,34 +7,63 @@ import { AlertSimpan } from "../components/Alert";
 export default function Pembinaan() {
   const [photo, setPhoto] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coaches, setCoaches] = useState([]);  // State to store fetched mentors
+  const [coaches, setCoaches] = useState([]); // Mentor data
+  const [categories, setCategories] = useState([]); // Kategori data
+  const [selectedCategoryId, setSelectedCategoryId] = useState(""); // ID Kategori yang dipilih
+
+  const [form, setForm] = useState({
+    nama_mentor: "",
+    email_mentor: "",
+    telepon_mentor: "",
+    link_zoom: "",
+    waktu_mulai: "",
+    waktu_selesai: "",
+  });
 
   const itemsPerPage = 4;
   const totalPages = Math.ceil(coaches.length / itemsPerPage);
-
   const currentItems = coaches.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  // Fetch mentor data
   useEffect(() => {
-    // Fetch mentor data from the backend
     const fetchMentors = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/v1/mentor");
-        setCoaches(response.data.data);  // Assuming 'data' contains the mentor data
+        setCoaches(response.data.data); // Assuming 'data' contains the mentor data
       } catch (error) {
         console.error("Error fetching mentors:", error);
       }
     };
 
-    fetchMentors();
-  }, []);  // Empty dependency array ensures it runs only once when the component mounts
+    // Fetch kategori data
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/kategori");
+        setCategories(response.data.data); // Assuming 'data' contains the kategori data
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+    fetchMentors();
+    fetchCategories();
+  }, []);
+
+  // Handle form changes
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
   };
 
+  // Handle category selection
+  const handleCategoryChange = (event) => {
+    setSelectedCategoryId(event.target.value);
+  };
+
+  // Handle photo upload
   const handlePhotoUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -42,8 +71,36 @@ export default function Pembinaan() {
     }
   };
 
-  const handleSaveAlert = () => {
-    AlertSimpan();
+  // Handle form submission
+  const handleFormSubmit = async () => {
+    try {
+      const payload = {
+        ...form,
+        kategori_id: selectedCategoryId,
+      };
+      await axios.post("http://localhost:3000/api/v1/mentor", payload);
+      AlertSimpan();
+      setForm({
+        nama_mentor: "",
+        email_mentor: "",
+        telepon_mentor: "",
+        link_zoom: "",
+        waktu_mulai: "",
+        waktu_selesai: "",
+      });
+      setSelectedCategoryId("");
+      setPhoto(null);
+
+      // Refresh mentor list
+      const response = await axios.get("http://localhost:3000/api/v1/mentor");
+      setCoaches(response.data.data);
+    } catch (error) {
+      console.error("Error saving mentor:", error);
+    }
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -85,6 +142,9 @@ export default function Pembinaan() {
               </label>
               <input
                 type="text"
+                name="nama_mentor"
+                value={form.nama_mentor}
+                onChange={handleInputChange}
                 placeholder="Masukkan Nama"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
               />
@@ -96,6 +156,9 @@ export default function Pembinaan() {
               </label>
               <input
                 type="text"
+                name="link_zoom"
+                value={form.link_zoom}
+                onChange={handleInputChange}
                 placeholder="Masukan Link ZOOM"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
               />
@@ -107,6 +170,9 @@ export default function Pembinaan() {
               </label>
               <input
                 type="email"
+                name="email_mentor"
+                value={form.email_mentor}
+                onChange={handleInputChange}
                 placeholder="Masukkan E-mail"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
               />
@@ -118,6 +184,9 @@ export default function Pembinaan() {
               </label>
               <input
                 type="text"
+                name="telepon_mentor"
+                value={form.telepon_mentor}
+                onChange={handleInputChange}
                 placeholder="Masukan Nomor Telepon"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500"
               />
@@ -126,12 +195,16 @@ export default function Pembinaan() {
             <div className="col-span-2 md:col-span-1 grid grid-cols-2 gap-2">
               <input
                 type="time"
-                placeholder="Jam Mulai"
+                name="waktu_mulai"
+                value={form.waktu_mulai}
+                onChange={handleInputChange}
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500 placeholder-gray-500"
               />
               <input
                 type="time"
-                placeholder="Jam Berakhir"
+                name="waktu_selesai"
+                value={form.waktu_selesai}
+                onChange={handleInputChange}
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-500 placeholder-gray-500"
               />
             </div>
@@ -140,19 +213,19 @@ export default function Pembinaan() {
               <label className="block text-xs font-medium text-gray-600">
                 Kategori Materi
               </label>
-              <select className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm text-gray-500 focus:outline-none focus:border-gray-500">
-                <option value="" disabled selected hidden>
+              <select
+                value={selectedCategoryId}
+                onChange={handleCategoryChange}
+                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm text-gray-500 focus:outline-none focus:border-gray-500"
+              >
+                <option value="" disabled hidden>
                   Pilih Kategori
                 </option>
-                <option value="kategori1" className="text-black">
-                  Kategori 1
-                </option>
-                <option value="kategori2" className="text-black">
-                  Kategori 2
-                </option>
-                <option value="kategori3" className="text-black">
-                  Kategori 3
-                </option>
+                {categories.map((category) => (
+                  <option key={category.kategori_id} value={category.kategori_id}>
+                    {category.nama_kategori}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -160,7 +233,7 @@ export default function Pembinaan() {
             <div className="col-span-2 flex justify-center lg:justify-end">
               <button
                 className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
-                onClick={handleSaveAlert}
+                onClick={handleFormSubmit}
               >
                 Tambah Pembina
               </button>
@@ -174,11 +247,11 @@ export default function Pembinaan() {
         {currentItems.map((coach, index) => (
           <CoachCard
             key={index}
-            name={coach.nama_mentor}  // Updated to match the backend property
-            email={coach.email_mentor}  // Updated to match the backend property
-            phone={coach.telepon_mentor}  // Updated to match the backend property
-            schedule={coach.link_zoom}  // Provide a default value if no schedule is available
-            imgUrl={"https://via.placeholder.com/80"}  // Placeholder, you can update this if you have images for the mentors
+            name={coach.nama_mentor}
+            email={coach.email_mentor}
+            phone={coach.telepon_mentor}
+            schedule={coach.link_zoom}
+            imgUrl={"https://via.placeholder.com/80"}
           />
         ))}
       </div>
