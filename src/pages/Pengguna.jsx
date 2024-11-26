@@ -68,18 +68,12 @@ function Pengguna() {
         <div className="flex flex-col sm:flex-row items-center sm:space-x-4 mb-4">
           <input
             type="text"
-            placeholder="Masukkan Nama"
+            placeholder="Masukkan Nama Pengguna"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
             className="mt-3 p-3 border border-gray-300 rounded-lg w-full"
           />
-          <input
-            type="text"
-            placeholder="Masukkan Email"
-            value={searchEmail}
-            onChange={(e) => setSearchEmail(e.target.value)}
-            className="mt-3 p-3 border border-gray-300 rounded-lg w-full"
-          />
+
           <button
             className="px-20 py-3 bg-blue-500 text-white rounded-lg mt-3"
             onClick={handleSearch}
