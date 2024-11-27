@@ -1,10 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-    
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/admin/login", {
+        email_admin: email,
+        password: password,
+      });
+
+      // Jika login berhasil, token diterima
+      const { token } = response.data;
+      localStorage.setItem("adminToken", token); // Simpan token ke localStorage
+
+      onLogin(); // Panggil callback untuk navigasi atau refresh state
+    } catch (error) {
+      setErrorMessage(
+        error.response?.data?.msg || "Login gagal. Cek email dan password."
+      );
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-transparent">
       <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 max-w-screen-md">
@@ -45,6 +66,10 @@ function Login({ onLogin }) {
             />
           </div>
 
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
+
           <div className="flex justify-between w-full py-4">
             <label className="flex items-center text-md">
               <input
@@ -60,7 +85,7 @@ function Login({ onLogin }) {
           </div>
 
           <button
-            onClick={onLogin}
+            onClick={handleLogin}
             className="w-full bg-green-500 text-white p-2 rounded-lg mb-6 hover:bg-green-700"
           >
             Masuk
@@ -74,7 +99,6 @@ function Login({ onLogin }) {
             alt="Background"
             className="w-[400px] h-full rounded-r-2xl object-cover"
           />
-          {/* Text on Image */}
           <div className="absolute bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg font-semibold">
             <span className="text-white text-xl">
               <span className="text-green-400">
