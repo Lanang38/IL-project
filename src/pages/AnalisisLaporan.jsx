@@ -1,5 +1,5 @@
-import React from "react";
-import { Bar, Doughnut } from "react-chartjs-2";
+import React, { useState, useEffect } from "react";
+import { Bar, Doughnut, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,32 +10,38 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { CircleUser } from "lucide-react";
-import { BsBorderWidth } from "react-icons/bs";
+import axios from "axios";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
 export default function AnalisisLaporan() {
-  const barData = {
-    labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni"],
-    datasets: [
-      {
-        label: "Mentor",
-        data: [45, 60, 30, 80, 50, 75],
-        backgroundColor: "rgba(19, 163, 96, 1)",
-        barThickness: 15,
-        borderRadius: 5,
-      },
-      {
-        label: "Pengguna",
-        data: [70, 55, 85, 60, 90, 65],
-        backgroundColor: "rgba(197, 253, 206, 1)",
-        barThickness: 15,
-        borderRadius: 5,
-      },
-    ],
-  };
+  // State for User Data (Total Users and Mentors)
+  const [userData, setUserData] = useState({
+    doughnutData: {
+      labels: [],
+      datasets: [],
+    },
+    barData: {
+      labels: [],
+      datasets: [],
+    },
+  });
 
+  // Fetch data from backend when the component mounts
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/laporan/chart");
+        setUserData(response.data); // Set the fetched data to state
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Bar chart options
   const barOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -63,31 +69,6 @@ export default function AnalisisLaporan() {
     },
   };
 
-  const mentorData = {
-    labels: ["Aktif", "Tidak Aktif"],
-    datasets: [
-      {
-        data: [85, 15],
-        backgroundColor: ["rgba(70, 189, 132, 0.7)", "rgba(221, 56, 56, 0.7)"],
-        hoverBackgroundColor: ["rgba(70, 189, 132, 0.9)", "rgba(221, 56, 56, 0.9)"],
-        cutout: "70%",
-        BorderWidth: "2",
-      },
-    ],
-  };
-
-  const userData = {
-    labels: ["Aktif", "Tidak Aktif"],
-    datasets: [
-      {
-        data: [75, 25],
-        backgroundColor: ["rgba(70, 189, 132, 0.7)", "rgba(221, 56, 56, 0.7)"],
-        hoverBackgroundColor: ["rgba(70, 189, 132, 0.9)", "rgba(221, 56, 56, 0.9)"],
-        cutout: "70%",
-      },
-    ],
-  };
-  
   return (
     <div className="p-5">
       <h1 className="text-3xl font-semibold mb-4">Laporan dan Analisis</h1>
@@ -101,7 +82,10 @@ export default function AnalisisLaporan() {
             <p className="text-base">Oktober 2024</p>
           </div>
           <div className="w-full h-72 mb-4 ">
-            <Doughnut data={mentorData} options={{ responsive: true, maintainAspectRatio: false }} />
+            <Pie
+              data={userData.doughnutData}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
           </div>
         </div>
 
@@ -112,7 +96,10 @@ export default function AnalisisLaporan() {
             <p className="text-base">Oktober 2024</p>
           </div>
           <div className="w-full h-72 mb-4">
-            <Doughnut data={userData} options={{ responsive: true, maintainAspectRatio: false }} />
+            <Doughnut
+              data={userData.doughnutData}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
           </div>
         </div>
       </div>
@@ -121,16 +108,16 @@ export default function AnalisisLaporan() {
       <div className="bg-white p-5 rounded-lg shadow-md">
         <h3 className="font-bold text-lg">Jumlah Pembina dan Pengguna dalam 6 Bulan Terakhir</h3>
         <div className="h-96">
-          <Bar data={barData} options={barOptions} />
+          <Bar data={userData.barData} options={barOptions} />
         </div>
         <div className="flex justify-between gap-5 mt-5">
           <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
             <h4>Jumlah Pembina</h4>
-            <p className="text-2xl font-bold">45</p>
+            <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[1]}</p>
           </div>
           <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
             <h4>Jumlah Pengguna</h4>
-            <p className="text-2xl font-bold">123</p>
+            <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[0]}</p>
           </div>
         </div>
       </div>
