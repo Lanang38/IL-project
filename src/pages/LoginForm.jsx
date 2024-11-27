@@ -36,10 +36,6 @@ function Login({ onLogin }) {
             Masuk untuk mengakses akun Admin
           </span>
 
-          {errorMessage && (
-            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
-          )}
-
           <div className="py-4">
             <label className="mb-2 text-md" htmlFor="email">
               Email
@@ -69,6 +65,10 @@ function Login({ onLogin }) {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
 
           <div className="flex justify-between w-full py-4">
             <label className="flex items-center text-md">
