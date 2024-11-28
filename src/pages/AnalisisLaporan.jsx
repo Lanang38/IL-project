@@ -17,6 +17,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tool
 export default function AnalisisLaporan() {
   // State for User Data (Total Users and Mentors)
   const [userData, setUserData] = useState({
+    pieData: {
+      labels: [],
+      datasets: [],
+    },
     doughnutData: {
       labels: [],
       datasets: [],
@@ -83,7 +87,7 @@ export default function AnalisisLaporan() {
           </div>
           <div className="w-full h-72 mb-4 ">
             <Pie
-              data={userData.doughnutData}
+              data={userData.pieData}
               options={{ responsive: true, maintainAspectRatio: false }}
             />
           </div>
