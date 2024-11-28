@@ -1,21 +1,74 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { AlertEdit } from "../components/Alert";
 
 function EditPage() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const { state } = useLocation(); // Menerima data mentor dari navigasi
   const navigate = useNavigate();
 
+  const [form, setForm] = useState({
+    nama_mentor: "",
+    email_mentor: "",
+    telepon_mentor: "",
+    kategori: "",
+    waktu_mulai: "",
+    waktu_selesai: "",
+    link_zoom: "",
+  });
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  // Set data mentor ke form saat halaman dimuat
+  useEffect(() => {
+    if (state?.coach) {
+      setForm({
+        nama_mentor: state.coach.nama_mentor || "",
+        email_mentor: state.coach.email_mentor || "",
+        telepon_mentor: state.coach.telepon_mentor || "",
+        kategori: state.coach.kategori || "",
+        waktu_mulai: state.coach.waktu_mulai || "",
+        waktu_selesai: state.coach.waktu_selesai || "",
+        link_zoom: state.coach.link_zoom || "",
+      });
+    }
+  }, [state]);
+
+  // Fungsi untuk menangani perubahan input
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  // Fungsi untuk menangani perubahan foto
   const handleAddPhoto = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      console.log("Foto ditambahkan:", file.name);
     }
   };
 
-  const handleSave = () => {
-    AlertEdit("Data telah disimpan", "Perubahan telah berhasil disimpan.");
+  // Fungsi untuk menghapus foto
+  const handleDeletePhoto = () => {
+    setSelectedFile(null);
+  };
+
+  // Fungsi untuk menyimpan data
+  const handleSave = async () => {
+    try {
+      const updatedData = {
+        ...form,
+        foto_mentor: selectedFile ? selectedFile.name : state.coach.foto_mentor, // Menggunakan nama file sebagai placeholder
+      };
+
+      // Mengirim data ke server dengan axios
+      await axios.put(`http://localhost:3000/api/v1/mentor/${form.email_mentor}`, updatedData);
+
+      AlertEdit("Data telah disimpan", "Perubahan telah berhasil disimpan.");
+      navigate(-1); // Kembali ke halaman sebelumnya
+    } catch (error) {
+      console.error("Error updating data:", error.response?.data || error.message);
+    }
   };
 
   return (
@@ -26,13 +79,17 @@ function EditPage() {
         <div className="p-6 bg-white rounded-lg mt-4 shadow-lg text-black w-full">
           <div className="flex flex-col sm:flex-row items-center space-x-4 px-6 mb-6">
             <img
-              src="https://via.placeholder.com/80"
+              src={
+                selectedFile
+                  ? URL.createObjectURL(selectedFile)
+                  : "https://via.placeholder.com/80"
+              }
               alt="Profile"
               className="w-20 h-20 rounded-full border-4 border-gray-300"
             />
             <div className="px-2 text-center sm:text-left">
-              <h3 className="text-lg font-semibold">Azhar Rizqullah</h3>
-              <p>azhar24@gmail.com</p>
+              <h3 className="text-lg font-semibold">{form.nama_mentor}</h3>
+              <p>{form.email_mentor}</p>
             </div>
             <div className="flex w-full sm:w-96 space-x-2 mt-2 sm:mt-0">
               <label className="w-1/2">
@@ -53,6 +110,7 @@ function EditPage() {
               <button
                 type="button"
                 className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
+                onClick={handleDeletePhoto}
               >
                 Hapus Foto
               </button>
@@ -65,7 +123,9 @@ function EditPage() {
               <label className="w-full sm:w-1/3 font-medium">Nama Lengkap</label>
               <input
                 type="text"
-                defaultValue="Azhar"
+                name="nama_mentor"
+                value={form.nama_mentor}
+                onChange={handleInputChange}
                 className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
@@ -73,67 +133,44 @@ function EditPage() {
               <label className="w-full sm:w-1/3 font-medium">Email</label>
               <input
                 type="email"
-                defaultValue="azhar24@gmail.com"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-400 focus:outline-none border border-gray-300"
+                name="email_mentor"
+                value={form.email_mentor}
                 readOnly
+                className="w-full sm:w-2/3 px-4 py-2 bg-gray-100 rounded text-gray-400 focus:outline-none border border-gray-300"
               />
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <label className="w-full sm:w-1/3 font-medium">Nomor Telepon</label>
               <input
                 type="tel"
-                defaultValue="085673826197"
+                name="telepon_mentor"
+                value={form.telepon_mentor}
+                onChange={handleInputChange}
                 className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
-
-            {/* Kategori Dropdown */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <label className="w-full sm:w-1/3 font-medium">Kategori</label>
               <select
+                name="kategori"
+                value={form.kategori}
+                onChange={handleInputChange}
                 className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               >
-                <option value="" disabled selected hidden>
-                  Kategori 1
+                <option value="" disabled>
+                  Pilih Kategori
                 </option>
                 <option value="kategori1">Kategori 1</option>
                 <option value="kategori2">Kategori 2</option>
                 <option value="kategori3">Kategori 3</option>
               </select>
             </div>
-
-            {/* Tanggal */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <label className="w-full sm:w-1/3 font-medium">Tanggal</label>
-              <input
-                type="date"
-                defaultValue="2024-11-15"
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
-              />
-            </div>
-
-            {/* Jam Mulai and Jam Selesai */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <label className="w-full sm:w-1/3 font-medium">Jam</label>
-              <div className="w-full sm:w-2/3 flex space-x-2">
-                <input
-                  type="time"
-                  defaultValue="15:00"
-                  className="w-1/2 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
-                />
-                <input
-                  type="time"
-                  defaultValue="17:00"
-                  className="w-1/2 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
-                />
-              </div>
-            </div>
-
-            {/* Jadwal Zoom */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <label className="w-full sm:w-1/3 font-medium">Jadwal Zoom</label>
               <textarea
-                defaultValue="https://us06web.zoom.us/j/84052976236?pwd=KkoXykJsDaazsme9TF6wb28Dv2MZKh.1"
+                name="link_zoom"
+                value={form.link_zoom}
+                onChange={handleInputChange}
                 className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300 resize-none"
                 rows="3"
               />
@@ -143,7 +180,6 @@ function EditPage() {
 
         {/* Button Section */}
         <div className="w-full flex justify-center sm:justify-start space-x-4 mt-7">
-          {/* Button Kembali */}
           <button
             type="button"
             onClick={() => navigate(-1)}
@@ -151,8 +187,6 @@ function EditPage() {
           >
             Kembali
           </button>
-
-          {/* Button Simpan */}
           <button
             type="button"
             onClick={handleSave}
