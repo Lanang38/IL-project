@@ -5,11 +5,12 @@ import Pagination from "../components/Pagination";
 import { AlertSimpan } from "../components/Alert";
 
 export default function Pembinaan() {
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState(null); // URL preview foto
+  const [photoFile, setPhotoFile] = useState(null); // File foto untuk dikirim ke server
   const [currentPage, setCurrentPage] = useState(1);
-  const [coaches, setCoaches] = useState([]); // Mentor data
-  const [categories, setCategories] = useState([]); // Kategori data
-  const [selectedCategoryId, setSelectedCategoryId] = useState(""); // ID Kategori yang dipilih
+  const [coaches, setCoaches] = useState([]); // Data mentor
+  const [categories, setCategories] = useState([]); // Data kategori
+  const [selectedCategoryId, setSelectedCategoryId] = useState(""); // ID kategori yang dipilih
 
   const [form, setForm] = useState({
     nama_mentor: "",
@@ -27,22 +28,21 @@ export default function Pembinaan() {
     currentPage * itemsPerPage
   );
 
-  // Fetch mentor data
+  // Fetch data mentor dan kategori
   useEffect(() => {
     const fetchMentors = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/v1/mentor");
-        setCoaches(response.data.data); // Assuming 'data' contains the mentor data
+        setCoaches(response.data.data);
       } catch (error) {
         console.error("Error fetching mentors:", error);
       }
     };
 
-    // Fetch kategori data
     const fetchCategories = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/v1/kategori");
-        setCategories(response.data.data); // Assuming 'data' contains the kategori data
+        setCategories(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -52,33 +52,45 @@ export default function Pembinaan() {
     fetchCategories();
   }, []);
 
-  // Handle form changes
+  // Handle perubahan form input
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   };
 
-  // Handle category selection
+  // Handle perubahan kategori
   const handleCategoryChange = (event) => {
     setSelectedCategoryId(event.target.value);
   };
 
-  // Handle photo upload
+  // Handle upload foto
   const handlePhotoUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setPhoto(URL.createObjectURL(file));
+      setPhoto(URL.createObjectURL(file)); // Preview gambar
+      setPhotoFile(file); // Simpan file untuk dikirim ke server
     }
   };
 
-  // Handle form submission
+  // Handle submit form
   const handleFormSubmit = async () => {
     try {
-      const payload = {
-        ...form,
-        kategori_id: selectedCategoryId,
-      };
-      await axios.post("http://localhost:3000/api/v1/mentor", payload);
+      const formData = new FormData(); // Gunakan FormData untuk menangani file
+      formData.append("nama_mentor", form.nama_mentor);
+      formData.append("email_mentor", form.email_mentor);
+      formData.append("telepon_mentor", form.telepon_mentor);
+      formData.append("link_zoom", form.link_zoom);
+      formData.append("waktu_mulai", form.waktu_mulai);
+      formData.append("waktu_selesai", form.waktu_selesai);
+      formData.append("kategori_id", selectedCategoryId);
+      if (photoFile) {
+        formData.append("foto_mentor", photoFile); // Tambahkan file foto
+      }
+
+      await axios.post("http://localhost:3000/api/v1/mentor", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       AlertSimpan();
       setForm({
         nama_mentor: "",
@@ -90,8 +102,9 @@ export default function Pembinaan() {
       });
       setSelectedCategoryId("");
       setPhoto(null);
+      setPhotoFile(null);
 
-      // Refresh mentor list
+      // Refresh data mentor
       const response = await axios.get("http://localhost:3000/api/v1/mentor");
       setCoaches(response.data.data);
     } catch (error) {
@@ -228,40 +241,35 @@ export default function Pembinaan() {
                 ))}
               </select>
             </div>
-
-            {/* Tombol Tambah Pembina */}
-            <div className="col-span-2 flex justify-center lg:justify-end">
-              <button
-                className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
-                onClick={handleFormSubmit}
-              >
-                Tambah Pembina
-              </button>
-            </div>
           </div>
+        </div>
+
+        <div className="col-span-2 flex justify-center lg:justify-end">
+          <button
+            className="py-3 px-6 bg-green-500 text-white font-medium rounded-2xl hover:bg-green-600"
+            onClick={handleFormSubmit}
+          >
+            Tambah Pembina
+          </button>
         </div>
       </div>
 
-      {/* Daftar Coach Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {currentItems.map((coach, index) => (
-          <CoachCard
-            key={index}
-            name={coach.nama_mentor}
-            email={coach.email_mentor}
-            phone={coach.telepon_mentor}
-            schedule={coach.link_zoom}
-            imgUrl={"https://via.placeholder.com/80"}
-          />
+      {/* Daftar Mentor */}
+      <h2 className="text-2xl font-medium mb-4">Daftar Mentor</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {currentItems.map((coach) => (
+          <CoachCard key={coach.email_mentor} coach={coach} />
         ))}
       </div>
 
-      {/* Pagination Component */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {/* Pagination */}
+      <div className="mt-4">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 }
