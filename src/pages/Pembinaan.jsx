@@ -41,7 +41,9 @@ export default function Pembinaan() {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/kategori");
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/kategori"
+        );
         setCategories(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -235,7 +237,10 @@ export default function Pembinaan() {
                   Pilih Kategori
                 </option>
                 {categories.map((category) => (
-                  <option key={category.kategori_id} value={category.kategori_id}>
+                  <option
+                    key={category.kategori_id}
+                    value={category.kategori_id}
+                  >
                     {category.nama_kategori}
                   </option>
                 ))}
@@ -258,7 +263,23 @@ export default function Pembinaan() {
       <h2 className="text-2xl font-medium mb-4">Daftar Mentor</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {currentItems.map((coach) => (
-          <CoachCard key={coach.email_mentor} coach={coach} />
+          <CoachCard
+            key={coach.email_mentor}
+            coach={coach}
+            refreshData={() => {
+              const fetchMentors = async () => {
+                try {
+                  const response = await axios.get(
+                    "http://localhost:3000/api/v1/mentor"
+                  );
+                  setCoaches(response.data.data);
+                } catch (error) {
+                  console.error("Error refreshing mentors:", error);
+                }
+              };
+              fetchMentors();
+            }}
+          />
         ))}
       </div>
 
