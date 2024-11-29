@@ -1,7 +1,8 @@
+// CoachCard.jsx
 import React from "react";
 import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { AlertDelete } from "./Alert"; // Pastikan AlertDelete sudah benar
+import { AlertDelete } from "./Alert";
 import axios from "axios";
 
 function CoachCard({ coach, refreshData }) {
@@ -14,43 +15,23 @@ function CoachCard({ coach, refreshData }) {
 
   // Fungsi untuk menghapus mentor
   const handleDeleteClick = async () => {
-    try {
-        // Memastikan email mentor tersedia
-        if (!coach.email_mentor) {
-            console.error("Email mentor tidak tersedia.");
-            return;
-        }
-
-        console.log("Memulai proses konfirmasi...");
-        const confirmed = await AlertDelete();
-
-        if (confirmed) {
-            console.log("Konfirmasi diterima, memulai penghapusan...");
-            const response = await axios.delete(`http://localhost:3000/api/v1/mentor/${coach.email_mentor}`);
-
-            // Log response dari API untuk debugging
-            console.log("Data berhasil dihapus:", response.data);
-
-            // Panggil fungsi refresh data jika tersedia
-            if (refreshData) {
-                console.log("Memanggil fungsi refreshData...");
-                refreshData();
-            }
-        } else {
-            console.log("Penghapusan dibatalkan oleh pengguna.");
-        }
-    } catch (error) {
-        // Log error jika ada masalah
-        console.error("Error saat menghapus data:", error.response?.data || error.message);
+    const confirmation = await AlertDelete();
+    if (confirmation.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:3000/api/v1/mentor/${coach.email_mentor}`);
+        if (refreshData) refreshData(); // Refresh data setelah penghapusan
+      } catch (error) {
+        console.error("Error deleting mentor:", error.response?.data || error.message);
+      }
     }
-};
+  };
 
   return (
     <div className="relative bg-white rounded-xl shadow-lg p-4 flex flex-col items-center space-y-4">
       {/* Tombol Hapus */}
       <button
         className="absolute top-2 right-2 text-red-500 text-lg"
-        onClick={handleDeleteClick} // Pastikan fungsi ini dipanggil
+        onClick={handleDeleteClick}
       >
         <Trash2 />
       </button>
