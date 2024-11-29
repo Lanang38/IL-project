@@ -4,7 +4,7 @@ import axios from "axios";
 import { AlertEdit } from "../components/Alert";
 
 function EditPage() {
-  const { state } = useLocation(); // Menerima data mentor dari navigasi
+  const { state } = useLocation(); // Mendapatkan data mentor dari navigasi
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -17,9 +17,21 @@ function EditPage() {
     link_zoom: "",
   });
 
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [categories, setCategories] = useState([]); // State untuk kategori
+  const [selectedCategoryId, setSelectedCategoryId] = useState(""); // State untuk kategori yang dipilih
+  const [selectedFile, setSelectedFile] = useState(null); // State untuk foto yang dipilih
 
-  // Set data mentor ke form saat halaman dimuat
+  // Mengambil data kategori dari server
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/v1/kategori");
+      setCategories(response.data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  // Mengatur data mentor pada form saat halaman dimuat
   useEffect(() => {
     if (state?.coach) {
       setForm({
@@ -31,16 +43,29 @@ function EditPage() {
         waktu_selesai: state.coach.waktu_selesai || "",
         link_zoom: state.coach.link_zoom || "",
       });
+      setSelectedCategoryId(state.coach.kategori || ""); // Set kategori yang dipilih
     }
   }, [state]);
 
-  // Fungsi untuk menangani perubahan input
+  // Mengambil data kategori saat halaman dimuat
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  // Menangani perubahan input form
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   };
 
-  // Fungsi untuk menangani perubahan foto
+  // Menangani perubahan kategori
+  const handleCategoryChange = (event) => {
+    const { value } = event.target;
+    setSelectedCategoryId(value);
+    setForm({ ...form, kategori: value });
+  };
+
+  // Menangani perubahan foto
   const handleAddPhoto = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -48,23 +73,23 @@ function EditPage() {
     }
   };
 
-  // Fungsi untuk menghapus foto
+  // Menghapus foto yang sudah dipilih
   const handleDeletePhoto = () => {
     setSelectedFile(null);
   };
 
-  // Fungsi untuk menyimpan data
+  // Menyimpan perubahan data mentor
   const handleSave = async () => {
     try {
       const updatedData = {
         ...form,
-        foto_mentor: selectedFile ? selectedFile.name : state.coach.foto_mentor, // Menggunakan nama file sebagai placeholder
+        kategori: selectedCategoryId, // Mengirimkan kategori yang dipilih
+        foto_mentor: selectedFile ? selectedFile.name : state.coach.foto_mentor, // Mengirimkan nama file foto
       };
 
-      // Mengirim data ke server dengan axios
       await axios.put(`http://localhost:3000/api/v1/mentor/${form.email_mentor}`, updatedData);
 
-      AlertEdit("Data telah disimpan", "Perubahan telah berhasil disimpan.");
+      AlertEdit("Data telah disimpan", "Perubahan berhasil disimpan.");
       navigate(-1); // Kembali ke halaman sebelumnya
     } catch (error) {
       console.error("Error updating data:", error.response?.data || error.message);
@@ -75,7 +100,6 @@ function EditPage() {
     <div className="p-5 bg-gray-100 min-h-screen flex flex-col items-center">
       <h2 className="text-3xl font-semibold mb-6 self-start">Edit Pembina</h2>
       <div className="w-full max-w-4xl px-0 flex flex-col items-center">
-        {/* Profile Section */}
         <div className="p-6 bg-white rounded-lg mt-4 shadow-lg text-black w-full">
           <div className="flex flex-col sm:flex-row items-center space-x-4 px-6 mb-6">
             <img
@@ -117,7 +141,6 @@ function EditPage() {
             </div>
           </div>
 
-          {/* Form Fields */}
           <form className="space-y-4 p-6 mb-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <label className="w-full sm:w-1/3 font-medium">Nama Lengkap</label>
@@ -149,20 +172,44 @@ function EditPage() {
                 className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
               />
             </div>
+
+            {/* Input Jam Mulai dan Jam Selesai Sebelah */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
+              <label className="w-full sm:w-1/3 font-medium">Jadwal</label>
+              <div className="flex w-full sm:w-2/3 space-x-4">
+                <input
+                  type="time"
+                  name="waktu_mulai"
+                  value={form.waktu_mulai}
+                  onChange={handleInputChange}
+                  className="w-1/2 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                />
+                <input
+                  type="time"
+                  name="waktu_selesai"
+                  value={form.waktu_selesai}
+                  onChange={handleInputChange}
+                  className="w-1/2 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                />
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <label className="w-full sm:w-1/3 font-medium">Kategori</label>
               <select
                 name="kategori"
-                value={form.kategori}
-                onChange={handleInputChange}
-                className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
+                value={selectedCategoryId}
+                onChange={handleCategoryChange}
+                className="w-full sm:w-2/3 px-4 py-2 mt-1 border border-gray-300 rounded-lg text-sm text-gray-500 focus:outline-none focus:border-gray-500"
               >
-                <option value="" disabled>
+                <option value="" disabled hidden>
                   Pilih Kategori
                 </option>
-                <option value="kategori1">Kategori 1</option>
-                <option value="kategori2">Kategori 2</option>
-                <option value="kategori3">Kategori 3</option>
+                {categories.map((category) => (
+                  <option key={category.kategori_id} value={category.kategori_id}>
+                    {category.nama_kategori}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -178,7 +225,6 @@ function EditPage() {
           </form>
         </div>
 
-        {/* Button Section */}
         <div className="w-full flex justify-center sm:justify-start space-x-4 mt-7">
           <button
             type="button"
@@ -190,7 +236,7 @@ function EditPage() {
           <button
             type="button"
             onClick={handleSave}
-            className="w-full sm:w-36 px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+            className="w-full sm:w-36 px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
           >
             Simpan
           </button>
