@@ -52,9 +52,9 @@ export default function AnalisisLaporan() {
     scales: {
       y: {
         beginAtZero: true,
-        max: 100,
+        max: 50,
         ticks: {
-          stepSize: 20,
+          stepSize: 10,
         },
       },
       x: {
@@ -81,9 +81,8 @@ export default function AnalisisLaporan() {
       <div className="flex flex-wrap justify-between gap-5 mb-8">
         {/* Mentor Doughnut Chart */}
         <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
-          <div className="mb-3 text-center text-lg font-semibold">
-            <h1>Daftar Pembina Aktif</h1>
-            <p className="text-base">Oktober 2024</p>
+          <div className="mb-1 text-center text-lg font-semibold">
+            <h1>Daftar Pembina</h1>
           </div>
           <div className="w-full h-72 mb-4 ">
             <Pie
@@ -95,9 +94,8 @@ export default function AnalisisLaporan() {
 
         {/* User Doughnut Chart */}
         <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
-          <div className="mb-3 text-center text-lg font-semibold">
-            <h1>Daftar Pengguna Aktif</h1>
-            <p className="text-base">Oktober 2024</p>
+          <div className="mb-1 text-center text-lg font-semibold">
+            <h1>Daftar Pengguna</h1>
           </div>
           <div className="w-full h-72 mb-4">
             <Doughnut
@@ -110,18 +108,26 @@ export default function AnalisisLaporan() {
 
       {/* Grafik Bar Jumlah Mentor dan User */}
       <div className="bg-white p-5 rounded-lg shadow-md">
-        <h3 className="font-bold text-lg">Jumlah Pembina dan Pengguna dalam 6 Bulan Terakhir</h3>
+        <h3 className="font-bold text-lg">Grafik Batang Jumlah Pembina Pengguna Kategori dan Mentor </h3>
         <div className="h-96">
           <Bar data={userData.barData} options={barOptions} />
         </div>
         <div className="flex justify-between gap-5 mt-5">
           <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
+            <h4>Jumlah Pengguna</h4>
+            <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[0]}</p>
+          </div>
+          <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
             <h4>Jumlah Pembina</h4>
             <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[1]}</p>
           </div>
           <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
-            <h4>Jumlah Pengguna</h4>
-            <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[0]}</p>
+            <h4>Jumlah Kategori</h4>
+            <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[2]}</p>
+          </div>
+          <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
+            <h4>Jumlah Modul</h4>
+            <p className="text-2xl font-bold">{userData.barData.datasets[0]?.data[3]}</p>
           </div>
         </div>
       </div>
