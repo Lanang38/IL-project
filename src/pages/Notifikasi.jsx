@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { AlertKirim } from "../components/Alert";
+import { AlertKirim } from "../components/Alert"; // Pastikan komponen ini sesuai dengan penggunaan
+import { sendNotification } from "../api/api"; // Import fungsi untuk mengirim data
 
 function NotificationCard({ title, color, fields }) {
   const [formData, setFormData] = useState(
@@ -51,14 +52,27 @@ function NotificationCard({ title, color, fields }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
 
-    // Clear form data
-    setFormData(
-      fields.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {})
-    );
+    // Kirim data notifikasi ke API
+    try {
+      const notificationData = {
+        judul_notifikasi: formData.judul,
+        kategori_id: formData.kategori, // Pastikan kategori_id di backend sesuai dengan value kategori
+        tanggal: formData.tanggal,
+      };
+      const response = await sendNotification(notificationData);
+      AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
+      console.log(response); // Optional: Cek respons dari API
+
+      // Clear form data
+      setFormData(
+        fields.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {})
+      );
+    } catch (error) {
+      AlertKirim("Gagal Mengirim Notifikasi", "Terjadi kesalahan saat mengirim pemberitahuan.");
+    }
   };
 
   return (
