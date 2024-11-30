@@ -1,142 +1,132 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { AlertKirim } from "../components/Alert";
 
-function NotificationCard({ title, color, fields }) {
-  const [formData, setFormData] = useState(
-    fields.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {})
-  );
+function NotificationCard({ title, color }) {
+  const [formData, setFormData] = useState({
+    judul: "",
+    tanggal: "",
+    kategori: "",
+    namaPembina: "",
+    jamMulai: "",
+    jamSelesai: "",
+  });
+  const [categories, setCategories] = useState([]);
 
-  const handleChange = (e) => {
+  // Fetch categories and mentors on mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/kategori");
+        setCategories(response.data.data);
+      } catch (error) {
+        console.error("Gagal memuat kategori", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const handleChange = async (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
 
-    // Set automatic values based on category
     if (id === "kategori") {
-      switch (value) {
-        case "kacang tanah":
+      // Get mentor info when category changes
+      try {
+        const selectedCategory = categories.find((cat) => cat.kategori_id === parseInt(value));
+        if (selectedCategory) {
           setFormData((prevData) => ({
             ...prevData,
-            namaPembina: "Pembina Kacang Tanah",
-            jamMulai: "08:00",
-            jamSelesai: "12:00",
+            namaPembina: selectedCategory.nama_mentor,
+            jamMulai: selectedCategory.waktu_mulai,
+            jamSelesai: selectedCategory.waktu_selesai,
           }));
-          break;
-        case "kacang hijau":
-          setFormData((prevData) => ({
-            ...prevData,
-            namaPembina: "Pembina Kacang Hijau",
-            jamMulai: "10:00",
-            jamSelesai: "14:00",
-          }));
-          break;
-        case "kacang merah":
-          setFormData((prevData) => ({
-            ...prevData,
-            namaPembina: "Pembina Kacang Merah",
-            jamMulai: "13:00",
-            jamSelesai: "17:00",
-          }));
-          break;
-        default:
-          setFormData((prevData) => ({
-            ...prevData,
-            namaPembina: "",
-            jamMulai: "",
-            jamSelesai: "",
-          }));
+        }
+      } catch (error) {
+        console.error("Gagal memuat informasi mentor", error);
       }
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
-
-    // Clear form data
-    setFormData(
-      fields.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {})
-    );
+    try {
+      await axios.post("http://localhost:3000/api/v1/notifikasi", {
+        judul_notifikasi: formData.judul,
+        kategori_id: formData.kategori,
+        tanggal: formData.tanggal,
+      });
+      AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
+      setFormData({
+        judul: "",
+        tanggal: "",
+        kategori: "",
+        namaPembina: "",
+        jamMulai: "",
+        jamSelesai: "",
+      });
+    } catch (error) {
+      console.error("Gagal mengirim notifikasi", error);
+    }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-lg w-full max-w-6xl mx-auto">
-      <div
-        className={`text-white text-center py-4 rounded-t-lg bg-${color}-500`}
-      >
+      <div className={`text-white text-center py-4 rounded-t-lg bg-${color}-500`}>
         <h1 className="text-2xl font-bold">{title}</h1>
       </div>
       <div className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {fields.map((field) =>
-            field.id === "judul" ? (
-              <div key={field.id}>
-                <label
-                  className="block text-sm font-semibold text-gray-700"
-                  htmlFor={field.id}
-                >
-                  {field.label}
-                </label>
-                <input
-                  type="text"
-                  id={field.id}
-                  placeholder={field.placeholder || "Ketik disini"}
-                  value={formData[field.id]}
-                  onChange={handleChange}
-                  className={`w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent`}
-                />
-              </div>
-            ) : field.id === "tanggal" ? (
-              <div key={field.id}>
-                <label
-                  className="block text-sm font-semibold text-gray-700"
-                  htmlFor={field.id}
-                >
-                  {field.label}
-                </label>
-                <input
-                  type="date"
-                  id={field.id}
-                  value={formData[field.id]}
-                  onChange={handleChange}
-                  className={`w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent`}
-                />
-              </div>
-            ) : field.id === "kategori" ? (
-              <div key={field.id}>
-                <label
-                  className="block text-sm font-semibold text-gray-700"
-                  htmlFor={field.id}
-                >
-                  {field.label}
-                </label>
-                <select
-                  id={field.id}
-                  value={formData[field.id]}
-                  onChange={handleChange}
-                  className={`w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent`}
-                >
-                  <option value="" disabled hidden>
-                    Pilih Kategori
-                  </option>
-                  {field.options.map((option, idx) => (
-                    <option key={idx} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ) : null
-          )}
-
-          {/* Input otomatis diisi */}
-          <div className="mt-4">
-            <label
-              htmlFor="namaPembina"
-              className="block text-sm font-semibold text-gray-700"
+          <div>
+            <label className="block text-sm font-semibold text-gray-700" htmlFor="judul">
+              Judul Notifikasi
+            </label>
+            <input
+              type="text"
+              id="judul"
+              placeholder="Masukkan judul"
+              value={formData.judul}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700" htmlFor="tanggal">
+              Tanggal
+            </label>
+            <input
+              type="date"
+              id="tanggal"
+              value={formData.tanggal}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700" htmlFor="kategori">
+              Kategori
+            </label>
+            <select
+              id="kategori"
+              value={formData.kategori}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent"
             >
+              <option value="" disabled hidden>
+                Pilih Kategori
+              </option>
+              {categories.map((category) => (
+                <option key={category.kategori_id} value={category.kategori_id}>
+                  {category.nama_kategori}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mt-4">
+            <label className="block text-sm font-semibold text-gray-700" htmlFor="namaPembina">
               Nama Pembina
             </label>
             <input
@@ -147,13 +137,9 @@ function NotificationCard({ title, color, fields }) {
               className="w-full mt-1 p-3 border rounded-lg bg-gray-100 cursor-not-allowed"
             />
           </div>
-
           <div className="flex gap-4 mt-4">
             <div className="flex-1">
-              <label
-                htmlFor="jamMulai"
-                className="block text-sm font-semibold text-gray-700"
-              >
+              <label className="block text-sm font-semibold text-gray-700" htmlFor="jamMulai">
                 Jam Mulai
               </label>
               <input
@@ -164,12 +150,8 @@ function NotificationCard({ title, color, fields }) {
                 className="w-full mt-1 p-3 border rounded-lg bg-gray-100 cursor-not-allowed"
               />
             </div>
-
             <div className="flex-1">
-              <label
-                htmlFor="jamSelesai"
-                className="block text-sm font-semibold text-gray-700"
-              >
+              <label className="block text-sm font-semibold text-gray-700" htmlFor="jamSelesai">
                 Jam Selesai
               </label>
               <input
@@ -181,7 +163,6 @@ function NotificationCard({ title, color, fields }) {
               />
             </div>
           </div>
-
           <div className="flex justify-end mt-6">
             <button
               type="submit"
@@ -197,37 +178,9 @@ function NotificationCard({ title, color, fields }) {
 }
 
 export default function NotificationPage() {
-  const notifications = [
-    {
-      title: "Notifikasi",
-      color: "green",
-      fields: [
-        { id: "judul", label: "Judul Notifikasi", type: "text", placeholder: "Masukkan judul" },
-        { id: "tanggal", label: "Tanggal", type: "date" },
-        {
-          id: "kategori",
-          label: "Kategori",
-          type: "select",
-          options: [
-            { label: "Kacang Tanah", value: "kacang tanah" },
-            { label: "Kacang Hijau", value: "kacang hijau" },
-            { label: "Kacang Merah", value: "kacang merah" },
-          ],
-        },
-      ],
-    },
-  ];
-
   return (
     <div className="p-5 bg-gray-100 min-h-screen">
-      <div className="w-full">
-        <h1 className="text-3xl font-semibold mb-6 text-left">Pemberitahuan</h1>
-        <div className="grid grid-cols-1 gap-10 mb-8">
-          {notifications.map((notification, idx) => (
-            <NotificationCard key={idx} {...notification} />
-          ))}
-        </div>
-      </div>
+      <NotificationCard title="Notifikasi" color="green" />
     </div>
   );
 }
