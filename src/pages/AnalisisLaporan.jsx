@@ -29,6 +29,10 @@ export default function AnalisisLaporan() {
       labels: [],
       datasets: [],
     },
+    kategoriBarData: {
+      labels: [],
+      datasets: [],
+    },
   });
 
   // Fetch data from backend when the component mounts
@@ -108,9 +112,9 @@ export default function AnalisisLaporan() {
 
       {/* Grafik Bar Jumlah Mentor dan User */}
       <div className="bg-white p-5 rounded-lg shadow-md">
-        <h3 className="font-bold text-lg">Grafik Batang Jumlah Pembina Pengguna Kategori dan Mentor </h3>
+        <h3 className="font-bold text-lg">Grafik Batang Jumlah Modul per Kategori </h3>
         <div className="h-96">
-          <Bar data={userData.barData} options={barOptions} />
+          <Bar data={userData.kategoriBarData} options={barOptions} />
         </div>
         <div className="flex justify-between gap-5 mt-5">
           <div className="text-center bg-green-800 p-4 rounded-lg w-full max-w-[500px] text-white">
