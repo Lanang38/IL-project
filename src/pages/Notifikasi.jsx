@@ -11,42 +11,45 @@ function NotificationCard({ title, color }) {
     jamMulai: "",
     jamSelesai: "",
   });
-  const [categories, setCategories] = useState([]);
 
-  // Fetch categories and mentors on mount
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/kategori");
+        const response = await axios.get("http://localhost:3000/api/v1/notifikasi/kategori/mentor");
         setCategories(response.data.data);
+        setLoading(false);
       } catch (error) {
         console.error("Gagal memuat kategori", error);
+        setLoading(false);
       }
     };
+
     fetchCategories();
   }, []);
 
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
+
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
 
     if (id === "kategori") {
-      // Get mentor info when category changes
-      try {
-        const selectedCategory = categories.find((cat) => cat.kategori_id === parseInt(value));
-        if (selectedCategory) {
-          setFormData((prevData) => ({
-            ...prevData,
-            namaPembina: selectedCategory.nama_mentor,
-            jamMulai: selectedCategory.waktu_mulai,
-            jamSelesai: selectedCategory.waktu_selesai,
-          }));
-        }
-      } catch (error) {
-        console.error("Gagal memuat informasi mentor", error);
+      // Autocomplete mentor information when category is selected
+      const selectedCategory = categories.find((cat) => cat.kategori_id === parseInt(value));
+      if (selectedCategory) {
+        setFormData((prevData) => ({
+          ...prevData,
+          namaPembina: selectedCategory.nama_mentor || "",
+          jamMulai: selectedCategory.waktu_mulai || "",
+          jamSelesai: selectedCategory.waktu_selesai || "",
+        }));
       }
     }
   };
@@ -118,11 +121,17 @@ function NotificationCard({ title, color }) {
               <option value="" disabled hidden>
                 Pilih Kategori
               </option>
-              {categories.map((category) => (
-                <option key={category.kategori_id} value={category.kategori_id}>
-                  {category.nama_kategori}
-                </option>
-              ))}
+              {loading ? (
+                <option disabled>Memuat kategori...</option>
+              ) : categories.length > 0 ? (
+                categories.map((category) => (
+                  <option key={category.kategori_id} value={category.kategori_id}>
+                    {category.nama_kategori}
+                  </option>
+                ))
+              ) : (
+                <option disabled>Data kategori tidak tersedia</option>
+              )}
             </select>
           </div>
           <div className="mt-4">
