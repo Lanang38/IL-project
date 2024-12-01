@@ -3,31 +3,20 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { CircleUser } from "lucide-react";
 import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Dashboard() {
   const [isMobile, setIsMobile] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-
-      if (window.innerWidth <= 684) {
-        setIsSmallScreen(true);
-      } else {
-        setIsSmallScreen(false);
-      }
+      setIsMobile(window.innerWidth <= 768);
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -64,183 +53,74 @@ export default function Dashboard() {
     { name: "Lilis", topic: "Pengelolaan lahan jagung", time: "17:00 WIB" },
   ];
 
-  const [date, setDate] = React.useState(new Date());
-
   return (
-    <div style={styles.dashboard}>
-      <h2 style={styles.welcomeText}>Halo Azhar, Selamat datang kembali 👋</h2>
-      <h1 style={styles.headerText}>Dashboard Anda hari ini</h1>
+    <div className="p-5 max-w-7xl mx-auto">
+      {/* Header Section */}
+      <h2 className="text-lg mb-2">Halo Azhar, Selamat datang kembali 👋</h2>
+      <h1 className="text-2xl font-bold mb-5">Dashboard Anda hari ini</h1>
 
-      <div style={styles.gridContainer}>
-        <div style={styles.userActivityContainer}>
-          <h2 style={styles.sectionHeader}>Daftar Pengguna Aktif</h2>
-          <p style={styles.sectionSubtitle}>Oktober - Desember 2024</p>
-          <div style={styles.userActivityContent}>
-            <div style={styles.userStats}>
-              <div style={styles.userStat}>
-                <CircleUser size={60} color="#46bd84" />
-                <span style={{ ...styles.statText, color: "#46bd84" }}>75% Daftar Pengguna Aktif</span>
-              </div>
-              <div style={styles.userStat}>
-                <CircleUser size={60} color="#dd3838" />
-                <span style={{ ...styles.statText, color: "#dd3838" }}>25% Daftar Pengguna Kurang Aktif</span>
-              </div>
+      {/* User Activity Section */}
+      <div className="bg-white p-6 rounded-lg shadow-md mb-5">
+        <h2 className="text-xl font-bold mb-2">Daftar Pengguna Aktif</h2>
+        <p className="text-gray-500 text-sm mb-5">Oktober - Desember 2024</p>
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="flex-1 flex flex-col gap-4 md:pr-10">
+            <div className="flex items-center">
+              <CircleUser size={60} color="#46bd84" />
+              <span className="ml-4 text-lg font-bold text-green-500">
+                75% Daftar Pengguna Aktif
+              </span>
             </div>
-            {/* Tampilkan chart hanya jika layar lebih besar dari 684px */}
-            {!isSmallScreen && (
-              <div style={styles.chartContainer}>
-                <Doughnut data={userData} options={options} />
-                <div style={styles.chartCenterText}>
-                  <span style={styles.percentageText}>75%</span>
-                  <br />
-                  <span style={styles.labelText}>Keaktifan</span>
-                </div>
-              </div>
-            )}
+            <div className="flex items-center">
+              <CircleUser size={60} color="#dd3838" />
+              <span className="ml-4 text-lg font-bold text-red-500">
+                25% Daftar Pengguna Kurang Aktif
+              </span>
+            </div>
+          </div>
+          <div className="w-60 h-60 relative">
+            <Doughnut data={userData} options={options} />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+              <span className="text-3xl font-bold text-green-500">75%</span>
+              <br />
+              <span className="text-sm text-gray-500">Keaktifan</span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div style={styles.todaySpeakers}>
-          <h2 style={styles.sectionHeader}>Pemateri Hari ini</h2>
-          <div>
+      {/* Speakers and Calendar Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Speaker Section */}
+        <div className="col-span-2 bg-green-100 p-5 rounded-lg shadow-md">
+          <h2 className="text-xl font-bold mb-5">Pemateri Hari ini</h2>
+          <div className="space-y-4">
             {speakers.map((speaker, index) => (
-              <div key={index} style={styles.speakerItem}>
+              <div
+                key={index}
+                className="flex items-center bg-white p-4 rounded-lg shadow-sm"
+              >
                 <CircleUser size={30} />
-                <div style={styles.speakerInfo}>
-                  <h4>{speaker.name}</h4>
+                <div className="ml-4">
+                  <h4 className="font-bold">{speaker.name}</h4>
                   <p>{speaker.topic}</p>
-                  <p>{speaker.time}</p>
+                  <p className="text-gray-500 text-sm">{speaker.time}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Hanya tampilkan kalender jika bukan perangkat mobile */}
+        {/* Calendar Section */}
         {!isMobile && (
-          <div style={styles.calendarContainer}>
+          <div className="bg-gray-50 p-5 rounded-lg shadow-md flex flex-col items-center py-20">
             <Calendar onChange={setDate} value={date} />
-            <p style={styles.dateText}>Hari ini: {date.toLocaleDateString()}</p>
+            <p className="mt-8 text-center text-sm">
+              Hari ini: {date.toLocaleDateString()}
+            </p>
           </div>
         )}
       </div>
     </div>
   );
 }
-
-const styles = {
-  dashboard: {
-    padding: "20px",
-    maxWidth: "1200px",
-    margin: "0 auto",
-  },
-  welcomeText: {
-    fontSize: "1.5rem",
-    marginBottom: "10px",
-  },
-  headerText: {
-    fontSize: "2rem",
-    fontWeight: "bold",
-    marginBottom: "20px",
-  },
-  gridContainer: {
-    display: "grid",
-    gap: "20px",
-    gridTemplateColumns: "1fr",
-  },
-  userActivityContainer: {
-    gridColumn: "1 / span 2",
-    backgroundColor: "#ffffff",
-    padding: "30px",
-    borderRadius: "12px",
-    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-  },
-  sectionHeader: {
-    fontWeight: "bold",
-    fontSize: "28px",
-    marginBottom: "5px",
-  },
-  sectionSubtitle: {
-    color: "#888",
-    fontSize: "16px",
-    marginBottom: "20px",
-  },
-  userActivityContent: {
-    display: "flex",
-    alignItems: "center",
-  },
-  userStats: {
-    flex: 1,
-    paddingRight: "50px",
-  },
-  userStat: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: "15px",
-  },
-  statText: {
-    marginLeft: "20px",
-    fontSize: "18px",
-    fontWeight: "bold",
-  },
-  chartContainer: {
-    width: "300px",
-    height: "230px",
-    position: "relative",
-  },
-  chartCenterText: {
-    position: "absolute",
-    top: "55%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    textAlign: "center",
-  },
-  percentageText: {
-    fontSize: "36px",
-    fontWeight: "bold",
-    color: "#46bd84",
-  },
-  labelText: {
-    fontSize: "14px",
-    color: "#888",
-  },
-  todaySpeakers: {
-    backgroundColor: "#e0f2e0",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-    width: "100%",
-    height: "auto",
-  },
-  speakerItem: {
-    display: "flex",
-    alignItems: "center",
-    backgroundColor: "white",
-    padding: "10px",
-    borderRadius: "8px",
-    marginTop: "10px",
-    width: "100%",
-  },
-  speakerInfo: {
-    marginLeft: "10px",
-  },
-  calendarContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#f9f9f9",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    position: "relative",
-  },
-  dateText: {
-    marginTop: "30px",
-    alignSelf: "center",
-    textAlign: "center",
-  },
-};
