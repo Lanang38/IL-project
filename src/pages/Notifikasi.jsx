@@ -7,6 +7,8 @@ function NotificationCard({ title, color }) {
     judul: "",
     tanggal: "",
     kategori: "",
+    deskripsi: "",
+    point: "",
     namaPembina: "",
     jamMulai: "",
     jamSelesai: "",
@@ -15,7 +17,6 @@ function NotificationCard({ title, color }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       setLoading(true);
@@ -41,7 +42,6 @@ function NotificationCard({ title, color }) {
     }));
 
     if (id === "kategori") {
-      // Autocomplete mentor information when category is selected
       const selectedCategory = categories.find((cat) => cat.kategori_id === parseInt(value));
       if (selectedCategory) {
         setFormData((prevData) => ({
@@ -61,12 +61,16 @@ function NotificationCard({ title, color }) {
         judul_notifikasi: formData.judul,
         kategori_id: formData.kategori,
         tanggal: formData.tanggal,
+        deskripsi: formData.deskripsi,
+        poin: formData.point,
       });
       AlertKirim("Notifikasi Terkirim", "Pemberitahuan telah berhasil dikirim.");
       setFormData({
         judul: "",
         tanggal: "",
         kategori: "",
+        deskripsi: "",
+        point: "",
         namaPembina: "",
         jamMulai: "",
         jamSelesai: "",
@@ -171,6 +175,33 @@ function NotificationCard({ title, color }) {
                 className="w-full mt-1 p-3 border rounded-lg bg-gray-100 cursor-not-allowed"
               />
             </div>
+          </div>
+          {/* Add fixed-size textareas for deskripsi and point */}
+          <div className="mt-4">
+            <label className="block text-sm font-semibold text-gray-700" htmlFor="deskripsi">
+              Deskripsi
+            </label>
+            <textarea
+              id="deskripsi"
+              placeholder="Masukkan deskripsi"
+              value={formData.deskripsi}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent"
+              style={{ height: "150px", resize: "none" }}
+            />
+          </div>
+          <div className="mt-4">
+            <label className="block text-sm font-semibold text-gray-700" htmlFor="point">
+              Point
+            </label>
+            <textarea
+              id="point"
+              placeholder="Masukkan point"
+              value={formData.point}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-transparent"
+              style={{ height: "100px", resize: "none" }}
+            />
           </div>
           <div className="flex justify-end mt-6">
             <button
