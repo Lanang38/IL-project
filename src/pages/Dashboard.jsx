@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Doughnut } from "react-chartjs-2";
+import axios from "axios"; // Pastikan Axios sudah diimpor
+import { Pie, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { CircleUser } from "lucide-react";
 import Calendar from "react-calendar";
@@ -10,7 +11,29 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function Dashboard() {
   const [isMobile, setIsMobile] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [userData, setUserData] = useState({
+    pieData: {
+      labels: ["Jumlah Pengguna", "Jumlah Mentor"],
+      datasets: [],
+    },
+    doughnutData: {
+      labels: [],
+      datasets: [],
+    },
+  });
+  const [speakers, setSpeakers] = useState([]); // State untuk data mentor
 
+  // Helper untuk memformat waktu
+  const formatTime = (time) => {
+    return time?.slice(0, 5); // Mengambil hanya jam dan menit (hh:mm)
+  };
+
+  // Helper untuk memperpendek link Zoom
+  const shortenZoomLink = (link) => {
+    return link.length > 50 ? link.slice(0, 50) + ".." : link;
+  };
+
+  // Handle resize untuk mendeteksi apakah tampilan mobile atau desktop
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -24,17 +47,20 @@ export default function Dashboard() {
     };
   }, []);
 
-  const userData = {
-    labels: ["Aktif", "Tidak Aktif"],
-    datasets: [
-      {
-        data: [75, 25],
-        backgroundColor: ["#46bd84", "#dd3838"],
-        hoverBackgroundColor: ["#46bd84", "#dd3838"],
-        cutout: "80%",
-      },
-    ],
-  };
+  // Fetch data dari backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/home");
+        setUserData(response.data); // Data untuk chart
+        setSpeakers(response.data.mentorData); // Data mentor
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const options = {
     responsive: true,
@@ -46,52 +72,39 @@ export default function Dashboard() {
     },
   };
 
-  const speakers = [
-    { name: "Nunung", topic: "Tips berkebun sayuran", time: "10:00 WIB" },
-    { name: "Rifky", topic: "Perawatan tanaman padi", time: "13:00 WIB" },
-    { name: "Nusa", topic: "Budidaya ikan lele", time: "15:00 WIB" },
-    { name: "Lilis", topic: "Pengelolaan lahan jagung", time: "17:00 WIB" },
-  ];
-
   return (
     <div className="p-5 max-w-7xl mx-auto">
-      {/* Header Section */}
       <h2 className="text-lg mb-2">Halo Azhar, Selamat datang kembali 👋</h2>
       <h1 className="text-2xl font-bold mb-5">Dashboard Anda hari ini</h1>
 
-      {/* User Activity Section */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-5">
-        <h2 className="text-xl font-bold mb-2">Daftar Pengguna Aktif</h2>
-        <p className="text-gray-500 text-sm mb-5">Oktober - Desember 2024</p>
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="flex-1 flex flex-col gap-4 md:pr-10">
-            <div className="flex items-center">
-              <CircleUser size={60} color="#46bd84" />
-              <span className="ml-4 text-lg font-bold text-green-500">
-                75% Daftar Pengguna Aktif
-              </span>
-            </div>
-            <div className="flex items-center">
-              <CircleUser size={60} color="#dd3838" />
-              <span className="ml-4 text-lg font-bold text-red-500">
-                25% Daftar Pengguna Kurang Aktif
-              </span>
-            </div>
+      {/* Statistik Jumlah Mentor dan User */}
+      <div className="flex flex-wrap justify-between gap-5 mb-8">
+        <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
+          <div className="mb-1 text-center text-lg font-semibold">
+            <h1> Pengguna dan Pembina</h1>
           </div>
-          <div className="w-60 h-60 relative">
-            <Doughnut data={userData} options={options} />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-              <span className="text-3xl font-bold text-green-500">75%</span>
-              <br />
-              <span className="text-sm text-gray-500">Keaktifan</span>
-            </div>
+          <div className="w-full h-72 mb-4">
+            <Pie
+              data={userData.pieData}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
+          </div>
+        </div>
+        <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
+          <div className="mb-1 text-center text-lg font-semibold">
+            <h1> Kategori dan Modul</h1>
+          </div>
+          <div className="w-full h-72 mb-4">
+            <Doughnut
+              data={userData.doughnutData}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
           </div>
         </div>
       </div>
 
-      {/* Speakers and Calendar Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {/* Speaker Section */}
+        {/* Data Pemateri */}
         <div className="col-span-2 bg-green-100 p-5 rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-5">Pemateri Hari ini</h2>
           <div className="space-y-4">
@@ -100,18 +113,29 @@ export default function Dashboard() {
                 key={index}
                 className="flex items-center bg-white p-4 rounded-lg shadow-sm"
               >
-                <CircleUser size={30} />
+                <CircleUser size={40} />
                 <div className="ml-4">
                   <h4 className="font-bold">{speaker.name}</h4>
-                  <p>{speaker.topic}</p>
-                  <p className="text-gray-500 text-sm">{speaker.time}</p>
+                  <p>
+                    <a
+                      href={speaker.zoomLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 "
+                    >
+                      {shortenZoomLink(speaker.zoomLink)}
+                    </a>
+                  </p>
+                  <p className="text-black text-sm">
+                    {formatTime(speaker.startTime)} - {formatTime(speaker.endTime)}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Calendar Section */}
+        {/* Kalender jika tampilan bukan mobile */}
         {!isMobile && (
           <div className="bg-gray-50 p-5 rounded-lg shadow-md flex flex-col items-center py-20">
             <Calendar onChange={setDate} value={date} />
