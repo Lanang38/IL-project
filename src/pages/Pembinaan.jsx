@@ -118,6 +118,8 @@ export default function Pembinaan() {
     setCurrentPage(page);
   };
 
+  console.log(coaches)
+
   return (
     <div className="p-5 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-semibold mb-4">Pembina</h1>

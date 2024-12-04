@@ -70,10 +70,7 @@ function EditPage() {
     }
   };
 
-  // Menghapus foto yang sudah dipilih
-  const handleDeletePhoto = () => {
-    setSelectedFile(null);
-  };
+
 
   // Menyimpan perubahan data mentor
   const handleSave = () => {
@@ -137,16 +134,9 @@ function EditPage() {
                   className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
                   onClick={() => document.querySelector('input[type="file"]').click()}
                 >
-                  Tambah Foto
+                  Tambah/Edit Foto
                 </button>
               </label>
-              <button
-                type="button"
-                className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
-                onClick={handleDeletePhoto}
-              >
-                Hapus Foto
-              </button>
             </div>
           </div>
 
