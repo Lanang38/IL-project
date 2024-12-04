@@ -81,7 +81,7 @@ function CoachCard({ coach, refreshData }) {
       {/* Informasi Profil */}
       <div className="text-center space-y-4">
         <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700">
-          {coach.nama_mentor || "Nama Tidak Tersedia"}
+        {coach.nama_mentor ? coach.nama_mentor.split(' ')[0] + "..." : "Nama Tidak Tersedia"}
         </div>
         <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600">
           {coach.email_mentor || "Email Tidak Tersedia"}
@@ -90,7 +90,7 @@ function CoachCard({ coach, refreshData }) {
           {coach.telepon_mentor || "Telepon Tidak Tersedia"}
         </div>
         <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600">
-          {coach.link_zoom || "Link Zoom Tidak Tersedia"}
+        {coach.link_zoom ? coach.link_zoom.slice(0, 20) + "..." : "Link Zoom Tidak Tersedia"}
         </div>
 
         {/* Tombol Edit */}
