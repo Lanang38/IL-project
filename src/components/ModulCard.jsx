@@ -63,6 +63,12 @@ function ModulCard() {
         <p>Loading...</p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div
+            className="bg-green-100 rounded-lg flex items-center justify-center text-4xl text-green-500 min-h-[300px] cursor-pointer"
+            onClick={() => navigate("/materi/tambah")}
+          >
+            <Plus size={36} />
+          </div>
           {/* Tampilkan data kategori jika ada */}
           {modules.map((module) => (
             <div
@@ -113,14 +119,6 @@ function ModulCard() {
               </div>
             </div>
           ))}
-
-          {/* Tombol tambah kategori tetap muncul */}
-          <div
-            className="bg-green-100 rounded-lg flex items-center justify-center text-4xl text-green-500 min-h-[300px] cursor-pointer"
-            onClick={() => navigate("/materi/tambah")}
-          >
-            <Plus size={36} />
-          </div>
         </div>
       )}
     </div>
