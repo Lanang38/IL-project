@@ -86,7 +86,7 @@ export default function AnalisisLaporan() {
         {/* Mentor Doughnut Chart */}
         <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
           <div className="mb-1 text-center text-lg font-semibold">
-            <h1>Daftar Pembina</h1>
+            <h1>Pengguna dan Pembina</h1>
           </div>
           <div className="w-full h-72 mb-4 ">
             <Pie
@@ -99,7 +99,7 @@ export default function AnalisisLaporan() {
         {/* User Doughnut Chart */}
         <div className="flex-1 min-w-[300px] bg-white p-4 rounded-lg shadow-md">
           <div className="mb-1 text-center text-lg font-semibold">
-            <h1>Daftar Pengguna</h1>
+            <h1>Kategori dan Modul</h1>
           </div>
           <div className="w-full h-72 mb-4">
             <Doughnut
