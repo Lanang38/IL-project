@@ -83,7 +83,7 @@ export default function DataMateri() {
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto overflow-hidden break-words">
         <div className="flex flex-col items-center lg:flex-row lg:items-start justify-center lg:space-x-12 mb-4">
           <img
-            src={`http://localhost:3000/${selectedCategory?.gambar}`}
+            src={selectedCategory?.gambar}
             alt={selectedCategory?.nama_kategori}
             className="w-62 h-40 rounded-lg pl-3 object-cover pt-3 mb-4 lg:mb-0"
           />

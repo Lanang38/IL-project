@@ -53,6 +53,7 @@ function ModulCard() {
       }
     });
   };
+  console.log(modules);
 
   return (
     <div className="p-5">
@@ -71,9 +72,10 @@ function ModulCard() {
               {/* Gambar kategori */}
               <div className="w-full h-32 rounded-lg overflow-hidden mb-4">
                 <img
-                  src={`http://localhost:3000/${module.gambar}`}
+                  src={module.gambar}
                   alt={module.nama_kategori}
                   className="w-full h-full object-cover"
+                
                 />
               </div>
               {/* Detail nama dan penjelasan */}
