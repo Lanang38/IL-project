@@ -22,13 +22,30 @@ export default function Pengaturan() {
   useEffect(() => {
   const fetchAdminData = async () => {
     try {
-      // Pastikan adminData.email_admin sudah terisi sebelum mengirim permintaan
-      const email = adminData.email_admin || "cek@gmail.com"; 
-      const response = await axios.get(`http://localhost:3000/api/v1/admin/${email }`, {
+      // Ambil token dari localStorage
+      const token = localStorage.getItem("adminToken");
+      
+      if (!token) {
+        console.error("Token tidak ditemukan. Pengguna mungkin belum login.");
+        return;
+      }
+
+      // Decode token untuk mendapatkan email admin
+      const payload = JSON.parse(atob(token.split(".")[1])); // Pastikan JWT di-decode dengan benar
+      const email = payload.email; // Asumsikan payload JWT memiliki properti email
+
+      if (!email) {
+        console.error("Email tidak ditemukan dalam token.");
+        return;
+      }
+
+      // Lakukan permintaan ke API untuk mengambil data admin
+      const response = await axios.get(`http://localhost:3000/api/v1/admin/${email}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
+
       setAdminData(response.data.data);
     } catch (error) {
       console.error("Gagal mengambil data admin:", error);
@@ -36,7 +53,7 @@ export default function Pengaturan() {
   };
 
   fetchAdminData();
-}, [adminData.email_admin]); // Menambahkan email_admin sebagai dependensi
+}, []); // Tidak perlu dependensi adminData.email_admin
 
 
   // Fungsi untuk menangani penambahan foto
@@ -53,12 +70,6 @@ export default function Pengaturan() {
     }
   };
 
-  // Fungsi untuk menghapus foto
-  const handleRemovePhoto = () => {
-    setSelectedFile(null);
-    setImagePreview(null);
-    console.log("Foto dihapus");
-  };
 
   // Fungsi untuk menyimpan data ke backend
   const handleSave = async () => {
@@ -121,16 +132,9 @@ export default function Pengaturan() {
                         document.querySelector('input[type="file"]').click()
                       }
                     >
-                      Tambah Foto
+                      Tambah/Edit Foto
                     </button>
                   </label>
-                  <button
-                    type="button"
-                    className="w-1/2 px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600"
-                    onClick={handleRemovePhoto} // Memanggil fungsi untuk menghapus foto
-                  >
-                    Hapus Foto
-                  </button>
                 </div>
               </div>
 

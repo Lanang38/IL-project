@@ -74,7 +74,7 @@ export default function Dashboard() {
 
   return (
     <div className="p-5 max-w-7xl mx-auto">
-      <h2 className="text-lg mb-2">Halo Azhar, Selamat datang kembali 👋</h2>
+      <h2 className="text-lg mb-2">Haloo, Selamat datang kembali 👋</h2>
       <h1 className="text-2xl font-bold mb-5">Dashboard Anda hari ini</h1>
 
       {/* Statistik Jumlah Mentor dan User */}
