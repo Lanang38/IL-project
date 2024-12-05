@@ -103,11 +103,11 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Data Pemateri */}
-        <div className="bg-green-100 p-5 rounded-lg shadow-md h-full flex flex-col">
+        <div className="col-span-2 bg-green-100 p-5 rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-5">Pemateri</h2>
-          <div className="space-y-4 flex-grow">
+          <div className="space-y-4 ">
             {speakers.map((speaker, index) => (
               <div
                 key={index}
@@ -137,7 +137,7 @@ export default function Dashboard() {
 
         {/* Kalender */}
         {!isMobile && (
-          <div className="bg-gray-50 p-5 rounded-lg shadow-md h-full flex flex-col items-center">
+          <div className="bg-gray-50 p-5 rounded-lg shadow-md flex flex-col items-center py-20">
             <Calendar onChange={setDate} value={date} />
             <p className="mt-8 text-center text-sm">
               Hari ini: {date.toLocaleDateString()}
