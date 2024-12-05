@@ -95,9 +95,9 @@ export default function RightSidebar({ right }) {
     <div className="fixed top-0 right-0 h-full w-64 p-3 bg-gray-50 text-gray-800 shadow-lg z-10 lg:block hidden">
       {/* Header */}
       <div className="flex items-center mb-8">
-        <img src="https://via.placeholder.com/80" alt="Profile" className="w-12 h-12 rounded-full mr-3" />
+        <img src="src\assets\ICN.svg" alt="Profile" className="w-12 h-12 rounded-full mr-3" />
         <div>
-          <h3 className="text-sm font-medium">Azhar</h3>
+          <h3 className="text-lg font-medium">Admin</h3>
         </div>
         <ul className="flex-1 px-3">{right}</ul>
       </div>
