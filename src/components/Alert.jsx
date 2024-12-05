@@ -71,15 +71,17 @@ export function AlertSimpan() {
 
 export function AlertEdit(callback) {
     Swal.fire({
-        title: "Apakah Anda Akan Menimpan Perubahan?",
+        title: "Apakah Anda Akan Menyimpan Perubahan?",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Simpan",
-        denyButtonText: "Jangan simpan"
+        denyButtonText: "Jangan Simpan"
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire("Disimpan!", "", "success").then(() => {
-                if (callback) callback();
+                if (typeof callback === 'function') {  // Pastikan callback adalah fungsi
+                    callback();
+                }
             });
         } else if (result.isDenied) {
             Swal.fire("Perubahan Tidak Disimpan", "", "info");
