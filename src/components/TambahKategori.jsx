@@ -6,11 +6,16 @@ import { AlertSimpan } from "./Alert";
 const TambahKategori = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
+  const [iconFile, setIconFile] = useState(null); // State untuk icon
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+  };
+
+  const handleIconChange = (e) => {
+    setIconFile(e.target.files[0]); // Simpan file icon
   };
 
   const handleTitleChange = (e) => {
@@ -27,7 +32,7 @@ const TambahKategori = () => {
 
   const handleSubmit = async () => {
     // Validasi input
-    if (!file || !title || !description) {
+    if (!file || !iconFile || !title || !description) {
       alert("Semua data wajib diisi!");
       return;
     }
@@ -35,7 +40,7 @@ const TambahKategori = () => {
     // Buat FormData
     const formData = new FormData();
     formData.append("gambar", file); // file input
-
+    formData.append("icon", iconFile); // icon file input
     formData.append("nama_kategori", title); // title input
     formData.append("penjelasan", description); // description input
 
@@ -80,7 +85,21 @@ const TambahKategori = () => {
             ) : (
               <p className="flex flex-col items-center text-gray-500">
                 <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
+                <span className="text-sm">Unggah gambar kategori di sini</span>
+              </p>
+            )}
+          </div>
+        </label>
+
+        <label className="flex items-center justify-center w-full h-20 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer mt-4 p-5 shadow-xl">
+          <input type="file" onChange={handleIconChange} className="hidden" />
+          <div className="text-center">
+            {iconFile ? (
+              <p className="text-gray-700">{iconFile.name}</p>
+            ) : (
+              <p className="flex flex-col items-center text-gray-500">
+                <span className="text-lg mb-1">🖼️</span>
+                <span className="text-sm">Unggah ikon kategori di sini</span>
               </p>
             )}
           </div>
