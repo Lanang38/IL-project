@@ -6,8 +6,8 @@ import { AlertSimpan } from "./Alert";
 
 const TambahMateri = () => {
   const [fileImage, setFileImage] = useState(null);
-  const [filePdf, setFilePdf] = useState(null);
-  const [fileVideo, setFileVideo] = useState(null);
+  const [videoUrl, setVideoUrl] = useState("");
+  const [pdfUrl, setPdfUrl] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -18,15 +18,15 @@ const TambahMateri = () => {
   const kategoriId = location.state?.kategoriId;
 
   const handleFileImageChange = (e) => setFileImage(e.target.files[0]);
-  const handleFilePdfChange = (e) => setFilePdf(e.target.files[0]);
-  const handleFileVideoChange = (e) => setFileVideo(e.target.files[0]);
+  const handleVideoUrlChange = (e) => setVideoUrl(e.target.value);
+  const handlePdfUrlChange = (e) => setPdfUrl(e.target.value);
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleTextChange = (e) => setText(e.target.value);
 
   const handleCancel = () => {
     setFileImage(null);
-    setFilePdf(null);
-    setFileVideo(null);
+    setVideoUrl("");
+    setPdfUrl("");
     setTitle("");
     setText("");
     navigate(-1);
@@ -41,15 +41,19 @@ const TambahMateri = () => {
     formData.append("nama_modul", title);
     formData.append("text_module", text);
     formData.append("kategori_id", kategoriId);
+    formData.append("video_url", videoUrl);
+    formData.append("pdf_url", pdfUrl);
     if (fileImage) formData.append("gambar", fileImage);
-    if (filePdf) formData.append("file", filePdf);
-    if (fileVideo) formData.append("video", fileVideo);
 
     try {
       // Kirim data ke API
-      const response = await axios.post("http://localhost:3000/api/v1/modul", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/modul",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       if (response.data.success) {
         console.log("Modul berhasil ditambahkan:", response.data.message);
@@ -64,7 +68,9 @@ const TambahMateri = () => {
 
   return (
     <div className="max-w-43 w-full mx-auto p-5 rounded-lg">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-4">Tambah Materi</h2>
+      <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+        Tambah Materi
+      </h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-5">Menambah Materi</p>
 
@@ -77,20 +83,26 @@ const TambahMateri = () => {
         />
 
         <p className="text-lg font-medium mb-5">Unggah File Gambar</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
-          <input type="file" onChange={handleFileImageChange} className="hidden" />
-          <div className="text-center">
-            {fileImage ? (
-              <p className="text-gray-700">{fileImage.name}</p>
-            ) : (
-              <p className="flex flex-col items-center text-gray-500">
-                <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">
-                  Anda dapat seret dan lepas berkas di sini untuk menambahkan
-                </span>
-              </p>
-            )}
-          </div>
+        <label className="flex flex-col items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-4 shadow-xl">
+          <input
+            type="file"
+            onChange={handleFileImageChange}
+            className="hidden"
+          />
+          {fileImage ? (
+            <img
+              src={URL.createObjectURL(fileImage)}
+              alt="Preview"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          ) : (
+            <div className="flex flex-col items-center text-gray-500">
+              <span className="text-3xl mb-2">📂</span>
+              <span className="text-sm">
+                Anda dapat seret dan lepas berkas di sini untuk menambahkan
+              </span>
+            </div>
+          )}
         </label>
 
         <p className="text-lg font-medium mt-8">Menambah Teks</p>
@@ -101,39 +113,23 @@ const TambahMateri = () => {
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
-        <p className="text-lg font-medium mt-8">Unggah File PDF</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
-          <input type="file" onChange={handleFilePdfChange} className="hidden" />
-          <div className="text-center">
-            {filePdf ? (
-              <p className="text-gray-700">{filePdf.name}</p>
-            ) : (
-              <p className="flex flex-col items-center text-gray-500">
-                <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">
-                  Anda dapat seret dan lepas berkas di sini untuk menambahkan
-                </span>
-              </p>
-            )}
-          </div>
-        </label>
+        <p className="text-lg font-medium mt-8">Masukkan URL PDF</p>
+        <input
+          type="text"
+          value={pdfUrl}
+          onChange={handlePdfUrlChange}
+          placeholder="Masukkan URL PDF"
+          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+        />
 
-        <p className="text-lg font-medium mt-8">Unggah File Video</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
-          <input type="file" onChange={handleFileVideoChange} className="hidden" />
-          <div className="text-center">
-            {fileVideo ? (
-              <p className="text-gray-700">{fileVideo.name}</p>
-            ) : (
-              <p className="flex flex-col items-center text-gray-500">
-                <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">
-                  Anda dapat seret dan lepas berkas di sini untuk menambahkan
-                </span>
-              </p>
-            )}
-          </div>
-        </label>
+        <p className="text-lg font-medium mt-8">Masukkan URL Video</p>
+        <input
+          type="text"
+          value={videoUrl}
+          onChange={handleVideoUrlChange}
+          placeholder="Masukkan URL Video"
+          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+        />
 
         <div className="flex gap-3 mt-8 mb-3">
           <button
