@@ -3,11 +3,19 @@ import Navbar from "../components/NavbarSetting";
 import Membership from "../components/MembershipCard";
 import { AlertEdit } from "../components/Alert";
 import axios from "axios";
+import moment from "moment-timezone";
+
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+
+  // Konversi tanggal ke zona waktu Asia/Jakarta
+  return moment.tz(dateString, "Asia/Jakarta").format("YYYY-MM-DD");
+};
 
 export default function Pengaturan() {
   const [activePage, setActivePage] = useState("Profile");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null); // Untuk menampilkan preview gambar
+  const [imagePreview, setImagePreview] = useState(null);
   const [adminData, setAdminData] = useState({
     nama_admin: "",
     nama_panggilan_admin: "",
@@ -20,41 +28,43 @@ export default function Pengaturan() {
 
   // Fungsi untuk mengambil data admin dari backend
   useEffect(() => {
-  const fetchAdminData = async () => {
-    try {
-      // Ambil token dari localStorage
-      const token = localStorage.getItem("adminToken");
-      
-      if (!token) {
-        console.error("Token tidak ditemukan. Pengguna mungkin belum login.");
-        return;
+    const fetchAdminData = async () => {
+      try {
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+          console.error("Token tidak ditemukan. Pengguna mungkin belum login.");
+          return;
+        }
+
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const email = payload.email;
+        if (!email) {
+          console.error("Email tidak ditemukan dalam token.");
+          return;
+        }
+
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/admin/${email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const admin = response.data.data;
+        admin.foto_pr = admin.foto_pr || "https://via.placeholder.com/80";
+        admin.tanggal_lahir = moment.tz(admin.tanggal_lahir, "UTC").tz("Asia/Jakarta").format("YYYY-MM-DD");
+
+        setAdminData(admin);
+        setImagePreview(admin.foto_pr);
+      } catch (error) {
+        console.error("Gagal mengambil data admin:", error);
       }
+    };
 
-      // Decode token untuk mendapatkan email admin
-      const payload = JSON.parse(atob(token.split(".")[1])); // Pastikan JWT di-decode dengan benar
-      const email = payload.email; // Asumsikan payload JWT memiliki properti email
-
-      if (!email) {
-        console.error("Email tidak ditemukan dalam token.");
-        return;
-      }
-
-      // Lakukan permintaan ke API untuk mengambil data admin
-      const response = await axios.get(`http://localhost:3000/api/v1/admin/${email}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setAdminData(response.data.data);
-    } catch (error) {
-      console.error("Gagal mengambil data admin:", error);
-    }
-  };
-
-  fetchAdminData();
-}, []); // Tidak perlu dependensi adminData.email_admin
-
+    fetchAdminData();
+  }, []);
 
   // Fungsi untuk menangani penambahan foto
   const handleAddPhoto = (event) => {
@@ -63,24 +73,33 @@ export default function Pengaturan() {
       setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result); // Set preview gambar
+        setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
       console.log("Foto ditambahkan:", file.name);
     }
   };
 
-
   // Fungsi untuk menyimpan data ke backend
   const handleSave = async () => {
     try {
       const formData = new FormData();
-      Object.keys(adminData).forEach((key) => {
-        formData.append(key, adminData[key]);
+  
+      // Format tanggal lahir ke 'YYYY-MM-DD'
+      const formattedAdminData = {
+        ...adminData,
+        tanggal_lahir: moment.tz(adminData.tanggal_lahir, "Asia/Jakarta").format("YYYY-MM-DD"), // Format ke DATE
+      };
+  
+      Object.keys(formattedAdminData).forEach((key) => {
+        formData.append(key, formattedAdminData[key]);
       });
-      if (selectedFile) formData.append("foto_pr", selectedFile);
-
-      const response = await axios.put(
+  
+      if (selectedFile) {
+        formData.append("foto_pr", selectedFile);
+      }
+  
+      await axios.put(
         `http://localhost:3000/api/v1/admin/${adminData.email_admin}`,
         formData,
         {
@@ -90,13 +109,15 @@ export default function Pengaturan() {
           },
         }
       );
-
-      AlertEdit("Berhasil!", response.data.msg);
+  
+      AlertEdit("Berhasil!", "Data berhasil disimpan!");
     } catch (error) {
       console.error("Gagal menyimpan data:", error);
       AlertEdit("Gagal!", "Terjadi kesalahan saat menyimpan data.");
     }
   };
+  
+  
 
   return (
     <div className="p-5 bg-gray-100 min-h-screen">
@@ -108,13 +129,15 @@ export default function Pengaturan() {
             {/* Profile Section */}
             <div className="p-6 bg-white rounded-lg mt-4 shadow-lg text-black">
               <div className="flex flex-col sm:flex-row items-center space-x-4 px-6 mb-6">
-              <img
+                <img
                   src={imagePreview || "https://via.placeholder.com/80"} // Menampilkan preview foto atau placeholder
                   alt="Profile"
                   className="w-20 h-20 rounded-full border-4 border-gray-300"
                 />
                 <div className="px-2 text-center sm:text-left">
-                  <h3 className="text-lg font-semibold">{adminData.nama_admin}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {adminData.nama_admin}
+                  </h3>
                   <p>{adminData.email_admin}</p>
                 </div>
                 <div className="flex w-full sm:w-96 space-x-2 mt-2 sm:mt-0">
@@ -215,13 +238,17 @@ export default function Pengaturan() {
                   </label>
                   <input
                     type="date"
-                    value={adminData.tanggal_lahir}
-                    onChange={(e) =>
+                    value={formatDate(adminData.tanggal_lahir)} // Format tanggal untuk input
+                    onChange={(e) => {
+                      // Ambil nilai dari input dan ubah menjadi UTC saat menyimpan
+                      const selectedDate = moment
+                        .tz(e.target.value, "Asia/Jakarta")
+                        .toISOString(); // Konversi ke UTC
                       setAdminData((prev) => ({
                         ...prev,
-                        tanggal_lahir: e.target.value,
-                      }))
-                    }
+                        tanggal_lahir: selectedDate,
+                      }));
+                    }}
                     className="w-full sm:w-2/3 px-4 py-2 bg-white rounded text-gray-800 focus:outline-none border border-gray-300"
                   />
                 </div>
