@@ -14,8 +14,16 @@ export default function DataMateri() {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Redirect jika kategori tidak ditemukan
+  useEffect(() => {
+    if (!selectedCategory) {
+      navigate("/materi");
+    }
+  }, [selectedCategory, navigate]);
+
   // Fetch data modul dari API
   const fetchModules = async () => {
+    setLoading(true);
     try {
       const response = await axios.get("http://localhost:3000/api/v1/modul");
       if (response.data.success) {
@@ -36,9 +44,9 @@ export default function DataMateri() {
   };
 
   useEffect(() => {
-    // Menjalankan fetchModules setiap kali komponen ini di-render ulang
+    // Fetch ulang data setiap kali lokasi atau kategori berubah
     fetchModules();
-  }, [location]);
+  }, [selectedCategory, location]);
 
   const handleDelete = async (modulId) => {
     AlertDelete(async () => {
@@ -69,7 +77,7 @@ export default function DataMateri() {
 
   const handleEditMateri = (module) => {
     navigate("/materi/editmateri", {
-      state: { modul: module }, // Kirim data modul ke halaman edit
+      state: { modul: module }, 
     });
   };
 
@@ -116,7 +124,7 @@ export default function DataMateri() {
 
         {loading ? (
           <p className="text-center text-gray-500 mt-6">Loading...</p>
-        ) : (
+        ) : modules.length > 0 ? (
           <div className="bg-white rounded-lg shadow overflow-hidden overflow-x-auto mt-6">
             <table className="min-w-full bg-white">
               <thead>
@@ -159,6 +167,8 @@ export default function DataMateri() {
               </tbody>
             </table>
           </div>
+        ) : (
+          <p className="text-center text-gray-500 mt-6">Tidak ada modul.</p>
         )}
       </div>
     </div>

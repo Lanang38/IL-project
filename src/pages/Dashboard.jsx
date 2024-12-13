@@ -107,7 +107,7 @@ export default function Dashboard() {
         {/* Data Pemateri */}
         <div className="col-span-2 bg-green-100 p-5 rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-5">Pemateri</h2>
-          <div className="space-y-4 ">
+          <div className="space-y-4 max-h-[450px] overflow-hidden hover:overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
             {speakers.map((speaker, index) => (
               <div
                 key={index}
@@ -127,7 +127,8 @@ export default function Dashboard() {
                     </a>
                   </p>
                   <p className="text-black text-sm">
-                    {formatTime(speaker.startTime)} - {formatTime(speaker.endTime)}
+                    {formatTime(speaker.startTime)} -{" "}
+                    {formatTime(speaker.endTime)}
                   </p>
                 </div>
               </div>

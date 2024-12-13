@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { FilePlus, Plus } from 'lucide-react';
-import { AlertEdit } from './Alert';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { Plus } from "lucide-react";
+import { AlertEdit } from "./Alert";
 
 const EditMateri = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { modul } = location.state;  // Mengambil modul yang dikirim saat navigasi ke halaman edit
+  const { modul } = location.state; // Mengambil modul yang dikirim saat navigasi ke halaman edit
   const [fileImage, setFileImage] = useState(null);
-  const [filePdf, setFilePdf] = useState(null);
-  const [fileVideo, setFileVideo] = useState(null);
-  const [title, setTitle] = useState(modul?.nama_modul || '');
-  const [text, setText] = useState(modul?.text_module || '');
-  const [kategoriId, setKategoriId] = useState(modul?.kategori_id || ''); // Menyimpan kategori_id
+  const [prevImage, setPrevImage] = useState(modul?.gambar || ""); // Menyimpan gambar sebelumnya
+  const [filePdf, setFilePdf] = useState(modul?.file || "");
+  const [fileVideo, setFileVideo] = useState(modul?.video || "");
+  const [title, setTitle] = useState(modul?.nama_modul || "");
+  const [text, setText] = useState(modul?.text_module || "");
+  const [kategoriId, setKategoriId] = useState(modul?.kategori_id || ""); // Menyimpan kategori_id
   const [loading, setLoading] = useState(false);
 
-  const handleFileImageChange = (e) => setFileImage(e.target.files[0]);
-  const handleFilePdfChange = (e) => setFilePdf(e.target.files[0]);
-  const handleFileVideoChange = (e) => setFileVideo(e.target.files[0]);
+  const handleFileImageChange = (e) => {
+    setFileImage(e.target.files[0]);
+    setPrevImage(""); // Hapus gambar sebelumnya jika pengguna mengunggah gambar baru
+  };
 
+  const handleFilePdfChange = (e) => setFilePdf(e.target.value);
+  const handleFileVideoChange = (e) => setFileVideo(e.target.value);
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleTextChange = (e) => setText(e.target.value);
-
 
   const handleCancel = () => navigate(-1);
 
@@ -35,10 +38,14 @@ const EditMateri = () => {
     const formData = new FormData();
     formData.append("nama_modul", title);
     formData.append("text_module", text);
-    formData.append("kategori_id", kategoriId);  // Pastikan kategori_id diisi
-    if (fileImage) formData.append("gambar", fileImage);
-    if (filePdf) formData.append("file", filePdf);
-    if (fileVideo) formData.append("video", fileVideo);
+    formData.append("kategori_id", kategoriId); // Pastikan kategori_id diisi
+    if (fileImage) {
+      formData.append("gambar", fileImage);
+    } else if (prevImage) {
+      formData.append("prev_gambar", prevImage); // Kirim informasi gambar sebelumnya
+    }
+    formData.append("file", filePdf);
+    formData.append("video", fileVideo);
 
     try {
       setLoading(true);
@@ -65,7 +72,7 @@ const EditMateri = () => {
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Edit Materi</h2>
       <div className="text-left p-4 border border-gray-300 rounded-lg bg-white">
         <p className="text-lg font-medium mb-5">Mengubah Materi</p>
-        
+
         <input
           type="text"
           value={title}
@@ -73,64 +80,61 @@ const EditMateri = () => {
           placeholder="Ketik Judul"
           className="w-full mb-8 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
-        
+
         <p className="text-lg font-medium mb-5">Unggah File Gambar</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl">
-          <input type="file" onChange={handleFileImageChange} className="hidden" />
-          <div className="absolute top-0 left-0 w-full h-px border-t-2 border-dashed border-gray-300 rounded-t-xl"></div>
-          <div className="absolute top-2 left-2 text-yellow-500">
-            <Plus className="w-6 h-6" />
-          </div>
-          <div className="flex flex-col items-center justify-center text-center">
-            {fileImage ? (
-              <p className="text-gray-700">{fileImage.name}</p>
-            ) : (
-              <p className="flex flex-col items-center text-gray-500">
-                <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-              </p>
-            )}
-          </div>
+        <label className="flex flex-col items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-4 shadow-xl">
+          <input
+            type="file"
+            onChange={handleFileImageChange}
+            className="hidden"
+          />
+          {fileImage ? (
+            <img
+              src={URL.createObjectURL(fileImage)}
+              alt="Preview"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          ) : prevImage ? (
+            <img
+              src={prevImage}
+              alt="Preview"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          ) : (
+            <div className="flex flex-col items-center text-gray-500">
+              <span className="text-3xl mb-2">📂</span>
+              <span className="text-sm">
+                Anda dapat seret dan lepas berkas di sini untuk menambahkan
+              </span>
+            </div>
+          )}
         </label>
 
-        <p className="text-lg font-medium mt-8">Menambah Teks</p>
+        <p className="text-lg font-medium mt-8">Tambahkan Teks</p>
         <textarea
           value={text}
           onChange={handleTextChange}
           placeholder="Tambahkan Teks"
           className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
-        
 
-        <p className="text-lg font-medium mt-8">Unggah File Pdf</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
-          <input type="file" onChange={handleFilePdfChange} className="hidden" />
-          <div className="text-center">
-            {filePdf ? (
-              <p className="text-gray-700">{filePdf.name}</p>
-            ) : (
-              <p className="flex flex-col items-center text-gray-500">
-                <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-              </p>
-            )}
-          </div>
-        </label>
-        
-        <p className="text-lg font-medium mt-8">Unggah File Video</p>
-        <label className="flex items-center justify-center w-full h-80 border-4 border-dashed border-gray-300 rounded-xl bg-gray-100 text-gray-500 cursor-pointer p-12 shadow-xl mt-6">
-          <input type="file" onChange={handleFileVideoChange} className="hidden" />
-          <div className="text-center">
-            {fileVideo ? (
-              <p className="text-gray-700">{fileVideo.name}</p>
-            ) : (
-              <p className="flex flex-col items-center text-gray-500">
-                <span className="text-3xl mb-2">📂</span>
-                <span className="text-sm">Anda dapat seret dan lepas berkas di sini untuk menambahkan</span>
-              </p>
-            )}
-          </div>
-        </label>
+        <p className="text-lg font-medium mt-8">Masukkan URL PDF</p>
+        <input
+          type="text"
+          value={filePdf}
+          onChange={handleFilePdfChange}
+          placeholder="Masukkan URL File PDF"
+          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+        />
+
+        <p className="text-lg font-medium mt-8">Masukkan URL Video</p>
+        <input
+          type="text"
+          value={fileVideo}
+          onChange={handleFileVideoChange}
+          placeholder="Masukkan URL File Video"
+          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+        />
 
         <div className="flex gap-3 mt-8 mb-3">
           <button
