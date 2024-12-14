@@ -119,21 +119,19 @@ const EditMateri = () => {
         />
 
         <p className="text-lg font-medium mt-8">Masukkan URL PDF</p>
-        <input
-          type="text"
+        <textarea
           value={filePdf}
           onChange={handleFilePdfChange}
           placeholder="Masukkan URL File PDF"
-          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+          className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
         <p className="text-lg font-medium mt-8">Masukkan URL Video</p>
-        <input
-          type="text"
+        <textarea
           value={fileVideo}
           onChange={handleFileVideoChange}
           placeholder="Masukkan URL File Video"
-          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+          className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
         <div className="flex gap-3 mt-8 mb-3">

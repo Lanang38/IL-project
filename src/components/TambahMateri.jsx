@@ -41,8 +41,8 @@ const TambahMateri = () => {
     formData.append("nama_modul", title);
     formData.append("text_module", text);
     formData.append("kategori_id", kategoriId);
-    formData.append("video_url", videoUrl);
-    formData.append("pdf_url", pdfUrl);
+    formData.append("video", videoUrl);
+    formData.append("file", pdfUrl);
     if (fileImage) formData.append("gambar", fileImage);
 
     try {
@@ -114,21 +114,20 @@ const TambahMateri = () => {
         />
 
         <p className="text-lg font-medium mt-8">Masukkan URL PDF</p>
-        <input
-          type="text"
+        <textarea
           value={pdfUrl}
           onChange={handlePdfUrlChange}
           placeholder="Masukkan URL PDF"
-          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+          className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
         <p className="text-lg font-medium mt-8">Masukkan URL Video</p>
-        <input
+        <textarea
           type="text"
           value={videoUrl}
           onChange={handleVideoUrlChange}
           placeholder="Masukkan URL Video"
-          className="w-full mt-6 p-2 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
+          className="w-full mt-6 p-14 text-gray-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 bg-gray-100 shadow-xl"
         />
 
         <div className="flex gap-3 mt-8 mb-3">
