@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pie, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { CircleUser } from "lucide-react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
@@ -113,7 +112,11 @@ export default function Dashboard() {
                 key={index}
                 className="flex items-center bg-white p-4 rounded-lg shadow-sm"
               >
-                <CircleUser size={40} />
+                <img
+                  src={speaker.foto}
+                  alt={speaker.name}
+                  className="w-10 h-10 rounded-full object-cover"
+                />
                 <div className="ml-4">
                   <h4 className="font-bold">{speaker.name}</h4>
                   <p>
