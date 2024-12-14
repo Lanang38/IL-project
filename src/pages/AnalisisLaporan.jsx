@@ -56,7 +56,7 @@ export default function AnalisisLaporan() {
     scales: {
       y: {
         beginAtZero: true,
-        max: 50,
+        max: 20,
         ticks: {
           stepSize: 10,
         },
