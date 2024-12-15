@@ -103,48 +103,48 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {/* Data Pemateri */}
-        <div className="col-span-2 bg-green-100 p-5 rounded-lg shadow-md">
-          <h2 className="text-xl font-bold mb-5">Pemateri</h2>
-          <div className="space-y-4 max-h-[450px] overflow-hidden hover:overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-            {speakers.map((speaker, index) => (
-              <div
-                key={index}
-                className="flex items-center bg-white p-4 rounded-lg shadow-sm"
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+  {/* Data Pemateri */}
+  <div className="col-span-3 bg-green-100 p-5 rounded-lg shadow-md">
+    <h2 className="text-xl font-bold mb-5">Pemateri</h2>
+    <div className="space-y-4 max-h-[450px] overflow-hidden hover:overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+      {speakers.map((speaker, index) => (
+        <div
+          key={index}
+          className="flex items-center bg-white p-4 rounded-lg shadow-sm"
+        >
+          <img
+            src={speaker.foto}
+            alt={speaker.name}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <div className="ml-4">
+            <h4 className="font-bold">{speaker.name}</h4>
+            <p>
+              <a
+                href={speaker.zoomLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 "
               >
-                <img
-                  src={speaker.foto}
-                  alt={speaker.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div className="ml-4">
-                  <h4 className="font-bold">{speaker.name}</h4>
-                  <p>
-                    <a
-                      href={speaker.zoomLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 "
-                    >
-                      {shortenZoomLink(speaker.zoomLink)}
-                    </a>
-                  </p>
-                  <p className="text-black text-sm">
-                    {formatTime(speaker.startTime)} -{" "}
-                    {formatTime(speaker.endTime)}
-                  </p>
-                </div>
-              </div>
-            ))}
+                {shortenZoomLink(speaker.zoomLink)}
+              </a>
+            </p>
+            <p className="text-black text-sm">
+              {formatTime(speaker.startTime)} -{" "}
+              {formatTime(speaker.endTime)}
+            </p>
           </div>
-          
         </div>
-          {/* Kalender */}
-          <div className="bg-gray-50 p-5 rounded-lg shadow-md flex flex-col items-center py-20">
-            <CustomCalendar />
-          </div>
-      </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Kalender */}
+  <div className="col-span-2 bg-gray-50 p-5 rounded-lg shadow-md flex flex-col items-center py-20">
+    <CustomCalendar />
+  </div>
+</div>
       
     </div>
   );
