@@ -3,16 +3,16 @@ import React, { useState } from "react";
 export default function CustomCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const daysOfWeek = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+  const daysOfWeek = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
   const months = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember",
   ];
 
-  const today = new Date();
+  const today = new Date(); // Tanggal hari ini
+  const year = currentDate.getFullYear(); // Tahun aktif pada kalender
+  const month = currentDate.getMonth(); // Bulan aktif pada kalender
   const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
   const firstDayIndex = new Date(year, month, 1).getDay();
   const daysInMonth = getDaysInMonth(year, month);
 
@@ -22,66 +22,65 @@ export default function CustomCalendar() {
   };
 
   return (
-    <div className="w-full max-w-screen-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden text-center">
-      {/* Header Kalender */}
-      <div className="bg-green-500 flex justify-between items-center px-8 py-5">
-        <span className="text-3xl font-bold text-gray-200">
-          {months[month]} {year}
-        </span>
-        <div className="flex gap-8">
-          <button
-            onClick={() => changeMonth(-1)}
-            className="text-gray-200 hover:text-gray-300 text-3xl"
-          >
-            &#x276E; {/* Tombol panah kiri */}
-          </button>
-          <button
-            onClick={() => changeMonth(1)}
-            className="text-gray-200 hover:text-gray-300 text-3xl"
-          >
-            &#x276F; {/* Tombol panah kanan */}
-          </button>
+    <div className="w-full max-w-md mx-auto rounded-xl shadow-lg overflow-hidden">
+      {/* Header */}
+      <div className="bg-green-500 text-white text-center py-4">
+        {/* Tetap gunakan tahun hari ini */}
+        <div className="text-sm font-semibold">{today.getFullYear()}</div>
+        <div className="text-3xl font-bold">
+          {today.toLocaleDateString("id-ID", { weekday: "short" })},{" "}
+          {months[today.getMonth()]} {today.getDate()}
         </div>
       </div>
 
-      <div className="h-4"></div> {/*ruang kosong */}
+      {/* Month Selector */}
+      <div className="flex justify-between items-center bg-white py-2 px-4">
+        <button onClick={() => changeMonth(-1)} className="text-gray-500 text-2xl">
+          &#x276E;
+        </button>
+        <span className="font-bold text-xl text-gray-700">
+          {months[month]} {year}
+        </span>
+        <button onClick={() => changeMonth(1)} className="text-gray-500 text-2xl">
+          &#x276F;
+        </button>
+      </div>
 
       {/* Nama Hari */}
-      <div className="grid grid-cols-7 text-gray-600 mb-4 font-semibold text-xl">
+      <div className="grid grid-cols-7 text-center bg-white text-gray-600 font-semibold py-2">
         {daysOfWeek.map((day) => (
-          <div key={day} className="flex justify-center items-center">{day}</div>
+          <div key={day} className="text-sm">{day}</div>
         ))}
       </div>
 
-      {/* Tanggal Kalender */}
-      <div className="grid grid-cols-7">
-        {/* Ruang Kosong */}
-        {Array.from({ length: firstDayIndex }).map((_, index) => (
-          <div key={`empty-${index}`} className="h-12 flex justify-center items-center"></div>
+      {/* Tanggal */}
+      <div className="grid grid-cols-7 text-center bg-white">
+        {/* Ruang kosong untuk awal bulan */}
+        {Array.from({ length: (firstDayIndex + 6) % 7 }).map((_, i) => (
+          <div key={i} className="h-10"></div>
         ))}
 
-        {/* Tanggal Kalender */}
+        {/* Tanggal di bulan */}
         {Array.from({ length: daysInMonth }, (_, i) => {
           const day = i + 1;
           const isToday =
-            today.getDate() === day &&
-            today.getMonth() === month &&
-            today.getFullYear() === year;
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear();
 
           return (
             <div
               key={day}
-              className={`h-12 w-12 flex justify-center items-center mx-auto text-xl rounded-full cursor-pointer ${
+              className={`h-10 flex justify-center items-center cursor-pointer text-sm rounded-full ${
                 isToday
-                  ? "bg-green-400 text-white font-bold"
-                  : "text-gray-800 hover:bg-gray-200"
+                  ? "bg-green-500 text-white font-bold"
+                  : "hover:bg-gray-200 text-gray-800"
               }`}
             >
               {day}
             </div>
           );
         })}
-        
       </div>
     </div>
   );
