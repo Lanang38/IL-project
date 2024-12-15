@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pie, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import CustomCalendar from "../components/CustomCalendar";
+
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -137,18 +138,14 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+          
         </div>
-
-        {/* Kalender */}
-        {!isMobile && (
+          {/* Kalender */}
           <div className="bg-gray-50 p-5 rounded-lg shadow-md flex flex-col items-center py-20">
-            <Calendar onChange={setDate} value={date} />
-            <p className="mt-8 text-center text-sm">
-              Hari ini: {date.toLocaleDateString()}
-            </p>
+            <CustomCalendar />
           </div>
-        )}
       </div>
+      
     </div>
   );
 }
