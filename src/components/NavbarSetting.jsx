@@ -15,7 +15,7 @@ export default function NavbarSetting({ activePage, setActivePage }) {
                         onClick={() => setActivePage('Membership')}
                         className={`font-semibold pb-2 ${activePage === 'Membership' ? 'text-green-700 border-b-2 border-green-700' : 'text-gray-500'}`}
                     >
-                        Membership
+                        Admin
                     </button>
                 </div>
             </div>
